@@ -21,8 +21,8 @@
 }
 
 .header-logo {
-  /* TODO: text und hintergrund einfärben, zumindest text und alternativ 2 svgs ablegen falls man per css nicht 2 farben in nem svg setzen kann */
-  color: orange;
+  color: var(--color-primary);
+  display: inline-grid;
 }
 
 .header-navigation {
