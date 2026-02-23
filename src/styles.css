@@ -1,1 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@layer reset, base, global;
+@import url('./css/reset.css') layer(reset);
+@import url('./css/colors.css') layer(base);
+@import url('./css/typography.css') layer(global);

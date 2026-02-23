@@ -1,0 +1,13 @@
+:root {
+  --color-white: #ffffff;
+  --color-dark-blue: #10172c;
+  --color-blue: #00305a;
+  --color-creme-red: #b88282;
+  --color-grey-1: #adadad;
+  --color-grey-2: #bbbbbb;
+  --color-grey-3: #d6d6d6;
+  --color-grey-4: #dbdce0;
+  --color-primary: var(--color-dark-blue);
+  --color-highlight: var(--color-creme-red);
+  --color-focus-visible-outline: var(--color-blue);
+}

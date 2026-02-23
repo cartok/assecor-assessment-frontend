@@ -17,6 +17,12 @@
   // EXTENSION: Sort Lines
   "sortLines.filterBlankLines": true,
 
+  // EXTENSION: ionutvmi.path-autocomplete
+  "path-autocomplete.enableFolderTrailingSlash": true,
+  "path-autocomplete.pathMappings": {
+    "/fonts": "${folder}/public/fonts"
+  },
+
   // Formatting & Language specific
   // -----------------------------------------------------------------------------------------------
   "eslint.useFlatConfig": true,

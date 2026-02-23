@@ -1,0 +1,83 @@
+:root {
+  font-family: sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+* {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  background: inherit;
+  user-select: none;
+  text-decoration: none;
+}
+
+*:focus-visible {
+  outline-width: var(--width-focus-visible-outline);
+  outline-offset: 0px;
+  outline-style: solid;
+}
+
+input:focus-visible {
+  outline: unset;
+}
+
+button {
+  cursor: pointer;
+  &:disabled {
+    cursor: var(--cursor-disabled, pointer);
+  }
+}
+
+input {
+  width: 100%;
+  outline: 0;
+  background-color: transparent;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+  list-style-type: none;
+}
+
+img,
+picture,
+video,
+svg {
+  display: inline-grid;
+  max-width: 100%;
+  height: auto;
+}
+
+a:active,
+a:hover,
+a:visited {
+  color: initial;
+}
+
+a:not([draggable]),
+img:not([draggable]),
+audio:not([draggable]),
+video:not([draggable]),
+input:not([draggable]),
+textarea:not([draggable]),
+link:not([draggable]),
+button:not([draggable]) {
+  -webkit-user-drag: none;
+  touch-action: none;
+}
