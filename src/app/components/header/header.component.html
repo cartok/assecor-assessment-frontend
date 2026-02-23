@@ -1,0 +1,21 @@
+<header class="header g-layout-container">
+  <div class="header-inner">
+    <div class="header-inner-main">
+      <a class="header-logo" [routerLink]="['/']" aria-label="Go to home page">
+        <img
+          ngSrc="assets/star-wars-logo.svg"
+          width="83"
+          height="37"
+          alt="Star Wars logo"
+        />
+      </a>
+      <nav class="header-navigation">
+        <a [routerLink]="['/']">Star Wars</a>
+        <a [routerLink]="['/movies']">Movies</a>
+        <a [routerLink]="['/characters']">Characters</a>
+        <a [routerLink]="['/planets']">Planets</a>
+      </nav>
+    </div>
+    <div class="header-search-bar" [style]="{ display: 'none' }">search_bar</div>
+  </div>
+</header>

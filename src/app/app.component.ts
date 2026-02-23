@@ -1,9 +1,12 @@
 import { Component } from '@angular/core'
-import { RouterOutlet, RouterLinkWithHref } from '@angular/router'
+import { RouterOutlet } from '@angular/router'
+import { HeaderComponent } from './components/header/header.component'
+import { FooterComponent } from './components/footer/footer.component'
+import { SeparatorComponent } from './components/separator/separator.component'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLinkWithHref],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, SeparatorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

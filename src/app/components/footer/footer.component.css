@@ -1,0 +1,5 @@
+.footer {
+  min-height: var(--footer-height);
+  height: 79px;
+  padding-top: 28px;
+}

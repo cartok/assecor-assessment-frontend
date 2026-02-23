@@ -43,5 +43,5 @@ html {
   font-family: var(--font-family-roboto);
   font-size: 100%;
   font-weight: var(--fw-400);
-  color: var(--color-dark-blue);
+  color: var(--color-primary);
 }
