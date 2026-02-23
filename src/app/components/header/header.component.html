@@ -6,11 +6,17 @@
           <use href="assets/svg-sprite-sheet/build/sprite-sheet.svg#star-wars-logo"></use>
         </svg>
       </a>
-      <nav class="header-navigation">
-        <a [routerLink]="['/']">Star Wars</a>
-        <a [routerLink]="['/movies']">Movies</a>
-        <a [routerLink]="['/characters']">Characters</a>
-        <a [routerLink]="['/planets']">Planets</a>
+      <!-- TODO: Make use of Angular Aria for this navigation -->
+      <nav class="header-navigation" aria-label="Primary">
+        <app-header-link [label]="'Filme'" [routerLink]="['/movies']"></app-header-link>
+        <app-header-link
+          [label]="'Charaktere'"
+          [routerLink]="['/characters']"
+        ></app-header-link>
+        <app-header-link
+          [label]="'Planeten'"
+          [routerLink]="['/planets']"
+        ></app-header-link>
       </nav>
     </div>
     <div class="header-search-bar" [style]="{ display: 'none' }">search_bar</div>

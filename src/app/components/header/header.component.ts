@@ -1,10 +1,12 @@
-import { Component } from '@angular/core'
-import { RouterLinkWithHref } from '@angular/router'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { RouterLink } from '@angular/router'
+import { LinkComponent } from './link/link.component'
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLinkWithHref],
+  imports: [RouterLink, LinkComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {}
