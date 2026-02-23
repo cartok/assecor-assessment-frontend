@@ -1,0 +1,27 @@
+.color-grey-50 {
+  color: var(--color-grey-50);
+}
+
+.color-grey-60 {
+  color: var(--color-grey-60);
+}
+
+.color-grey-70 {
+  color: var(--color-grey-70);
+}
+
+.color-grey-80 {
+  color: var(--color-grey-80);
+}
+
+.color-grey-90 {
+  color: var(--color-grey-90);
+}
+
+.color-primary {
+  color: var(--color-primary);
+}
+
+.color-secondary {
+  color: var(--color-secondary);
+}

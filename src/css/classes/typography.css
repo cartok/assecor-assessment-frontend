@@ -1,0 +1,55 @@
+.title-1 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-75);
+  line-height: var(--lh-90);
+  font-weight: var(--fw-700);
+}
+
+.title-2 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-25);
+  line-height: var(--lh-35);
+  font-weight: var(--fw-300);
+}
+
+.title-3 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-25);
+  line-height: var(--lh-30);
+  font-weight: var(--fw-700);
+}
+
+.label-1 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-18);
+  line-height: var(--lh-23);
+  font-weight: var(--fw-700);
+}
+
+.label-2 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-14);
+  line-height: var(--lh-17);
+  font-weight: var(--fw-700);
+}
+
+.text-3 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-14);
+  line-height: var(--lh-12);
+  font-weight: var(--fw-700);
+}
+
+.text-1 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-18);
+  line-height: var(--lh-23);
+  font-weight: var(--fw-400);
+}
+
+.text-2 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-14);
+  line-height: var(--lh-17);
+  font-weight: var(--fw-400);
+}

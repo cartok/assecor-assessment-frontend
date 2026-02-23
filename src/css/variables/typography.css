@@ -1,0 +1,49 @@
+@font-face {
+  font-family: 'Roboto';
+  src:
+    local('Roboto'),
+    url('/fonts/Roboto-VariableFont_wdth,wght.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/fonts/circular-std-medium-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-family-fallback: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-family-roboto: 'Roboto', var(--font-family-fallback);
+  --font-family-circular-std: 'Circular Std', var(--font-family-roboto);
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-700: 700;
+  --fs-12: calc(12 / 16 * 1rem);
+  --fs-14: calc(14 / 16 * 1rem);
+  --fs-16: 1rem;
+  --fs-18: calc(18 / 16 * 1rem);
+  --fs-25: calc(25 / 16 * 1rem);
+  --fs-75: calc(75 / 16 * 1rem);
+  --lh-14: calc(14 / 16 * 1rem);
+  --lh-17: calc(17 / 16 * 1rem);
+  --lh-21: calc(21 / 16 * 1rem);
+  --lh-22: calc(22 / 16 * 1rem);
+  --lh-23: calc(23 / 16 * 1rem);
+  --lh-30: calc(30 / 16 * 1rem);
+  --lh-31: calc(31 / 16 * 1rem);
+  --lh-35: calc(35 / 16 * 1rem);
+  --lh-12: calc(12 / 16 * 1rem);
+  --lh-90: calc(90 / 16 * 1rem);
+}
+
+html {
+  font-family: var(--font-family-roboto);
+  font-size: 100%;
+  font-weight: var(--fw-400);
+  color: var(--color-dark-blue);
+}

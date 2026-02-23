@@ -1,0 +1,6 @@
+:root {
+  --header-height: 133px;
+  --footer-height: 72px;
+  --viewport-width-max: 1385px;
+  --layout-gutter: 32px;
+}
