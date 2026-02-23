@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { RouterLink } from '@angular/router'
-import { LinkComponent } from './link/link.component'
+import { HeaderLink } from './header-link/header-link'
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, LinkComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  imports: [RouterLink, HeaderLink],
+  templateUrl: './header.html',
+  styleUrl: './header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {}
+export class Header {}

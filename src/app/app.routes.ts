@@ -4,22 +4,16 @@ export const routes: Routes = [
   {
     path: 'movies',
     loadComponent: () =>
-      import('./pages/movies/movies.component').then(
-        (component) => component.MoviesComponent,
-      ),
+      import('./pages/movies/movies').then((component) => component.Movies),
   },
   {
     path: 'characters',
     loadComponent: () =>
-      import('./pages/characters/characters.component').then(
-        (component) => component.CharactersComponent,
-      ),
+      import('./pages/characters/characters').then((component) => component.Characters),
   },
   {
     path: 'planets',
     loadComponent: () =>
-      import('./pages/planets/planets.component').then(
-        (component) => component.PlanetsComponent,
-      ),
+      import('./pages/planets/planets').then((component) => component.Planets),
   },
 ]

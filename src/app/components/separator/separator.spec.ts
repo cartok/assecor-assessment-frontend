@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LinkComponent } from './link.component'
+import { Separator } from './separator'
 
-describe('LinkComponent', () => {
-  let component: LinkComponent
-  let fixture: ComponentFixture<LinkComponent>
+describe('Separator', () => {
+  let component: Separator
+  let fixture: ComponentFixture<Separator>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LinkComponent],
+      imports: [Separator],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(LinkComponent)
+    fixture = TestBed.createComponent(Separator)
     component = fixture.componentInstance
-    fixture.detectChanges()
+    await fixture.whenStable()
   })
 
   it('should create', () => {
