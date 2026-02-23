@@ -1,0 +1,22 @@
+.header {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  height: 385px;
+}
+
+.separator {
+  width: 53px;
+  height: 1px;
+  background-color: var(--color-primary);
+  margin-top: 20px;
+}
+
+.title {
+  margin-top: 10px;
+  max-inline-size: min(100%, 32ch);
+}
+
+.subtitle {
+  margin-top: 2px;
+}

@@ -1,3 +1,11 @@
-<div class="g-layout-container">
-  <h1 class="g-title-1">Filme</h1>
+<div class="movies">
+  <div class="g-layout-container">
+    <app-page-heading
+      location="Film Details"
+      title="Die Rückkehr der Jedi-Ritter"
+      [titleId]="sectionId"
+      subtitle="Episode IV"
+    />
+    <section [attr.aria-labelledby]="sectionId"></section>
+  </div>
 </div>

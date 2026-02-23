@@ -10,3 +10,4 @@
 @import './css/classes/layout.css' layer(global);
 @import './css/classes/colors.css' layer(global);
 @import './css/classes/typography.css' layer(global);
+@import './css/classes/truncation.css' layer(global);
