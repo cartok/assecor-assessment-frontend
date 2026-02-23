@@ -2,9 +2,10 @@
   min-height: var(--header-height);
   display: grid;
   align-items: center;
+  background-color: var(--color-white);
 }
 
-.header-inner {
+.content {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
@@ -13,19 +14,19 @@
   padding: 20px 0;
 }
 
-.header-inner-main {
+.main {
   display: grid;
   grid-auto-flow: column;
   justify-content: start;
   column-gap: 76px;
 }
 
-.header-logo {
+.logo {
   color: var(--color-primary);
   display: inline-grid;
 }
 
-.header-navigation {
+.navigation {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

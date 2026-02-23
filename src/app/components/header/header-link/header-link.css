@@ -1,4 +1,4 @@
-.header-navigation-link {
+.link {
   font-size: var(--fs-14);
   line-height: var(--lh-17);
   font-weight: var(--fw-400);
@@ -6,8 +6,8 @@
   padding-bottom: 4px;
 }
 
-.header-navigation-link:hover,
-.header-navigation-link:focus-visible,
-.header-navigation-link.is-active {
+.link:hover,
+.link:focus-visible,
+.link.is-active {
   border-bottom: 2px solid var(--color-primary);
 }
