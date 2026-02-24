@@ -26,13 +26,14 @@
     "@angular/cli": "^21.1.5",
     "@angular/compiler-cli": "^21.1.5",
     "angular-eslint": "21.0.1",
-    "eslint-config-prettier": "^10.1.8",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "jsdom": "^27.1.0",
-    "prettier-eslint": "^16.4.2",
     "prettier": "^3.8.1",
-    "typescript-eslint": "8.46.4",
+    "prettier-eslint": "^16.4.2",
+    "quicktype": "^23.2.6",
     "typescript": "~5.9.3",
+    "typescript-eslint": "8.46.4",
     "vitest": "^4.0.8"
   }
 }
