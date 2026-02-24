@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { provideRouter } from '@angular/router'
 
-import { HeaderLink } from './header-link'
+import { HeaderLink } from '@/components/header/header-link/header-link'
 
 describe('HeaderLink', () => {
   let component: HeaderLink
