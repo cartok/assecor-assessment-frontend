@@ -9,6 +9,6 @@ import { PageHeading } from '@/components/page-heading/page-heading'
   styleUrl: './movies.css',
 })
 export class Movies {
-  // TODO: such ids should be random generated automatically
-  protected readonly sectionId = 'movie-title'
+  // TODO: such ids should maybe be random generated and less explicit
+  protected readonly sectionId = 'section-id-movies'
 }
