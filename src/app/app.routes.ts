@@ -6,6 +6,10 @@ export const routes: Routes = [
     loadComponent: () => import('@/pages/home/home').then(({ Home }) => Home),
   },
   {
+    path: 'error',
+    loadComponent: () => import('@/pages/error/error').then(({ ErrorPage }) => ErrorPage),
+  },
+  {
     path: 'movies',
     loadComponent: () => import('@/pages/movies/movies').then(({ Movies }) => Movies),
   },
@@ -33,5 +37,9 @@ export const routes: Routes = [
     path: 'planet/:id',
     loadComponent: () =>
       import('@/pages/planets/planet/planet').then(({ Planet }) => Planet),
+  },
+  {
+    path: '**',
+    redirectTo: '/error',
   },
 ]
