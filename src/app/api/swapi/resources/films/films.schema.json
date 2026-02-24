@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Film",
+  "description": "A Star Wars film",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The title of this film."
+    },
+    "episode_id": {
+      "type": "integer",
+      "description": "The episode number of this film."
+    },
+    "opening_crawl": {
+      "type": "string",
+      "description": "The opening crawl text at the beginning of this film."
+    },
+    "director": {
+      "type": "string",
+      "description": "The director of this film."
+    },
+    "producer": {
+      "type": "string",
+      "description": "The producer(s) of this film."
+    },
+    "release_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The release date at original creator country."
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The people resource URLs featured within this film."
+    },
+    "planets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The planet resource URLs featured within this film."
+    },
+    "starships": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The starship resource URLs featured within this film."
+    },
+    "vehicles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The vehicle resource URLs featured within this film."
+    },
+    "species": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The species resource URLs featured within this film."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of this resource."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The ISO 8601 date format of the time that this resource was created."
+    },
+    "edited": {
+      "type": "string",
+      "format": "date-time",
+      "description": "the ISO 8601 date format of the time that this resource was edited."
+    }
+  },
+  "required": [
+    "title",
+    "episode_id",
+    "opening_crawl",
+    "director",
+    "producer",
+    "release_date",
+    "characters",
+    "planets",
+    "starships",
+    "vehicles",
+    "species",
+    "url",
+    "created",
+    "edited"
+  ]
+}
