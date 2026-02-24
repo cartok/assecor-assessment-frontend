@@ -13,10 +13,6 @@ export interface Film extends SwapiResource {
    */
   readonly director: string
   /**
-   * the ISO 8601 date format of the time that this resource was edited.
-   */
-  readonly edited: Date
-  /**
    * The episode number of this film.
    */
   readonly episodeId: number
