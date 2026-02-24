@@ -5,47 +5,47 @@ import type { SwapiResource } from '@/api/swapi/shared/types/model'
  */
 export interface Film extends SwapiResource {
   /**
-   * The people resource URLs featured within this film.
+   * IDs of people resources featured within this film.
    */
-  readonly characters: string[]
+  readonly characterIds: string[]
   /**
    * The director of this film.
    */
-  readonly director: string
+  readonly director?: string
   /**
    * The episode number of this film.
    */
-  readonly episodeId: number
+  readonly episodeId?: number
   /**
    * The opening crawl text at the beginning of this film.
    */
-  readonly openingCrawl: string
+  readonly openingCrawl?: string
   /**
-   * The planet resource URLs featured within this film.
+   * IDs of planet resources featured within this film.
    */
-  readonly planets: string[]
+  readonly planetIds: string[]
   /**
    * The producer(s) of this film.
    */
-  readonly producer: string
+  readonly producer?: string
   /**
    * The release date at original creator country.
    */
-  readonly releaseDate: Date
+  readonly releaseDate?: Date
   /**
-   * The species resource URLs featured within this film.
+   * IDs of species resources featured within this film.
    */
-  readonly species: string[]
+  readonly speciesIds: string[]
   /**
-   * The starship resource URLs featured within this film.
+   * IDs of starship resources featured within this film.
    */
-  readonly starships: string[]
+  readonly starshipIds: string[]
   /**
    * The title of this film.
    */
   readonly title: string
   /**
-   * The vehicle resource URLs featured within this film.
+   * IDs of vehicle resources featured within this film.
    */
-  readonly vehicles: string[]
+  readonly vehicleIds: string[]
 }

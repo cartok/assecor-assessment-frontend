@@ -7,19 +7,19 @@ export interface Planet extends SwapiResource {
   /**
    * The climate of this planet. Comma-seperated if diverse.
    */
-  readonly climate: string
+  readonly climate?: string
   /**
    * The diameter of this planet in kilometers.
    */
-  readonly diameter: string
+  readonly diameter?: string
   /**
-   * The film resource URLs that this planet has appeared in.
+   * IDs of film resources this planet has appeared in.
    */
-  readonly films: string[]
+  readonly filmIds: string[]
   /**
    * A number denoting the gravity of this planet. Where 1 is normal.
    */
-  readonly gravity: string
+  readonly gravity?: string
   /**
    * The name of this planet.
    */
@@ -28,26 +28,26 @@ export interface Planet extends SwapiResource {
    * The number of standard days it takes for this planet to complete a single orbit of its
    * local star.
    */
-  readonly orbitalPeriod: string
+  readonly orbitalPeriod?: string
   /**
    * The average populationof sentient beings inhabiting this planet.
    */
-  readonly population: string
+  readonly population?: string
   /**
-   * The people resource URLs that live on this planet.
+   * IDs of people resources that live on this planet.
    */
-  readonly residents: string[]
+  readonly residentIds: string[]
   /**
    * The number of standard hours it takes for this planet to complete a single rotation on
    * its axis.
    */
-  readonly rotationPeriod: string
+  readonly rotationPeriod?: string
   /**
    * The percentage of the planet surface that is naturally occuring water or bodies of water.
    */
-  readonly surfaceWater: string
+  readonly surfaceWater?: string
   /**
    * the terrain of this planet. Comma-seperated if diverse.
    */
-  readonly terrain: string
+  readonly terrain?: string
 }

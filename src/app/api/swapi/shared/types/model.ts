@@ -7,17 +7,17 @@ export interface SwapiResourceCollection<T extends SwapiResource> {
    * Total entries (page size = 10).
    * This value does not represent the number of resources in the actual payload / is the same for every page.
    */
-  count: number
+  count?: number
   /**
    * Full URL to the next page, if any.
    * Property does not exist at all, if there is only one page (<= 10 resources).
    */
-  next?: string | null
+  next?: string
   /**
    * Full URL to the previous page, if any.
    * Property does not exist at all, if there is only one page (<= 10 resources).
    */
-  previous?: string | null
+  previous?: string
   items: T[]
 }
 

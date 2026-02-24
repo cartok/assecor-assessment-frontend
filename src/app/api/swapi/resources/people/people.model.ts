@@ -14,9 +14,9 @@ export interface Person extends SwapiResource {
    */
   readonly eyeColor?: string
   /**
-   * The film resources URLs that this person has been in.
+   * IDs of film resources this person has been in.
    */
-  readonly films: string[]
+  readonly filmIds: string[]
   /**
    * The gender of this person (if known).
    */
@@ -30,9 +30,9 @@ export interface Person extends SwapiResource {
    */
   readonly height?: string
   /**
-   * The URL of the planet resource that this person was born on.
+   * ID of the planet resource this person was born on.
    */
-  readonly homeworld?: string
+  readonly homeworldId?: string
   /**
    * The mass of this person in kilograms.
    */
@@ -46,15 +46,15 @@ export interface Person extends SwapiResource {
    */
   readonly skinColor?: string
   /**
-   * The species resource URLs of that this person is.
+   * IDs of species resources this person belongs to.
    */
-  readonly species: string[]
+  readonly speciesIds: string[]
   /**
-   * The starship resource URLs that this person has piloted
+   * IDs of starship resources this person has piloted.
    */
-  readonly starships: string[]
+  readonly starshipIds: string[]
   /**
-   * The vehicle resource URLs that this person has piloted
+   * IDs of vehicle resources this person has piloted.
    */
-  readonly vehicles: string[]
+  readonly vehicleIds: string[]
 }

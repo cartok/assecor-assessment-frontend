@@ -1,4 +1,4 @@
-export interface SwapiResourceCollectionResponse<T extends SwapiResourceResponse> {
+export interface SwapiResourceCollectionDto<T extends SwapiResourceDto> {
   /**
    * Total entries (page size = 10).
    * This value does not represent the number of resources in the actual payload / is the same for every page.
@@ -17,7 +17,7 @@ export interface SwapiResourceCollectionResponse<T extends SwapiResourceResponse
   results: T[]
 }
 
-export interface SwapiResourceResponse {
+export interface SwapiResourceDto {
   /**
    * The ISO 8601 date format of the time that this resource was created.
    */

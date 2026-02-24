@@ -1,10 +1,30 @@
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+Talk to me in german, even if I sometimes talk in english or mix both up.
+
+## General Best Practices
+
+- Prefer writing code top-down for readability if the language allows it (make use of hoisting), to be more explicit try to apply this pattern (Typescript example):
+  ```ts
+  // 1. Imports
+  // 2. Types / Interfaces
+  // 3. Public API (exports)
+  export function foo() {}
+  export function bar() {}
+  // 4. Internal helpers
+  function helperA() {}
+  function helperB() {}
+  ```
+- Do not write unit tests for new code in the first place
+- Only expose code if it's used elsewhere (for example in TypeScript don't `export` functions that are not used elsewhere) unless it is not clearly a library function. If a function is only exposed for unit testing add a comment.
+- Try to not produce too much indirection by creating too many tiny variables / constants / functions for pieces that are only used once
+
 ## TypeScript Best Practices
 
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
+- Functions should have explicit return types in their signature
 
 ## Angular Best Practices
 

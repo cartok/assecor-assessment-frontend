@@ -1,9 +1,9 @@
-import type { SwapiResourceResponse } from '@/api/swapi/shared/types/response'
+import type { SwapiResourceDto } from '@/api/swapi/shared/types/dto'
 
 /**
  * A person within the Star Wars universe
  */
-export interface PersonDto extends SwapiResourceResponse {
+export interface PersonDto extends SwapiResourceDto {
   /**
    * The birth year of this person. BBY (Before the Battle of Yavin) or ABY (After the Battle
    * of Yavin).

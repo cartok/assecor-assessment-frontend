@@ -1,9 +1,9 @@
-import type { SwapiResourceResponse } from '@/api/swapi/shared/types/response'
+import type { SwapiResourceDto } from '@/api/swapi/shared/types/dto'
 
 /**
  * A Star Wars film
  */
-export interface FilmDto extends SwapiResourceResponse {
+export interface FilmDto extends SwapiResourceDto {
   /**
    * The people resource URLs featured within this film.
    */

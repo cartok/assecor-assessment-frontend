@@ -1,9 +1,9 @@
-import type { SwapiResourceResponse } from '@/api/swapi/shared/types/response'
+import type { SwapiResourceDto } from '@/api/swapi/shared/types/dto'
 
 /**
  * A planet.
  */
-export interface PlanetDto extends SwapiResourceResponse {
+export interface PlanetDto extends SwapiResourceDto {
   /**
    * The climate of this planet. Comma-seperated if diverse.
    */
