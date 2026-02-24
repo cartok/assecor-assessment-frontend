@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { PageHeading } from '@/components/page-heading/page-heading'
 
 @Component({

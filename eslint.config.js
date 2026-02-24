@@ -4,6 +4,7 @@ const { defineConfig } = require('eslint/config')
 const tseslint = require('typescript-eslint')
 const angular = require('angular-eslint')
 const eslintConfigPrettier = require('eslint-config-prettier')
+const simpleImportSort = require('eslint-plugin-simple-import-sort')
 
 module.exports = defineConfig([
   {
@@ -16,6 +17,9 @@ module.exports = defineConfig([
       eslintConfigPrettier,
     ],
     processor: angular.processInlineTemplates,
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
       '@angular-eslint/directive-selector': [
         'error',
@@ -31,6 +35,15 @@ module.exports = defineConfig([
           type: 'element',
           prefix: 'app',
           style: 'kebab-case',
+        },
+      ],
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'separate-type-imports',
         },
       ],
     },

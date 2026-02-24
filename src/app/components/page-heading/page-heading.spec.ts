@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
-import { PageHeading } from '@/components/page-heading/page-heading';
+import { PageHeading } from '@/components/page-heading/page-heading'
 
 describe('PageHeading', () => {
-  let component: PageHeading;
-  let fixture: ComponentFixture<PageHeading>;
+  let component: PageHeading
+  let fixture: ComponentFixture<PageHeading>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageHeading]
-    })
-    .compileComponents();
+      imports: [PageHeading],
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(PageHeading);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+    fixture = TestBed.createComponent(PageHeading)
+    component = fixture.componentInstance
+    await fixture.whenStable()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

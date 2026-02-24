@@ -31,6 +31,9 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.suggest.includeCompletionsForImportStatements": true,
   "typescript.updateImportsOnFileMove.enabled": "prompt",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "[typescript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
