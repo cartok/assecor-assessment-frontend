@@ -13,6 +13,8 @@ describe('PageHeading', () => {
     }).compileComponents()
 
     fixture = TestBed.createComponent(PageHeading)
+    fixture.componentRef.setInput('title', 'Test Title')
+    fixture.detectChanges()
     component = fixture.componentInstance
     await fixture.whenStable()
   })
