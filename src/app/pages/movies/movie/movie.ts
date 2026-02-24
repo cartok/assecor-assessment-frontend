@@ -17,7 +17,4 @@ export class Movie {
   readonly id = toSignal(this.route.paramMap.pipe(map((pm) => pm.get('id'))), {
     initialValue: null,
   })
-
-  // TODO: such ids should maybe be random generated and less explicit
-  protected readonly sectionId = 'section-id-movie'
 }
