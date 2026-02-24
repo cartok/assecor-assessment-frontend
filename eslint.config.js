@@ -46,6 +46,7 @@ module.exports = defineConfig([
           fixStyle: 'separate-type-imports',
         },
       ],
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   {
