@@ -12,16 +12,24 @@
           <app-row-description-list [items]="descriptionRows()" />
           <p class="g-text-1 description">{{ data.openingCrawl }}</p>
         </section>
-
-        <!-- <section aria-labelledby="characters-heading">
-          <h2 id="characters-heading">Charaktere</h2>
-          <ul>
-            <li><a href="/characters/cobb">Dom Cobb</a></li>
-            <li><a href="/characters/ariadne">Ariadne</a></li>
-          </ul>
-        </section> -->
       </div>
       <div>Image Slider will be here</div>
+      <aside aria-labelledby="characters-heading">
+        <h2 class="g-title-3" id="characters-heading">Charaktere:</h2>
+        <nav>
+          <ul>
+            @for (characterId of data.characterIds; track $index) {
+              <li>
+                <!-- TODO: Ich müsste hier nen sub request machen bzw. von vornherein alle Daten
+                  der id lists bulk fetchen. Die API ist echt kein kracher... So was würde kein Mensch machen. Man könnte schauen dass man alles in einen store lädt, zentralisiert cached. -->
+                <a [routerLink]="['/person', characterId]">Charakter Name</a>
+              </li>
+            }
+          </ul>
+          <!-- TODO: Den collapse button aria-technisch korrekt mit der liste zu verbinden ist nicht trivial. -->
+          <button>...</button>
+        </nav>
+      </aside>
     </div>
   }
 </div>

@@ -6,6 +6,8 @@
   column-gap: 152px;
   row-gap: 33px;
   margin-left: 20px;
+  background-color: var(--color-white);
+  padding-bottom: 200px;
 }
 
 .description {
