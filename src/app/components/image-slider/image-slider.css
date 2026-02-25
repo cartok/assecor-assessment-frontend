@@ -4,19 +4,24 @@
   display: grid;
   justify-items: center;
   row-gap: 16px;
+  background-color: blueviolet;
 }
 
 .viewport {
+  position: relative;
+  width: 100%;
   overflow: hidden;
   background-color: red;
 }
 
 .slides {
-  display: grid;
-  grid-auto-flow: column;
+  position: absolute;
+  left: -250px; /* TODO: update via index but first calculate width properly */
   height: 100%;
+  display: flex;
+  grid-auto-flow: column;
   background-color: yellow;
-  border: 5px dotted gainsboro;
+  border: 10px solid salmon;
 }
 
 .slide {

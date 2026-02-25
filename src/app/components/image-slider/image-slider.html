@@ -1,6 +1,8 @@
 <div class="image-slider">
-  <div class="viewport" [style]="{ height: `${viewportHeight()}px` }">
+  <div class="viewport" [style]="{ height: `${viewportHeight()}px` }" #viewport>
     <div class="slides">
+      <!-- TODO: Add Angular Aria based keyboard navigation -->
+      <!-- TODO: Add Angular based swipe navigation -->
       @for (image of images(); track $index) {
         <img
           class="slide"
@@ -14,7 +16,7 @@
   </div>
   <div class="indicators" aria-hidden="true">
     @for (image of images(); track $index; let i = $index) {
-      <button>
+      <button type="button" (click)="activeIndex.set(i)">
         <svg
           class="indicator"
           [class.indicator-active]="i === activeIndex()"
