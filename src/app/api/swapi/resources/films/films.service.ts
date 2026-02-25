@@ -1,6 +1,6 @@
 import { httpResource } from '@angular/common/http'
 import type { ResourceStatus, Signal } from '@angular/core'
-import { computed, Injectable } from '@angular/core'
+import { computed, Injectable, isSignal } from '@angular/core'
 
 import type { FilmDto } from '@/api/swapi/resources/films/films.dto'
 import { mapFilmDtoToModel } from '@/api/swapi/resources/films/films.mapper'
@@ -22,6 +22,10 @@ export interface SwapiServiceResult<T> {
   data: Signal<T | undefined>
   error: Signal<Error | undefined>
   reload: () => boolean
+}
+
+interface GetItemOptions {
+  retryPolicy?: Partial<HttpRetryPolicy>
 }
 
 @Injectable({
@@ -55,15 +59,19 @@ export class FilmsService {
     }
   })
 
+  getItem(id: string | undefined, options?: GetItemOptions): SwapiServiceResult<Film>
   getItem(
     id: Signal<string | undefined>,
-    options?: {
-      retryPolicy?: Partial<HttpRetryPolicy>
-    },
+    options?: GetItemOptions,
+  ): SwapiServiceResult<Film>
+  getItem(
+    id: string | undefined | Signal<string | undefined>,
+    options?: GetItemOptions,
   ): SwapiServiceResult<Film> {
+    const idFactory = isSignal(id) ? id : () => id
     const resource = httpResource<Film>(
       retryableHttpResourceRequest(
-        () => swapiResourceDetailUrlOptional(this.resourcePath, id()),
+        () => swapiResourceDetailUrlOptional(this.resourcePath, idFactory()),
         options?.retryPolicy,
       ),
       {
