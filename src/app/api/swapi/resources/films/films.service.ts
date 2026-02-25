@@ -24,7 +24,7 @@ export interface SwapiServiceResult<T> {
   reload: () => boolean
 }
 
-type GetItemId = string | undefined | Signal<string | undefined>
+type GetCollectionOptions = RetryableHttpResourceMethodOptions
 type GetItemOptions = RetryableHttpResourceMethodOptions
 
 @Injectable({
@@ -33,30 +33,46 @@ type GetItemOptions = RetryableHttpResourceMethodOptions
 export class FilmsService {
   private readonly resourcePath = 'films'
 
-  readonly collectionResource = httpResource<SwapiResourceCollectionDto<FilmDto>>(() =>
-    swapiResourceCollectionUrl(this.resourcePath),
-  )
-  readonly collection = computed<SwapiResourceCollection<Film>>(() => {
-    const response = this.collectionResource.hasValue()
-      ? this.collectionResource.value()
-      : undefined
-    const items: Film[] = []
-
-    for (const dto of response?.results ?? []) {
-      try {
-        items.push(mapFilmDtoToModel(dto))
-      } catch {
-        // skip invalid items in collection responses
+  getCollection(
+    options?: GetCollectionOptions,
+  ): SwapiServiceResult<SwapiResourceCollection<Film>> {
+    const resource = httpResource<SwapiResourceCollectionDto<FilmDto>>(
+      retryableHttpResourceRequest(
+        () => swapiResourceCollectionUrl(this.resourcePath),
+        options?.retryPolicy,
+      ),
+    )
+    const data = computed<SwapiResourceCollection<Film> | undefined>(() => {
+      if (!resource.hasValue()) {
+        return undefined
       }
-    }
+
+      const response = resource.value()
+      const items: Film[] = []
+
+      for (const dto of response.results ?? []) {
+        try {
+          items.push(mapFilmDtoToModel(dto))
+        } catch {
+          // skip invalid items in collection responses
+        }
+      }
+
+      return {
+        count: response.count,
+        next: extractSwapiIdOptional(response.next),
+        previous: extractSwapiIdOptional(response.previous),
+        items,
+      }
+    })
 
     return {
-      count: response?.count,
-      next: extractSwapiIdOptional(response?.next),
-      previous: extractSwapiIdOptional(response?.previous),
-      items,
+      data,
+      status: resource.status,
+      error: resource.error,
+      reload: () => resource.reload(),
     }
-  })
+  }
 
   getItem(id: string | undefined, options?: GetItemOptions): SwapiServiceResult<Film>
   getItem(
