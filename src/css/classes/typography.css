@@ -33,6 +33,13 @@
   font-weight: var(--fw-700);
 }
 
+.g-label-3 {
+  font-family: var(--font-family-roboto);
+  font-size: var(--fs-12);
+  line-height: var(--lh-14);
+  font-weight: var(--fw-700);
+}
+
 .g-text-3 {
   font-family: var(--font-family-roboto);
   font-size: var(--fs-14);

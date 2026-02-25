@@ -1,7 +1,7 @@
 .image-grid-item {
   aspect-ratio: calc(423 / 527);
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 5fr 3fr;
 }
 
 .image {
@@ -19,6 +19,7 @@
 
 .description {
   margin-top: 16px;
+  overflow: hidden;
 }
 
 .link {
