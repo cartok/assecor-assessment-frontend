@@ -10,7 +10,7 @@ import {
   swapiResourceDetailUrlOptional,
 } from '@/api/swapi/shared/http/api-client'
 import {
-  type HttpRetryPolicy,
+  type RetryableHttpResourceMethodOptions,
   retryableHttpResourceRequest,
 } from '@/api/swapi/shared/http/http-retry.interceptor'
 import type { SwapiResourceCollectionDto } from '@/api/swapi/shared/types/dto'
@@ -24,9 +24,8 @@ export interface SwapiServiceResult<T> {
   reload: () => boolean
 }
 
-interface GetItemOptions {
-  retryPolicy?: Partial<HttpRetryPolicy>
-}
+type GetItemId = string | undefined | Signal<string | undefined>
+type GetItemOptions = RetryableHttpResourceMethodOptions
 
 @Injectable({
   providedIn: 'root',
@@ -68,10 +67,9 @@ export class FilmsService {
     id: string | undefined | Signal<string | undefined>,
     options?: GetItemOptions,
   ): SwapiServiceResult<Film> {
-    const idFactory = isSignal(id) ? id : () => id
     const resource = httpResource<Film>(
       retryableHttpResourceRequest(
-        () => swapiResourceDetailUrlOptional(this.resourcePath, idFactory()),
+        () => swapiResourceDetailUrlOptional(this.resourcePath, isSignal(id) ? id() : id),
         options?.retryPolicy,
       ),
       {

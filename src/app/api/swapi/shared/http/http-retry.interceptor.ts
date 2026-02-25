@@ -16,6 +16,18 @@ export interface HttpRetryPolicy {
   maxDelayMs: number
 }
 
+export interface RetryableHttpResourceMethodOptions {
+  retryPolicy?: Partial<HttpRetryPolicy>
+}
+
+export type RetryableHttpResourceMethodRequestBuilder = (
+  urlFactory: () => string | undefined,
+) => () => HttpResourceRequest | undefined
+
+export interface RetryableHttpResourceMethodContext {
+  request: RetryableHttpResourceMethodRequestBuilder
+}
+
 const RETRYABLE_HTTP_METHODS = new Set<string>(['GET', 'HEAD'])
 
 export const DEFAULT_HTTP_RETRY_POLICY: HttpRetryPolicy = {
@@ -40,11 +52,11 @@ export const httpRetryInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ) => {
-  if (!shouldRetryRequest(request)) {
+  if (!RETRYABLE_HTTP_METHODS.has(request.method.toUpperCase())) {
     return next(request)
   }
 
-  const retryPolicy = normalizeRetryPolicy(request.context.get(HTTP_RETRY_POLICY))
+  const retryPolicy = request.context.get(HTTP_RETRY_POLICY)
   if (!retryPolicy.enabled || retryPolicy.retryCount === 0) {
     return next(request)
   }
@@ -63,19 +75,6 @@ export const httpRetryInterceptor: HttpInterceptorFn = (
   )
 }
 
-function shouldRetryRequest(request: HttpRequest<unknown>): boolean {
-  return RETRYABLE_HTTP_METHODS.has(request.method.toUpperCase())
-}
-
-export function createHttpRetryPolicy(
-  policy?: Partial<HttpRetryPolicy>,
-): HttpRetryPolicy {
-  return normalizeRetryPolicy({
-    ...DEFAULT_HTTP_RETRY_POLICY,
-    ...policy,
-  })
-}
-
 export function retryableHttpResourceRequest(
   urlFactory: () => string | undefined,
   retryPolicy?: Partial<HttpRetryPolicy>,
@@ -92,41 +91,12 @@ export function retryableHttpResourceRequest(
 
     return {
       url,
-      context: new HttpContext().set(
-        HTTP_RETRY_POLICY,
-        createHttpRetryPolicy(retryPolicy),
-      ),
+      context: new HttpContext().set(HTTP_RETRY_POLICY, {
+        ...DEFAULT_HTTP_RETRY_POLICY,
+        ...retryPolicy,
+      }),
     }
   }
-}
-
-function normalizeRetryPolicy(policy: HttpRetryPolicy): HttpRetryPolicy {
-  const retryCount = normalizeRetryCount(policy.retryCount)
-  const baseDelayMs = normalizeDelayMs(policy.baseDelayMs)
-  const maxDelayMs = Math.max(baseDelayMs, normalizeDelayMs(policy.maxDelayMs))
-
-  return {
-    enabled: policy.enabled,
-    retryCount,
-    baseDelayMs,
-    maxDelayMs,
-  }
-}
-
-function normalizeRetryCount(retryCount: number): number {
-  if (!Number.isFinite(retryCount)) {
-    return 0
-  }
-
-  return Math.max(0, Math.floor(retryCount))
-}
-
-function normalizeDelayMs(delayMs: number): number {
-  if (!Number.isFinite(delayMs)) {
-    return 0
-  }
-
-  return Math.max(0, Math.floor(delayMs))
 }
 
 function isRetryableError(error: unknown): boolean {
