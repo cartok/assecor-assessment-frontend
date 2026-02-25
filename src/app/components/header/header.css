@@ -23,7 +23,6 @@
 
 .logo {
   color: var(--color-primary);
-  display: inline-grid;
 }
 
 .navigation {

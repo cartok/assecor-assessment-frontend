@@ -3,6 +3,8 @@
   height: 100%;
   background-color: aliceblue;
   padding: 2rem;
+  display: grid;
+  justify-items: center;
 }
 
 .viewport {
@@ -15,4 +17,18 @@
 }
 
 .slide {
+}
+
+.indicators {
+}
+
+.indicator {
+  color: var(--color-grey-90);
+}
+
+.indicator-active {
+  color: var(--color-tertriary);
+}
+
+.indicator svg {
 }
