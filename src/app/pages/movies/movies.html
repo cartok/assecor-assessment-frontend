@@ -3,6 +3,10 @@
     <app-page-heading title="Movies" />
     @if (collection.data(); as data) {
       <pre>{{ `Found ${data.count} movies.` }}</pre>
+
+      @for (film of data.items; track film.id) {
+        <img [src]="film.images[0]" [alt]="film.title" />
+      }
     }
   </div>
 </div>

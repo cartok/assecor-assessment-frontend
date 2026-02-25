@@ -48,4 +48,8 @@ export interface Film extends SwapiResource {
    * IDs of vehicle resources featured within this film.
    */
   readonly vehicleIds: string[]
+  /**
+   * Mock image URLs for this film.
+   */
+  readonly images: string[]
 }

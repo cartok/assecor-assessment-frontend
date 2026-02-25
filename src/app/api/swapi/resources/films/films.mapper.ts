@@ -10,8 +10,10 @@ import {
 } from '@/api/swapi/shared/utils/mapping'
 
 export function mapFilmDtoToModel(dto: FilmDto): Film {
+  const filmId = extractSwapiId(dto.url)
+
   return {
-    id: extractSwapiId(dto.url),
+    id: filmId,
     characterIds: extractSwapiIds(dto.characters),
     director: toOptionalString(dto.director),
     episodeId: toOptionalString(toRomanNumber(dto.episode_id)),
@@ -23,6 +25,14 @@ export function mapFilmDtoToModel(dto: FilmDto): Film {
     starshipIds: extractSwapiIds(dto.starships),
     title: toMandatoryString(dto.title, 'title'),
     vehicleIds: extractSwapiIds(dto.vehicles),
-    // TODO: add mock images `string[]`
+    images: createMockFilmImages(filmId),
   }
+}
+
+function createMockFilmImages(filmId: string): string[] {
+  return [
+    `https://picsum.photos/seed/swapi-film-${filmId}-1/1280/720`,
+    `https://picsum.photos/seed/swapi-film-${filmId}-2/1280/720`,
+    `https://picsum.photos/seed/swapi-film-${filmId}-3/1280/720`,
+  ]
 }
