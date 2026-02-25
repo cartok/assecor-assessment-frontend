@@ -1,4 +1,8 @@
-<img [src]="imageUrl()" [alt]="imageAlt()" />
-<div>{{ label() }}</div>
-<ng-content />
-<a routerLink="/" aria-label="`Go to ${label}`">link</a>
+<div class="image-grid-item">
+  <img class="image" [src]="imageUrl()" [alt]="imageAlt()" />
+  <div class="description-container">
+    <div>{{ label() }}</div>
+    <ng-content />
+    <a routerLink="/" aria-label="`Go to ${label}`">link</a>
+  </div>
+</div>

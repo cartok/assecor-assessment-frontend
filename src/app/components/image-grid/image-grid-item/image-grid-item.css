@@ -1,0 +1,16 @@
+.image-grid-item {
+  aspect-ratio: calc(423 / 527);
+  background-color: red;
+  display: grid;
+  grid-template-rows: 1fr 200px;
+}
+
+.image {
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid green;
+}
+
+.description-container {
+  background-color: purple;
+}
