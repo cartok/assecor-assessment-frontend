@@ -70,6 +70,10 @@ a:visited {
   color: initial;
 }
 
+a {
+  color: inherit;
+}
+
 a:not([draggable]),
 img:not([draggable]),
 audio:not([draggable]),
