@@ -1,0 +1,6 @@
+.row-description-list > .row {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  column-gap: 1ch;
+}

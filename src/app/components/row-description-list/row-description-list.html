@@ -1,0 +1,8 @@
+<dl class="row-description-list">
+  @for (item of items(); track item.term) {
+    <div class="row">
+      <dt class="g-label-1">{{ item.term }}</dt>
+      <dd class="g-text-1">{{ item.detail }}</dd>
+    </div>
+  }
+</dl>

@@ -8,13 +8,6 @@
   margin-left: 20px;
 }
 
-.meta > div {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: start;
-  column-gap: 1ch;
-}
-
 .description {
   margin-top: 34px;
 }
