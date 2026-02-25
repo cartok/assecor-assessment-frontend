@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core'
 
 import { ResourceGridItem } from '@/components/resource-grid/resource-grid-item/resource-grid-item'
+import type { InputValues } from '@/shared/types/component.types'
 
 @Component({
   selector: 'app-resource-grid',
@@ -9,6 +10,6 @@ import { ResourceGridItem } from '@/components/resource-grid/resource-grid-item/
   styleUrl: './resource-grid.css',
 })
 export class ResourceGrid {
-  // TODO: The type of `items` could be tightly coupled to the inputs of `ResourceGridItem`
-  readonly items = input.required<{ imageUrl: string; label: string }[]>()
+  readonly items =
+    input.required<InputValues<typeof ResourceGridItem, 'imageUrl' | 'label'>[]>()
 }
