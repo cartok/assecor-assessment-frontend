@@ -37,6 +37,13 @@ export const DEFAULT_HTTP_RETRY_POLICY: HttpRetryPolicy = {
   maxDelayMs: 2_000,
 }
 
+export const MINIMAL_HTTP_RETRY_POLICY: HttpRetryPolicy = {
+  enabled: true,
+  retryCount: 1,
+  baseDelayMs: 150,
+  maxDelayMs: 200,
+}
+
 export const CRITICAL_HTTP_RETRY_POLICY: HttpRetryPolicy = {
   enabled: true,
   retryCount: 5,
