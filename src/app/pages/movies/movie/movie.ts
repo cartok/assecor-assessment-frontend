@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { map } from 'rxjs'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
+import { CRITICAL_HTTP_RETRY_POLICY } from '@/api/swapi/shared/http/http-retry.interceptor'
 import { PageHeading } from '@/components/page-heading/page-heading'
 
 @Component({
@@ -23,7 +24,9 @@ export class Movie {
       initialValue: undefined,
     },
   )
-  readonly item = this.filmsService.getItem(this.id)
+  readonly item = this.filmsService.getItem(this.id, {
+    retryPolicy: CRITICAL_HTTP_RETRY_POLICY,
+  })
 
   constructor() {
     effect(() => {

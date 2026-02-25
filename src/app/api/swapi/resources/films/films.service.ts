@@ -9,6 +9,10 @@ import {
   swapiResourceCollectionUrl,
   swapiResourceDetailUrlOptional,
 } from '@/api/swapi/shared/http/api-client'
+import {
+  type HttpRetryPolicy,
+  retryableHttpResourceRequest,
+} from '@/api/swapi/shared/http/http-retry.interceptor'
 import type { SwapiResourceCollectionDto } from '@/api/swapi/shared/types/dto'
 import type { SwapiResourceCollection } from '@/api/swapi/shared/types/model'
 import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
@@ -51,9 +55,17 @@ export class FilmsService {
     }
   })
 
-  getItem(id: Signal<string | undefined>): SwapiServiceResult<Film> {
-    const resource = httpResource<Film>(() =>
-      swapiResourceDetailUrlOptional(this.resourcePath, id()),
+  getItem(
+    id: Signal<string | undefined>,
+    options?: {
+      retryPolicy?: Partial<HttpRetryPolicy>
+    },
+  ): SwapiServiceResult<Film> {
+    const resource = httpResource<Film>(
+      retryableHttpResourceRequest(
+        () => swapiResourceDetailUrlOptional(this.resourcePath, id()),
+        options?.retryPolicy,
+      ),
       {
         parse: (value: unknown): Film => mapFilmDtoToModel(value as FilmDto),
       },

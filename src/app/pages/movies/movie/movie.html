@@ -1,11 +1,11 @@
 <div class="g-layout-container">
   @if (item.data()) {
+    <!-- TODO: Mapping von `episodeId` auf römische Zahl -->
     <app-page-heading
       location="Film Details"
-      title="Die Rückkehr der Jedi-Ritter"
-      subtitle="Episode IV"
+      [title]="item.data()!.title"
+      [subtitle]="`Episode ${item.data()!.episodeId}`"
     />
     <div>Resource ID from router path is: {{ id() }}</div>
-    <pre>{{ '' }}</pre>
   }
 </div>
