@@ -9,4 +9,5 @@ import { Component, input } from '@angular/core'
 export class ImageSlider {
   readonly images =
     input.required<{ url: string; alt: string; width: number; height: number }[]>()
+  readonly viewportHeight = input.required<number>()
 }

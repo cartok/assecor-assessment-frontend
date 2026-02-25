@@ -1,5 +1,5 @@
 <div class="image-slider">
-  <div class="viewport">
+  <div class="viewport" [style]="{ height: `${viewportHeight()}px` }">
     <div class="slides">
       @for (image of images(); track $index) {
         <img
