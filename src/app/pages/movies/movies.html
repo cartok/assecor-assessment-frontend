@@ -1,8 +1,8 @@
 <div class="movies">
   <div class="g-layout-container">
     <app-page-heading title="Movies" />
-    @if (collection.data()) {
-      <pre>{{ `Found ${collection.data()?.count} movies.` }}</pre>
+    @if (collection.data(); as data) {
+      <pre>{{ `Found ${data.count} movies.` }}</pre>
     }
   </div>
 </div>

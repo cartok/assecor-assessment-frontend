@@ -1,9 +1,9 @@
 <div class="g-layout-container">
-  @if (item.data()) {
+  @if (item.data(); as data) {
     <app-page-heading
       location="Film Details"
-      [title]="item.data()!.title"
-      [subtitle]="`Episode ${item.data()!.episodeId}`"
+      [title]="data.title"
+      [subtitle]="`Episode ${data.episodeId}`"
     />
     <div>Resource ID from router path is: {{ id() }}</div>
   }
