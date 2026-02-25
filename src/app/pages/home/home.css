@@ -1,5 +1,6 @@
 .home {
   background-color: var(--color-primary);
+  padding: var(--layout-gutter);
   display: grid;
   place-items: center;
   width: 100%;
