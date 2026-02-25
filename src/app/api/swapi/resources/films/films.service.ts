@@ -33,7 +33,7 @@ export class FilmsService {
   ): SwapiServiceResult<SwapiResourceCollection<Film>> {
     const resource = httpResource<SwapiResourceCollectionDto<FilmDto>>(
       retryableHttpResourceRequest(
-        () => swapiUrl(this.resourcePath),
+        () => swapiUrl([this.resourcePath]),
         options?.retryPolicy,
       ),
     )
@@ -75,7 +75,7 @@ export class FilmsService {
   ): SwapiServiceResult<Film> {
     const resource = httpResource<Film>(
       retryableHttpResourceRequest(
-        () => swapiUrl(this.resourcePath, id()),
+        () => swapiUrl([this.resourcePath, id()]),
         options?.retryPolicy,
       ),
       {
