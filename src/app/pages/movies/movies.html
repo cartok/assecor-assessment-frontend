@@ -6,7 +6,7 @@
       <app-image-grid>
         @for (item of data.items; track $index) {
           <app-image-grid-item
-            [imageUrl]="item.images[0]"
+            [imageUrl]="item.images[0].url"
             [imageAlt]="imageAlt(item)"
             [label]="item.title"
             [linkLabel]="linkLabel(item)"

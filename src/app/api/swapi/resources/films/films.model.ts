@@ -51,5 +51,5 @@ export interface Film extends SwapiResource {
   /**
    * Mock image URLs for this film.
    */
-  readonly images: string[]
+  readonly images: { url: string; alt: string; width: number; height: number }[]
 }

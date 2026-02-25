@@ -29,10 +29,25 @@ export function mapFilmDtoToModel(dto: FilmDto): Film {
   }
 }
 
-function createMockFilmImages(filmId: string): string[] {
+function createMockFilmImages(filmId: string): Film['images'] {
   return [
-    `https://picsum.photos/seed/swapi-film-${filmId}-1/1280/720`,
-    `https://picsum.photos/seed/swapi-film-${filmId}-2/1280/720`,
-    `https://picsum.photos/seed/swapi-film-${filmId}-3/1280/720`,
+    {
+      url: `https://picsum.photos/seed/swapi-film-${filmId}-1/1280/720`,
+      alt: 'Mock image no. 1',
+      width: 1280,
+      height: 720,
+    },
+    {
+      url: `https://picsum.photos/seed/swapi-film-${filmId}-2/1280/720`,
+      alt: 'Mock image no. 2',
+      width: 1280,
+      height: 720,
+    },
+    {
+      url: `https://picsum.photos/seed/swapi-film-${filmId}-3/1280/720`,
+      alt: 'Mock image no. 3',
+      width: 1280,
+      height: 720,
+    },
   ]
 }

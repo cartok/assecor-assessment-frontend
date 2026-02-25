@@ -5,13 +5,14 @@ import { map } from 'rxjs'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
 import { CRITICAL_HTTP_RETRY_POLICY } from '@/api/swapi/shared/http/http-retry.interceptor'
+import { ImageSlider } from '@/components/image-slider/image-slider'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { RowDescriptionList } from '@/components/row-description-list/row-description-list'
 import type { InputValue } from '@/shared/types/component.types'
 
 @Component({
   selector: 'app-movie',
-  imports: [PageHeading, RowDescriptionList, RouterLink],
+  imports: [PageHeading, RowDescriptionList, RouterLink, ImageSlider],
   templateUrl: './movie.html',
   styleUrl: './movie.css',
 })

@@ -1,0 +1,11 @@
+<div class="image-slider">
+  @for (image of images(); track $index) {
+    <img
+      class="image"
+      [src]="image.url"
+      [alt]="image.alt"
+      [width]="image.width"
+      [height]="image.height"
+    />
+  }
+</div>
