@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core'
+import { Component, computed, inject, signal } from '@angular/core'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
 import { PageHeading } from '@/components/page-heading/page-heading'
@@ -14,4 +14,10 @@ export class Movies {
   readonly filmsService = inject(FilmsService)
   readonly page = signal('1')
   readonly collection = this.filmsService.getCollection(this.page)
+  readonly gridItems = computed(() =>
+    this.collection.data()?.items.map((film) => ({
+      imageUrl: film.images[0],
+      label: film.title,
+    })),
+  )
 }

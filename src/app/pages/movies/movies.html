@@ -3,13 +3,9 @@
     <app-page-heading title="Movies" />
     @if (collection.data(); as data) {
       <pre>{{ `Found ${data.count} movies.` }}</pre>
-      <app-resource-grid
-        [items]="[
-          { imageUrl: 'the image url', label: 'the label' },
-          { imageUrl: 'the image url', label: 'the label' },
-          { imageUrl: 'the image url', label: 'the label' },
-        ]"
-      />
+      @if (gridItems(); as gridItems) {
+        <app-resource-grid [items]="gridItems" />
+      }
       @for (film of data.items; track film.id) {
         <img [src]="film.images[0]" [alt]="film.title" />
       }
