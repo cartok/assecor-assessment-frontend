@@ -23,5 +23,6 @@ export function mapFilmDtoToModel(dto: FilmDto): Film {
     starshipIds: extractSwapiIds(dto.starships),
     title: toMandatoryString(dto.title, 'title'),
     vehicleIds: extractSwapiIds(dto.vehicles),
+    // TODO: add mock images `string[]`
   }
 }

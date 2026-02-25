@@ -18,12 +18,9 @@ export class Movie {
   private readonly route = inject(ActivatedRoute)
   private readonly filmsService = inject(FilmsService)
 
-  readonly id = toSignal(
-    this.route.paramMap.pipe(map((pm) => pm.get('id') ?? undefined)),
-    {
-      initialValue: undefined,
-    },
-  )
+  readonly id = toSignal(this.route.paramMap.pipe(map((pm) => pm.get('id')!)), {
+    initialValue: this.route.snapshot.paramMap.get('id')!,
+  })
   readonly item = this.filmsService.getItem(this.id, {
     retryPolicy: CRITICAL_HTTP_RETRY_POLICY,
   })

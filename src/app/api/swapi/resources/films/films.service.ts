@@ -1,14 +1,11 @@
 import { httpResource } from '@angular/common/http'
 import type { ResourceStatus, Signal } from '@angular/core'
-import { computed, Injectable, isSignal } from '@angular/core'
+import { computed, Injectable } from '@angular/core'
 
 import type { FilmDto } from '@/api/swapi/resources/films/films.dto'
 import { mapFilmDtoToModel } from '@/api/swapi/resources/films/films.mapper'
 import type { Film } from '@/api/swapi/resources/films/films.model'
-import {
-  swapiResourceCollectionUrl,
-  swapiResourceDetailUrlOptional,
-} from '@/api/swapi/shared/http/api-client'
+import { swapiUrl } from '@/api/swapi/shared/http/api-client'
 import {
   type RetryableHttpResourceMethodOptions,
   retryableHttpResourceRequest,
@@ -24,21 +21,19 @@ export interface SwapiServiceResult<T> {
   reload: () => boolean
 }
 
-type GetCollectionOptions = RetryableHttpResourceMethodOptions
-type GetItemOptions = RetryableHttpResourceMethodOptions
-
 @Injectable({
   providedIn: 'root',
 })
 export class FilmsService {
   private readonly resourcePath = 'films'
 
+  // TODO: 'page' query parameter hinzufügen (Signal<string>)
   getCollection(
-    options?: GetCollectionOptions,
+    options?: RetryableHttpResourceMethodOptions,
   ): SwapiServiceResult<SwapiResourceCollection<Film>> {
     const resource = httpResource<SwapiResourceCollectionDto<FilmDto>>(
       retryableHttpResourceRequest(
-        () => swapiResourceCollectionUrl(this.resourcePath),
+        () => swapiUrl(this.resourcePath),
         options?.retryPolicy,
       ),
     )
@@ -74,18 +69,13 @@ export class FilmsService {
     }
   }
 
-  getItem(id: string | undefined, options?: GetItemOptions): SwapiServiceResult<Film>
   getItem(
-    id: Signal<string | undefined>,
-    options?: GetItemOptions,
-  ): SwapiServiceResult<Film>
-  getItem(
-    id: string | undefined | Signal<string | undefined>,
-    options?: GetItemOptions,
+    id: Signal<string>,
+    options?: RetryableHttpResourceMethodOptions,
   ): SwapiServiceResult<Film> {
     const resource = httpResource<Film>(
       retryableHttpResourceRequest(
-        () => swapiResourceDetailUrlOptional(this.resourcePath, isSignal(id) ? id() : id),
+        () => swapiUrl(this.resourcePath, id()),
         options?.retryPolicy,
       ),
       {
@@ -100,4 +90,6 @@ export class FilmsService {
       reload: () => resource.reload(),
     }
   }
+
+  // TODO: create a bulk method to request multiple single resources like `getItems(ids: Signal<string[] | undefined>, options?: RetryableHttpResourceMethodOptions)`. it
 }
