@@ -9,8 +9,8 @@ import { RouterLink } from '@angular/router'
 })
 export class ImageGridItem {
   readonly imageUrl = input.required<string>()
-  readonly imageAlt = input.required<string>()
+  readonly imageTitle = input.required<string>()
   readonly label = input.required<string>()
-  readonly link = input.required<string>()
-  readonly linkLabel = input.required<string>()
+  readonly linkUri = input.required<string>()
+  readonly linkTitle = input.required<string>()
 }

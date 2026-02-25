@@ -7,10 +7,10 @@
         @for (item of data.items; track $index) {
           <app-image-grid-item
             [imageUrl]="item.images[0].url"
-            [imageAlt]="imageAlt(item)"
+            [imageTitle]="imageTitle(item)"
             [label]="item.title"
-            [linkLabel]="linkLabel(item)"
-            [link]="link(item)"
+            [linkUri]="linkUri(item)"
+            [linkTitle]="linkTitle(item)"
           >
             @if (item.director) {
               <div>Director: {{ item.director }}</div>

@@ -1,5 +1,5 @@
 <div class="image-grid-item">
-  <img class="image" [src]="imageUrl()" [alt]="imageAlt()" />
+  <img class="image" [src]="imageUrl()" [alt]="imageTitle()" [title]="imageTitle()" />
   <div class="description-container">
     <div class="g-title-3 g-truncate-1">{{ label() }}</div>
     <div class="g-text-2 description">
@@ -8,8 +8,8 @@
     <!-- TODO: An sich ist das layout der component nicht verkehrt mit den paddings usw. aber es gibt keine gute link click fläche -->
     <a
       class="g-label-3 g-truncate-1 link"
-      [routerLink]="link()"
-      [attr.aria-label]="linkLabel()"
+      [routerLink]="linkUri()"
+      [attr.aria-label]="linkTitle()"
     >
       More information...
     </a>

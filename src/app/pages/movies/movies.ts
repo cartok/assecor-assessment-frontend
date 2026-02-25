@@ -18,7 +18,7 @@ export class Movies {
   readonly page = signal('1')
   readonly collection = this.filmsService.getCollection(this.page)
 
-  imageAlt = (film: Film) => `Image of "${film.title}"`
-  linkLabel = (film: Film) => `Go to "${film.title}" detail page`
-  link = (film: Film) => `/movie/${film.id}`
+  imageTitle = (film: Film) => `Image of "${film.title}"`
+  linkTitle = (film: Film) => `Go to "${film.title}" detail page`
+  linkUri = (film: Film) => `/movie/${film.id}`
 }
