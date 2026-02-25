@@ -8,15 +8,9 @@
       </a>
       <!-- TODO: Make use of [Angular Aria](https://angular.dev/guide/aria/overview) for this navigation -->
       <nav class="navigation" aria-label="Primary">
-        <app-header-link [label]="'Filme'" [routerLink]="['/movies']"></app-header-link>
-        <app-header-link
-          [label]="'Charaktere'"
-          [routerLink]="['/characters']"
-        ></app-header-link>
-        <app-header-link
-          [label]="'Planeten'"
-          [routerLink]="['/planets']"
-        ></app-header-link>
+        <app-header-link label="Movies" routerLink="/movies"></app-header-link>
+        <app-header-link label="Characters" routerLink="/characters"></app-header-link>
+        <app-header-link label="Planets" routerLink="/planets"></app-header-link>
       </nav>
     </div>
     <div class="header-search-bar" [style]="{ display: 'none' }">search_bar</div>
