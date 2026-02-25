@@ -14,9 +14,13 @@
 .slides {
   display: grid;
   grid-auto-flow: column;
+  height: 100%;
+  background-color: yellow;
+  border: 5px dotted gainsboro;
 }
 
 .slide {
+  height: 100%;
 }
 
 .indicators {
