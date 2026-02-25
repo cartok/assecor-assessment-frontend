@@ -1,6 +1,6 @@
 import { httpResource } from '@angular/common/http'
-import { computed, effect, inject, Injectable, signal } from '@angular/core'
-import { Router } from '@angular/router'
+import type { ResourceStatus, Signal } from '@angular/core'
+import { computed, Injectable } from '@angular/core'
 
 import type { FilmDto } from '@/api/swapi/resources/films/films.dto'
 import { mapFilmDtoToModel } from '@/api/swapi/resources/films/films.mapper'
@@ -11,13 +11,19 @@ import {
 } from '@/api/swapi/shared/http/api-client'
 import type { SwapiResourceCollectionDto } from '@/api/swapi/shared/types/dto'
 import type { SwapiResourceCollection } from '@/api/swapi/shared/types/model'
-import { toUndefinedIfNullish } from '@/api/swapi/shared/utils/mapping'
+import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
+
+export interface SwapiServiceResult<T> {
+  status: Signal<ResourceStatus>
+  data: Signal<T | undefined>
+  error: Signal<Error | undefined>
+  reload: () => boolean
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilmsService {
-  private readonly router = inject(Router)
   private readonly resourcePath = 'films'
 
   readonly collectionResource = httpResource<SwapiResourceCollectionDto<FilmDto>>(() =>
@@ -39,36 +45,25 @@ export class FilmsService {
 
     return {
       count: response?.count,
-      next: toUndefinedIfNullish(response?.next),
-      previous: toUndefinedIfNullish(response?.previous),
+      next: extractSwapiIdOptional(response?.next),
+      previous: extractSwapiIdOptional(response?.previous),
       items,
     }
   })
 
-  readonly itemId = signal<string | undefined>(undefined)
-  readonly itemResource = httpResource<FilmDto>(() =>
-    swapiResourceDetailUrlOptional(this.resourcePath, this.itemId()),
-  )
-  readonly item = computed<Film | undefined>(() => {
-    if (!this.itemResource.hasValue()) {
-      return undefined
+  getItem(id: Signal<string | undefined>): SwapiServiceResult<Film> {
+    const resource = httpResource<Film>(() =>
+      swapiResourceDetailUrlOptional(this.resourcePath, id()),
+      {
+        parse: (value: unknown): Film => mapFilmDtoToModel(value as FilmDto),
+      },
+    )
+
+    return {
+      data: resource.value,
+      status: resource.status,
+      error: resource.error,
+      reload: () => resource.reload(),
     }
-
-    try {
-      return mapFilmDtoToModel(this.itemResource.value())
-    } catch {
-      return undefined
-    }
-  })
-
-  constructor() {
-    effect(() => {
-      const hasHttpError = this.itemResource.error() !== undefined
-      const hasMappingError = this.itemResource.hasValue() && this.item() === undefined
-
-      if (hasHttpError || hasMappingError) {
-        void this.router.navigate(['/error']).catch(() => undefined)
-      }
-    })
   }
 }

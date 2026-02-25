@@ -1,9 +1,11 @@
 <div class="g-layout-container">
-  <app-page-heading
-    location="Film Details"
-    title="Die Rückkehr der Jedi-Ritter"
-    subtitle="Episode IV"
-  />
-  <div>Resource ID from router path is: {{ id() }}</div>
-  <pre>{{ itemJson() }}</pre>
+  @if (item.data()) {
+    <app-page-heading
+      location="Film Details"
+      title="Die Rückkehr der Jedi-Ritter"
+      subtitle="Episode IV"
+    />
+    <div>Resource ID from router path is: {{ id() }}</div>
+    <pre>{{ '' }}</pre>
+  }
 </div>
