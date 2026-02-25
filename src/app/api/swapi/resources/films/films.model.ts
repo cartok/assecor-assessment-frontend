@@ -13,9 +13,9 @@ export interface Film extends SwapiResource {
    */
   readonly director?: string
   /**
-   * The episode number of this film.
+   * The episode number of this film as roman number.
    */
-  readonly episodeId?: number
+  readonly episodeId?: string
   /**
    * The opening crawl text at the beginning of this film.
    */

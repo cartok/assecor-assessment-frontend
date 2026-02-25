@@ -5,8 +5,8 @@ import {
   extractSwapiIds,
   toMandatoryString,
   toOptionalDate,
-  toOptionalNumber,
   toOptionalString,
+  toRomanNumber,
 } from '@/api/swapi/shared/utils/mapping'
 
 export function mapFilmDtoToModel(dto: FilmDto): Film {
@@ -14,7 +14,7 @@ export function mapFilmDtoToModel(dto: FilmDto): Film {
     id: extractSwapiId(dto.url),
     characterIds: extractSwapiIds(dto.characters),
     director: toOptionalString(dto.director),
-    episodeId: toOptionalNumber(dto.episode_id),
+    episodeId: toOptionalString(toRomanNumber(dto.episode_id)),
     openingCrawl: toOptionalString(dto.opening_crawl),
     planetIds: extractSwapiIds(dto.planets),
     producer: toOptionalString(dto.producer),

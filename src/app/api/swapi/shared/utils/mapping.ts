@@ -88,3 +88,46 @@ function getPathFromUrl(url: string): string {
     return url.split('?')[0]?.split('#')[0] ?? url
   }
 }
+/**
+ * Converts an integer to a Roman numeral.
+ * Supported range: 1–3999 (standard Roman numerals).
+ *
+ * @throws RangeError if the number is not an integer in the supported range.
+ */
+export function toRomanNumber(value: number): string {
+  if (!Number.isInteger(value)) {
+    throw new TypeError('toRoman: value must be an integer')
+  }
+
+  if (value <= 0 || value >= 4000) {
+    throw new RangeError('toRoman: supported range is 1–3999')
+  }
+
+  const numerals: readonly (readonly [number, string])[] = [
+    [1000, 'M'],
+    [900, 'CM'],
+    [500, 'D'],
+    [400, 'CD'],
+    [100, 'C'],
+    [90, 'XC'],
+    [50, 'L'],
+    [40, 'XL'],
+    [10, 'X'],
+    [9, 'IX'],
+    [5, 'V'],
+    [4, 'IV'],
+    [1, 'I'],
+  ] as const
+
+  let remaining = value
+  let result = ''
+
+  for (const [num, symbol] of numerals) {
+    while (remaining >= num) {
+      result += symbol
+      remaining -= num
+    }
+  }
+
+  return result
+}
