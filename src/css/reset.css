@@ -59,7 +59,7 @@ img,
 picture,
 video,
 svg {
-  display: inline-grid;
+  display: block;
   max-width: 100%;
   height: auto;
 }
