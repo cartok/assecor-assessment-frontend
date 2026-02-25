@@ -1,7 +1,4 @@
-import { Component, input } from '@angular/core'
-
-import type { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
-import type { InputValues } from '@/shared/types/component.types'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-image-grid',
@@ -9,9 +6,4 @@ import type { InputValues } from '@/shared/types/component.types'
   templateUrl: './image-grid.html',
   styleUrl: './image-grid.css',
 })
-export class ImageGrid {
-  readonly items =
-    input.required<
-      InputValues<typeof ImageGridItem, 'imageUrl' | 'label' | 'linkLabel' | 'imageAlt'>[]
-    >()
-}
+export class ImageGrid {}
