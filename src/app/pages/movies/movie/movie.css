@@ -1,0 +1,19 @@
+/* TODO: this is actually the full content area wrapper element of a generic layout component, not just tied to movies */
+.movie {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-rows: minmax(401px, auto) auto;
+  column-gap: 152px;
+  row-gap: 33px;
+}
+
+.meta > div {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  column-gap: 1ch;
+}
+
+.description {
+  margin-top: 34px;
+}

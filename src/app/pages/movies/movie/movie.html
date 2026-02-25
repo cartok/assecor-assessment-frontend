@@ -5,6 +5,56 @@
       [title]="data.title"
       [subtitle]="`Episode ${data.episodeId}`"
     />
-    <div>Resource ID from router path is: {{ id() }}</div>
+    <div class="movie">
+      <div>
+        <section aria-labelledby="details-heading">
+          <h2 class="g-title-3" id="details-heading">Details:</h2>
+          <!-- TODO: eine kleine DescriptionList component erstellen, wlche die text inhalte als input bekommt mit input vom typ `{term: string, detail: string}[] oder so`-->
+          <dl class="meta">
+            <div>
+              <dt class="g-label-1">Regie:</dt>
+              <dd class="g-text-1">Christopher Nolan</dd>
+            </div>
+            <div>
+              <dt class="g-label-1">Erscheinungsjahr:</dt>
+              <dd class="g-text-1">2010</dd>
+            </div>
+            <div>
+              <dt class="g-label-1">Laufzeit:</dt>
+              <dd class="g-text-1">148 Minuten</dd>
+            </div>
+          </dl>
+          <p class="g-text-1 description">
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
+            DESCRIPTION
+          </p>
+        </section>
+
+        <!-- <section aria-labelledby="characters-heading">
+          <h2 id="characters-heading">Charaktere</h2>
+          <ul>
+            <li><a href="/characters/cobb">Dom Cobb</a></li>
+            <li><a href="/characters/ariadne">Ariadne</a></li>
+          </ul>
+        </section> -->
+      </div>
+      <div>Image Slider will be here</div>
+    </div>
   }
 </div>
