@@ -16,7 +16,7 @@ import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
 
 export interface SwapiServiceResult<T> {
   status: Signal<ResourceStatus>
-  data: Signal<T | undefined>
+  data: Signal<T>
   errors: Signal<Error[] | undefined>
   reload: () => boolean
 }
@@ -37,9 +37,9 @@ export class FilmsService {
         options?.retryPolicy,
       ),
     )
-    const data = computed<SwapiResourceCollection<Film> | undefined>(() => {
+    const data = computed<SwapiResourceCollection<Film>>(() => {
       if (!resource.hasValue()) {
-        return undefined
+        return { items: [] }
       }
 
       const response = resource.value()
@@ -79,7 +79,7 @@ export class FilmsService {
   getItem(
     id: Signal<string>,
     options?: RetryableHttpResourceMethodOptions,
-  ): SwapiServiceResult<Film> {
+  ): SwapiServiceResult<Film | undefined> {
     const resource = httpResource<Film>(
       retryableHttpResourceRequest(
         () => swapiUrl([this.resourcePath, id()]),
@@ -106,48 +106,40 @@ export class FilmsService {
   }
 
   getItems(
-    ids: Signal<string[] | undefined>,
+    ids: Signal<string[]>,
     options?: RetryableHttpResourceMethodOptions,
   ): SwapiServiceResult<Film[]> {
-    const resourcesById = new Map<string, SwapiServiceResult<Film>>()
+    const resourcesById = new Map<string, SwapiServiceResult<Film | undefined>>()
 
     // cache
-    const getOrCreateResource = (id: string): SwapiServiceResult<Film> => {
+    const getOrCreateResource = (id: string): SwapiServiceResult<Film | undefined> => {
       const existingResource = resourcesById.get(id)
       if (existingResource !== undefined) {
         return existingResource
       }
 
-      const idSignal = computed(() => id)
-      const newResource = this.getItem(idSignal, {
-        ...options,
-        retryPolicy: {
-          ...MINIMAL_HTTP_RETRY_POLICY,
-          ...options?.retryPolicy,
+      const newResource = this.getItem(
+        computed(() => id),
+        {
+          ...options,
+          retryPolicy: {
+            ...MINIMAL_HTTP_RETRY_POLICY,
+            ...options?.retryPolicy,
+          },
         },
-      })
+      )
       resourcesById.set(id, newResource)
 
       return newResource
     }
 
-    const resources = computed<SwapiServiceResult<Film>[] | undefined>(() => {
-      const currentIds = ids()
-      if (currentIds === undefined) {
-        return undefined
-      }
-
-      return currentIds.map((id) => getOrCreateResource(id))
+    const resources = computed<SwapiServiceResult<Film | undefined>[]>(() => {
+      return ids().map((id) => getOrCreateResource(id))
     })
 
-    const data = computed<Film[] | undefined>(() => {
-      const currentIds = ids()
-      if (currentIds === undefined) {
-        return undefined
-      }
-
+    const data = computed<Film[]>(() => {
       const items: Film[] = []
-      for (const id of currentIds) {
+      for (const id of ids()) {
         const item = getOrCreateResource(id).data()
         if (item !== undefined) {
           items.push(item)
