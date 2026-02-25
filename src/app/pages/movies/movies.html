@@ -3,7 +3,6 @@
     <app-page-heading title="Movies" />
     @let data = collection.data();
     @if (data.items.length > 0) {
-      <pre>{{ `Found ${data.count} movies.` }}</pre>
       <app-image-grid>
         @for (item of data.items; track $index) {
           <app-image-grid-item
