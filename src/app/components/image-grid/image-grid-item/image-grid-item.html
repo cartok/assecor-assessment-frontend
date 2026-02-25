@@ -6,7 +6,11 @@
       <ng-content class="slot" />
     </div>
     <!-- TODO: An sich ist das layout der component nicht verkehrt mit den paddings usw. aber es gibt keine gute link click fläche -->
-    <a class="g-label-3 g-truncate-1 link" routerLink="/" [attr.aria-label]="linkLabel()">
+    <a
+      class="g-label-3 g-truncate-1 link"
+      [routerLink]="link()"
+      [attr.aria-label]="linkLabel()"
+    >
       More information...
     </a>
   </div>

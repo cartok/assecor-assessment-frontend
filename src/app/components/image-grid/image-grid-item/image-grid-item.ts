@@ -11,5 +11,6 @@ export class ImageGridItem {
   readonly imageUrl = input.required<string>()
   readonly imageAlt = input.required<string>()
   readonly label = input.required<string>()
+  readonly link = input.required<string>()
   readonly linkLabel = input.required<string>()
 }
