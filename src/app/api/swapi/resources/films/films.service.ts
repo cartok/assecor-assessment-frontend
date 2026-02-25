@@ -27,13 +27,13 @@ export interface SwapiServiceResult<T> {
 export class FilmsService {
   private readonly resourcePath = 'films'
 
-  // TODO: 'page' query parameter hinzufügen (Signal<string>)
   getCollection(
+    page: Signal<string>,
     options?: RetryableHttpResourceMethodOptions,
   ): SwapiServiceResult<SwapiResourceCollection<Film>> {
     const resource = httpResource<SwapiResourceCollectionDto<FilmDto>>(
       retryableHttpResourceRequest(
-        () => swapiUrl([this.resourcePath]),
+        () => swapiUrl([this.resourcePath], { page: page() }),
         options?.retryPolicy,
       ),
     )
