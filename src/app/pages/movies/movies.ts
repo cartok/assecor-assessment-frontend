@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import { Component, inject, signal } from '@angular/core'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
@@ -7,7 +8,7 @@ import { PageHeading } from '@/components/page-heading/page-heading'
 
 @Component({
   selector: 'app-movies',
-  imports: [PageHeading, ImageGrid, ImageGridItem],
+  imports: [DatePipe, PageHeading, ImageGrid, ImageGridItem],
   templateUrl: './movies.html',
   styleUrl: './movies.css',
 })

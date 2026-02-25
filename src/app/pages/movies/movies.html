@@ -19,7 +19,7 @@
               <div>Producers: {{ item.producer }}</div>
             }
             @if (item.releaseDate) {
-              <div>Publication Date: {{ item.releaseDate.toDateString() }}</div>
+              <div>Publication Date: {{ item.releaseDate | date: 'shortDate' }}</div>
             }
           </app-image-grid-item>
         }
