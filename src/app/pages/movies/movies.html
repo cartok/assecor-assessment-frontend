@@ -4,9 +4,9 @@
     @let data = collection.data();
     @if (data.items.length > 0) {
       <pre>{{ `Found ${data.count} movies.` }}</pre>
-      <app-resource-grid [items]="gridItems()">
+      <app-image-grid [items]="gridItems()">
         @for (item of gridItems(); track $index) {
-          <app-resource-grid-item
+          <app-image-grid-item
             [imageUrl]="item.imageUrl"
             [imageAlt]="item.imageAlt"
             [label]="item.label"
@@ -15,9 +15,9 @@
             <div>foo</div>
             <div>bar</div>
             <div>baz</div>
-          </app-resource-grid-item>
+          </app-image-grid-item>
         }
-      </app-resource-grid>
+      </app-image-grid>
     }
   </div>
 </div>
