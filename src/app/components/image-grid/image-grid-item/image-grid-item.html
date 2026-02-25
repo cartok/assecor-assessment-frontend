@@ -2,7 +2,9 @@
   <img class="image" [src]="imageUrl()" [alt]="imageAlt()" />
   <div class="description-container">
     <div>{{ label() }}</div>
-    <ng-content />
-    <a routerLink="/" aria-label="`Go to ${label}`">link</a>
+    <div class="description">
+      <ng-content class="slot" />
+    </div>
+    <a class="link" routerLink="/" [attr.aria-label]="linkLabel()">link</a>
   </div>
 </div>
