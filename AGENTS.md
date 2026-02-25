@@ -17,7 +17,7 @@ Talk to me in german, even if I sometimes talk in english or mix both up.
   ```
 - Do not write unit tests for new code in the first place
 - Only expose code if it's used elsewhere (for example in TypeScript don't `export` functions that are not used elsewhere) unless it is not clearly a library function. If a function is only exposed for unit testing add a comment.
-- Try to not produce too much indirection by creating too many tiny variables / constants / functions for pieces that are only used once
+- Do not create too much abstractions like unneccessary variables, properties, functions, if the code block is not big, especially for constructs that are only used once
 
 ## TypeScript Best Practices
 
@@ -25,6 +25,7 @@ Talk to me in german, even if I sometimes talk in english or mix both up.
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
 - Functions should have explicit return types in their signature
+- Ensure that you've read the linting rules in [eslint.config.js](eslint.config.js)
 
 ## Angular Best Practices
 
