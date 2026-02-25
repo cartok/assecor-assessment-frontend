@@ -5,6 +5,7 @@
   grid-template-rows: minmax(401px, auto) auto;
   column-gap: 152px;
   row-gap: 33px;
+  margin-left: 20px;
 }
 
 .meta > div {
