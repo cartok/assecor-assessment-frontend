@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { Component, computed, input } from '@angular/core'
 
 @Component({
   selector: 'app-resource-grid-item',
@@ -9,4 +9,5 @@ import { Component, input } from '@angular/core'
 export class ResourceGridItem {
   readonly imageUrl = input.required<string>()
   readonly label = input.required<string>()
+  readonly imageAlt = computed<string>(() => `Image of "${this.label()}"`)
 }
