@@ -3,11 +3,12 @@ import { Component, computed, inject, signal } from '@angular/core'
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ResourceGrid } from '@/components/resource-grid/resource-grid'
+import { ResourceGridItem } from '@/components/resource-grid/resource-grid-item/resource-grid-item'
 import type { InputValue } from '@/shared/types/component.types'
 
 @Component({
   selector: 'app-movies',
-  imports: [PageHeading, ResourceGrid],
+  imports: [PageHeading, ResourceGrid, ResourceGridItem],
   templateUrl: './movies.html',
   styleUrl: './movies.css',
 })
@@ -18,7 +19,9 @@ export class Movies {
   readonly gridItems = computed<InputValue<typeof ResourceGrid, 'items'>>(() =>
     this.collection.data().items.map((film) => ({
       imageUrl: film.images[0],
+      imageAlt: `Image of "${film.title}"`,
       label: film.title,
+      linkLabel: `Go to "${film.title}" detail page`,
     })),
   )
 }

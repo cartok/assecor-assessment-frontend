@@ -1,4 +1,4 @@
 <img [src]="imageUrl()" [alt]="imageAlt()" />
 <div>{{ label() }}</div>
 <ng-content />
-<div>link</div>
+<a routerLink="/" aria-label="`Go to ${label}`">link</a>

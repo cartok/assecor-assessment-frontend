@@ -1,14 +1,23 @@
 <div class="movies">
   <div class="g-layout-container">
     <app-page-heading title="Movies" />
-    @if (collection.data(); as data) {
+    @let data = collection.data();
+    @if (data.items.length > 0) {
       <pre>{{ `Found ${data.count} movies.` }}</pre>
-      @if (gridItems(); as gridItems) {
-        <app-resource-grid [items]="gridItems" />
-      }
-      @for (film of data.items; track film.id) {
-        <img [src]="film.images[0]" [alt]="film.title" />
-      }
+      <app-resource-grid [items]="gridItems()">
+        @for (item of gridItems(); track $index) {
+          <app-resource-grid-item
+            [imageUrl]="item.imageUrl"
+            [imageAlt]="item.imageAlt"
+            [label]="item.label"
+            [linkLabel]="item.linkLabel"
+          >
+            <div>foo</div>
+            <div>bar</div>
+            <div>baz</div>
+          </app-resource-grid-item>
+        }
+      </app-resource-grid>
     }
   </div>
 </div>
