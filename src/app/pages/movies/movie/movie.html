@@ -25,22 +25,7 @@
       }
 
       <div class="links">
-        <aside aria-labelledby="characters-heading">
-          <h2 class="g-title-3" id="characters-heading">Charaktere:</h2>
-          <nav>
-            <ul>
-              @for (characterId of data.characterIds; track $index) {
-                <li>
-                  <!-- TODO: Ich müsste hier nen sub request machen bzw. von vornherein alle Daten
-                    der id lists bulk fetchen. Die API ist echt kein kracher... So was würde kein Mensch machen. Man könnte schauen dass man alles in einen store lädt, zentralisiert cached. -->
-                  <a [routerLink]="['/person', characterId]">Charakter Name</a>
-                </li>
-              }
-            </ul>
-            <!-- TODO: Den collapse button aria-technisch korrekt mit der liste zu verbinden ist nicht trivial. -->
-            <button>...</button>
-          </nav>
-        </aside>
+        <app-link-list heading="Characters:" [links]="['foo', 'bar', 'baz']" />
       </div>
     </div>
   }
