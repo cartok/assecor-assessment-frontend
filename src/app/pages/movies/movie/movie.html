@@ -24,7 +24,7 @@
           <app-link-list>
             @for (id of data.characterIds; track $index) {
               @let mock = `Character no. ${id}`;
-              <app-link-list-item [linkUri]="['/person', id]">
+              <app-link-list-item [linkUri]="['/character', id]">
                 {{ mock }}
               </app-link-list-item>
             }
