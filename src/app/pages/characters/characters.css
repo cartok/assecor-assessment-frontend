@@ -1,0 +1,6 @@
+/* TODO: this is actually the full content area wrapper element of a generic layout component, not just tied to characters */
+.characters {
+  height: 100%;
+  background-color: var(--color-white);
+  padding-bottom: 200px;
+}

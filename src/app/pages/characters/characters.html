@@ -1,3 +1,28 @@
-<div class="g-layout-container">
-  <h1 class="g-title-1">Charaktere</h1>
+<div class="characters">
+  <div class="g-layout-container">
+    <app-page-heading title="Characters" />
+    @let data = collection.data();
+    @if (data.items.length > 0) {
+      <app-image-grid>
+        @for (item of data.items; track $index) {
+          <app-image-grid-item
+            [imageUrl]="item.images[0].url"
+            [imageAlt]="imageTitle(item)"
+            [label]="item.name"
+            [linkUri]="linkUri(item)"
+          >
+            @if (item.gender) {
+              <div class="g-truncate-1">Gender: {{ item.gender }}</div>
+            }
+            @if (item.birthYear) {
+              <div class="g-truncate-1">Birth Year: {{ item.birthYear }}</div>
+            }
+            @if (item.homeworldId) {
+              <div class="g-truncate-1">Homeworld ID: {{ item.homeworldId }}</div>
+            }
+          </app-image-grid-item>
+        }
+      </app-image-grid>
+    }
+  </div>
 </div>
