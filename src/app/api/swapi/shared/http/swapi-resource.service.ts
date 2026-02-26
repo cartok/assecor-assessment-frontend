@@ -7,7 +7,6 @@ import {
   untracked,
 } from '@angular/core'
 
-import { swapiUrl } from '@/api/swapi/shared/http/api-client'
 import {
   MINIMAL_HTTP_RETRY_POLICY,
   retryableHttpResourceRequest,
@@ -25,6 +24,8 @@ import {
 import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
 
 export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends SwapiResource> {
+  private static readonly swapiApiBaseUrl = 'https://swapi.dev/api'
+
   private readonly defaultItemCacheTtlMs = 5 * 60 * 1000
   private readonly itemCache = new Map<string, SwapiResourceItemCacheEntry<TModel>>()
 
@@ -39,7 +40,7 @@ export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends 
       () =>
         httpResource<SwapiResourceCollectionDto<TDto>>(
           retryableHttpResourceRequest(
-            () => swapiUrl([this.config.resourcePath], { page: page() }),
+            () => SwapiResourceService.swapiUrl([this.config.resourcePath], { page: page() }),
             options?.retryPolicy,
           ),
         ),
@@ -95,7 +96,7 @@ export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends 
       () =>
         httpResource<TModel>(
           retryableHttpResourceRequest(
-            () => swapiUrl([this.config.resourcePath, id()]),
+            () => SwapiResourceService.swapiUrl([this.config.resourcePath, id()]),
             options?.retryPolicy,
           ),
           {
@@ -287,6 +288,32 @@ export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends 
     }
 
     return currentEntry.item
+  }
+
+  private static swapiUrl(
+    pathSegments: string[],
+    query?: ConstructorParameters<typeof URLSearchParams>[0],
+  ): string {
+    const path = pathSegments
+      .map((pathSegment) => this.normalizePathSegment(pathSegment))
+      .join('/')
+
+    const baseUrlAndPath = `${this.swapiApiBaseUrl}/${path}`
+
+    if (query !== undefined) {
+      const parameterString = new URLSearchParams(query).toString()
+      if (parameterString.length === 0) {
+        return new URL(baseUrlAndPath).toString()
+      }
+
+      return new URL(`${baseUrlAndPath}?${parameterString}`).toString()
+    }
+
+    return new URL(baseUrlAndPath).toString()
+  }
+
+  private static normalizePathSegment(value: string): string {
+    return value.replace(/^\/+|\/+$/g, '')
   }
 }
 

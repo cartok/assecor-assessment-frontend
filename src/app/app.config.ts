@@ -1,5 +1,3 @@
-// import '@angular/common/locales/global/de'
-
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'
 import type { ApplicationConfig } from '@angular/core'
 import { LOCALE_ID, provideZonelessChangeDetection } from '@angular/core'

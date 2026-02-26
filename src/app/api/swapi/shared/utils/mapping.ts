@@ -88,6 +88,7 @@ function getPathFromUrl(url: string): string {
     return url.split('?')[0]?.split('#')[0] ?? url
   }
 }
+
 /**
  * Converts an integer to a Roman numeral.
  * Supported range: 1–3999 (standard Roman numerals).
