@@ -2,7 +2,7 @@
 
 Live Demo (GitHub Pages):
 
-- [https://cartok.github.io/swapi-angular-frontend/](https://cartok.github.io/swapi-angular-frontend/)
+- [https://cartok.github.io/assecor-assessment-frontend/](https://cartok.github.io/assecor-assessment-frontend/)
 
 Frontend-Implementierung der Assecor-Bewerbungsaufgabe auf Basis von Angular mit Fokus auf klare Architektur, schnelle Iteration und solide Erweiterbarkeit.
 

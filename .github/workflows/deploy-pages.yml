@@ -32,8 +32,11 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Resolve repository base path
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> "$GITHUB_ENV"
+
       - name: Build Angular app
-        run: bunx ng build --configuration production --base-href "/swapi-angular-frontend/"
+        run: bunx ng build --configuration production --base-href "/${REPO_NAME}/"
 
       - name: Verify build output
         run: test -f dist/swapi-angular-frontend/browser/index.html
