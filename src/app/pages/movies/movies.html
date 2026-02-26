@@ -1,30 +1,28 @@
-<div class="movies">
-  <div class="g-layout-container">
-    <app-page-heading title="Movies" />
-    @let data = collection.data();
-    @if (data.items.length > 0) {
-      <app-image-grid>
-        @for (item of data.items; track $index) {
-          <app-image-grid-item
-            [imageUrl]="item.images[0].url"
-            [imageAlt]="imageTitle(item)"
-            [label]="item.title"
-            [linkUri]="linkUri(item)"
-          >
-            @if (item.director) {
-              <div class="g-truncate-1">Director: {{ item.director }}</div>
-            }
-            @if (item.producer) {
-              <div class="g-truncate-1">Producers: {{ item.producer }}</div>
-            }
-            @if (item.releaseDate) {
-              <div class="g-truncate-1">
-                Publication Date: {{ item.releaseDate | date: 'shortDate' }}
-              </div>
-            }
-          </app-image-grid-item>
-        }
-      </app-image-grid>
-    }
-  </div>
-</div>
+<app-resource-grid-layout>
+  <app-page-heading title="Movies" />
+  @let data = collection.data();
+  @if (data.items.length > 0) {
+    <app-image-grid>
+      @for (item of data.items; track $index) {
+        <app-image-grid-item
+          [imageUrl]="item.images[0].url"
+          [imageAlt]="imageTitle(item)"
+          [label]="item.title"
+          [linkUri]="linkUri(item)"
+        >
+          @if (item.director) {
+            <div class="g-truncate-1">Director: {{ item.director }}</div>
+          }
+          @if (item.producer) {
+            <div class="g-truncate-1">Producers: {{ item.producer }}</div>
+          }
+          @if (item.releaseDate) {
+            <div class="g-truncate-1">
+              Publication Date: {{ item.releaseDate | date: 'shortDate' }}
+            </div>
+          }
+        </app-image-grid-item>
+      }
+    </app-image-grid>
+  }
+</app-resource-grid-layout>

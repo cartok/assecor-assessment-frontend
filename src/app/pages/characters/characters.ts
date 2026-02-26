@@ -5,10 +5,11 @@ import { PeopleService } from '@/api/swapi/resources/people/people.service'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { ResourceGridLayout } from '@/components/resource-grid-layout/resource-grid-layout'
 
 @Component({
   selector: 'app-characters',
-  imports: [PageHeading, ImageGrid, ImageGridItem],
+  imports: [PageHeading, ResourceGridLayout, ImageGrid, ImageGridItem],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
 })
