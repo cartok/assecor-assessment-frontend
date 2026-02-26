@@ -33,18 +33,18 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build Angular app
-        run: bunx ng build --configuration production --base-href "/assecor-assessment-frontend/"
+        run: bunx ng build --configuration production --base-href "/swapi-angular-frontend/"
 
       - name: Verify build output
-        run: test -f dist/assecor-assessment-frontend/browser/index.html
+        run: test -f dist/swapi-angular-frontend/browser/index.html
 
       - name: Add SPA fallback for GitHub Pages
-        run: cp dist/assecor-assessment-frontend/browser/index.html dist/assecor-assessment-frontend/browser/404.html
+        run: cp dist/swapi-angular-frontend/browser/index.html dist/swapi-angular-frontend/browser/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/assecor-assessment-frontend/browser
+          path: dist/swapi-angular-frontend/browser
 
   deploy:
     needs: build

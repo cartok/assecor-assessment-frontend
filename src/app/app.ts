@@ -12,5 +12,5 @@ import { Separator } from '@/components/separator/separator'
   styleUrl: './app.css',
 })
 export class App {
-  title = 'assecor-assessment-frontend'
+  title = 'Angular Signals-based SWAPI Frontend'
 }

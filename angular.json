@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "assecor-assessment-frontend": {
+    "swapi-angular-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -54,10 +54,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "assecor-assessment-frontend:build:production"
+              "buildTarget": "swapi-angular-frontend:build:production"
             },
             "development": {
-              "buildTarget": "assecor-assessment-frontend:build:development"
+              "buildTarget": "swapi-angular-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

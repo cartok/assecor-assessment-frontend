@@ -17,10 +17,10 @@ describe('App', () => {
     expect(app).toBeTruthy()
   })
 
-  it(`should have the 'assecor-assessment-frontend' title`, () => {
+  it(`should have the 'Angular Signals-based SWAPI Frontend' title`, () => {
     const fixture = TestBed.createComponent(App)
     const app = fixture.componentInstance
-    expect(app.title).toEqual('assecor-assessment-frontend')
+    expect(app.title).toEqual('Angular Signals-based SWAPI Frontend')
   })
 
   it('should render the main app shell', async () => {

@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "assecor-assessment-frontend",
+      "name": "swapi-angular-frontend",
       "dependencies": {
         "@angular/common": "^21.1.5",
         "@angular/compiler": "^21.1.5",

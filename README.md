@@ -1,4 +1,8 @@
-# Assecor Assessment Frontend
+# Angular Signals-based SWAPI Frontend
+
+Live Demo (GitHub Pages):
+
+- [https://cartok.github.io/swapi-angular-frontend/](https://cartok.github.io/swapi-angular-frontend/)
 
 Frontend-Implementierung der Assecor-Bewerbungsaufgabe auf Basis von Angular mit Fokus auf klare Architektur, schnelle Iteration und solide Erweiterbarkeit.
 
@@ -7,6 +11,7 @@ Frontend-Implementierung der Assecor-Bewerbungsaufgabe auf Basis von Angular mit
 Die Aufgabenstellung bleibt unveraendert und ist hier einsehbar:
 
 - [Assecor Assessment Frontend README](https://github.com/Assecor-GmbH/assecor-assessment-frontend/blob/master/README.md)
+- [UI Mockups / Design](https://xd.adobe.com/view/b3c98134-11a8-44c2-5dd2-477b8550307f-c5f8/)
 
 ## Projektstatus
 
