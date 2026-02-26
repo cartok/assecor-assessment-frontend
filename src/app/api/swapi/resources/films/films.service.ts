@@ -21,11 +21,19 @@ export interface SwapiServiceResult<T> {
   reload: () => boolean
 }
 
+interface FilmCacheEntry {
+  resource?: SwapiServiceResult<Film | undefined>
+  item?: Film
+  expiresAt: number
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class FilmsService {
   private readonly resourcePath = 'films'
+  private readonly itemCacheTtlMs = 5 * 60 * 1000
+  private readonly itemCache = new Map<string, FilmCacheEntry>()
 
   getCollection(
     page: Signal<string>,
@@ -47,7 +55,9 @@ export class FilmsService {
 
       for (const dto of response.results ?? []) {
         try {
-          items.push(mapFilmDtoToModel(dto))
+          const item = mapFilmDtoToModel(dto)
+          items.push(item)
+          this.setCacheEntry(item.id, { item })
         } catch {
           // skip invalid items in collection responses
         }
@@ -89,9 +99,19 @@ export class FilmsService {
         parse: (value: unknown): Film => mapFilmDtoToModel(value as FilmDto),
       },
     )
+    const data = computed<Film | undefined>(() => {
+      const item = resource.value()
+      if (item !== undefined) {
+        this.setCacheEntry(item.id, { item })
+
+        return item
+      }
+
+      return this.getCachedItem(id())
+    })
 
     return {
-      data: resource.value,
+      data,
       status: resource.status,
       errors: computed<Error[] | undefined>(() => {
         const currentError = resource.error()
@@ -109,13 +129,18 @@ export class FilmsService {
     ids: Signal<string[]>,
     options?: RetryableHttpResourceMethodOptions,
   ): SwapiServiceResult<Film[]> {
-    const resourcesById = new Map<string, SwapiServiceResult<Film | undefined>>()
-
-    // cache
     const getOrCreateResource = (id: string): SwapiServiceResult<Film | undefined> => {
-      const existingResource = resourcesById.get(id)
-      if (existingResource !== undefined) {
-        return existingResource
+      const currentTime = Date.now()
+      const cachedEntry = this.itemCache.get(id)
+      if (cachedEntry?.resource !== undefined) {
+        if (cachedEntry.expiresAt > currentTime) {
+          return cachedEntry.resource
+        }
+
+        cachedEntry.resource.reload()
+        this.setCacheEntry(id, { resource: cachedEntry.resource })
+
+        return cachedEntry.resource
       }
 
       const newResource = this.getItem(
@@ -128,7 +153,7 @@ export class FilmsService {
           },
         },
       )
-      resourcesById.set(id, newResource)
+      this.setCacheEntry(id, { resource: newResource })
 
       return newResource
     }
@@ -226,5 +251,31 @@ export class FilmsService {
         return hasReloaded
       },
     }
+  }
+
+  private setCacheEntry(id: string, entry: Omit<FilmCacheEntry, 'expiresAt'>): void {
+    const currentEntry = this.itemCache.get(id)
+    this.itemCache.set(id, {
+      ...currentEntry,
+      ...entry,
+      expiresAt: Date.now() + this.itemCacheTtlMs,
+    })
+  }
+
+  private getCachedItem(id: string): Film | undefined {
+    const currentEntry = this.itemCache.get(id)
+    if (currentEntry?.item === undefined) {
+      return undefined
+    }
+
+    if (currentEntry.expiresAt <= Date.now()) {
+      if (currentEntry.resource === undefined) {
+        this.itemCache.delete(id)
+      }
+
+      return undefined
+    }
+
+    return currentEntry.item
   }
 }

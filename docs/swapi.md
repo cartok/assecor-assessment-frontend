@@ -84,6 +84,7 @@ The pagination can be accessed done via `next` and `previous` fields. There are 
   > I might format those strings to add a space before `ABY|BBY`.
 - Texts include `\r\n` to separate lines.
   > I might split them if it looks well, otherwise i'd just remove the control characters.
+  <!-- TODO: Misunderstood the documentation, search is not solid but works -->
 - The search functionality is not working at all:
   - input:
     ```shell
@@ -133,6 +134,10 @@ The pagination can be accessed done via `next` and `previous` fields. There are 
     > I could only implement the search UI in the page header by requesting all resources and search for results on my own. Nothing I would want to do in the frontend, so I'll not implement it.
 - The JSON Schema version is very old (`draft-04`). Validation via [Ajv](https://ajv.js.org/guide/typescript.html) would not make sense cause Draft-04 is only supported in [very old non-TypeScript version](https://github.com/ajv-validator/ajv/releases/tag/v6.0.0) as of the [documentation](https://ajv.js.org/guide/schema-language.html#draft-04)
   > Won't make use of it. Might create unit-test instead. Mapping code will be custom and types will be derived from roughly improved schema via [quicktype](https://github.com/glideapps/quicktype) & manual work.
+- Images... TODO: Write about
+  ```zsh
+  curl 'https://starwars-visualguide.com/assets/img/characters/1.jpg' -IL
+  ```
 
 ### Payload
 
