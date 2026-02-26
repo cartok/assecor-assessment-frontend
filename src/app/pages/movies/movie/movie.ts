@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core'
+import { Component, computed, effect, inject, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, Router } from '@angular/router'
 import { map } from 'rxjs'
@@ -14,6 +14,7 @@ import { LinkListItem } from '@/components/link-list/link-list-item/link-list-it
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ResourceDetailLayout } from '@/components/resource-detail-layout/resource-detail-layout'
 import { RowDescriptionList } from '@/components/row-description-list/row-description-list'
+import { VisibleTriggerDirective } from '@/shared/directives/visible-trigger/visible-trigger'
 import type { InputValue } from '@/shared/types/component.types'
 
 @Component({
@@ -27,6 +28,7 @@ import type { InputValue } from '@/shared/types/component.types'
     LabeledBox,
     LinkListItem,
     ResourceDetailLayout,
+    VisibleTriggerDirective,
   ],
   templateUrl: './movie.html',
   styleUrl: './movie.css',
@@ -44,9 +46,23 @@ export class Movie {
   readonly item = this.filmsService.getItem(this.id, {
     retryPolicy: CRITICAL_HTTP_RETRY_POLICY,
   })
-  readonly characterIds = computed<string[]>(() => this.item.data()?.characterIds ?? [])
+  readonly showCharacterLinks = signal(false)
+  readonly characterIds = computed<string[]>(() => {
+    if (!this.showCharacterLinks()) {
+      return []
+    }
+
+    return this.item.data()?.characterIds ?? []
+  })
   readonly characters = this.peopleService.getItems(this.characterIds)
-  readonly planetIds = computed<string[]>(() => this.item.data()?.planetIds ?? [])
+  readonly showPlanetLinks = signal(false)
+  readonly planetIds = computed<string[]>(() => {
+    if (!this.showPlanetLinks()) {
+      return []
+    }
+
+    return this.item.data()?.planetIds ?? []
+  })
   readonly planets = this.planetsService.getItems(this.planetIds)
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
@@ -75,5 +91,13 @@ export class Movie {
         void this.router.navigate(['/error'])
       }
     })
+  }
+
+  onCharacterLinksVisible(): void {
+    this.showCharacterLinks.set(true)
+  }
+
+  onPlanetLinksVisible(): void {
+    this.showPlanetLinks.set(true)
   }
 }
