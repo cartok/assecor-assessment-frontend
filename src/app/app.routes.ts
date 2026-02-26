@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'movie/:id',
-    loadComponent: () => import('@/pages/movies/movie/movie').then(({ Movie }) => Movie),
+    loadComponent: () => import('@/pages/movie/movie').then(({ Movie }) => Movie),
   },
   {
     path: 'characters',
@@ -25,9 +25,7 @@ export const routes: Routes = [
   {
     path: 'character/:id',
     loadComponent: () =>
-      import('@/pages/characters/character/character').then(
-        (component) => component.Character,
-      ),
+      import('@/pages/character/character').then((component) => component.Character),
   },
   {
     path: 'planets',
@@ -35,8 +33,7 @@ export const routes: Routes = [
   },
   {
     path: 'planet/:id',
-    loadComponent: () =>
-      import('@/pages/planets/planet/planet').then(({ Planet }) => Planet),
+    loadComponent: () => import('@/pages/planet/planet').then(({ Planet }) => Planet),
   },
   {
     path: '**',
