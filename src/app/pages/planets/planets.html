@@ -1,3 +1,26 @@
-<div class="g-layout-container">
-  <h1 class="g-title-1">Planeten</h1>
-</div>
+<app-resource-grid-layout>
+  <app-page-heading title="Planets" />
+  @let data = collection.data();
+  @if (data.items.length > 0) {
+    <app-image-grid>
+      @for (item of data.items; track $index) {
+        <app-image-grid-item
+          [imageUrl]="item.images[0].url"
+          [imageAlt]="imageTitle(item)"
+          [label]="item.name"
+          [linkUri]="linkUri(item)"
+        >
+          @if (item.climate) {
+            <div class="g-truncate-1">Climate: {{ item.climate }}</div>
+          }
+          @if (item.terrain) {
+            <div class="g-truncate-1">Terrain: {{ item.terrain }}</div>
+          }
+          @if (item.population) {
+            <div class="g-truncate-1">Population: {{ item.population }}</div>
+          }
+        </app-image-grid-item>
+      }
+    </app-image-grid>
+  }
+</app-resource-grid-layout>
