@@ -1,4 +1,11 @@
-import { DestroyRef, Directive, ElementRef, inject, type OnInit, output } from '@angular/core'
+import {
+  DestroyRef,
+  Directive,
+  ElementRef,
+  inject,
+  type OnInit,
+  output,
+} from '@angular/core'
 
 @Directive({
   selector: '[appVisibleTrigger]',

@@ -1,24 +1,23 @@
-import type { ComponentFixture} from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
-import { ImageSlider } from './image-slider';
+import { ImageSlider } from './image-slider'
 
 describe('ImageSlider', () => {
-  let component: ImageSlider;
-  let fixture: ComponentFixture<ImageSlider>;
+  let component: ImageSlider
+  let fixture: ComponentFixture<ImageSlider>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ImageSlider]
-    })
-    .compileComponents();
+      imports: [ImageSlider],
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(ImageSlider);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+    fixture = TestBed.createComponent(ImageSlider)
+    component = fixture.componentInstance
+    await fixture.whenStable()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

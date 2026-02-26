@@ -23,8 +23,7 @@ describe('Movie', () => {
           },
         },
       ],
-    })
-      .compileComponents()
+    }).compileComponents()
 
     fixture = TestBed.createComponent(Movie)
     component = fixture.componentInstance

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-labeled-box',
@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './labeled-box.html',
   styleUrl: './labeled-box.css',
 })
-export class LabeledBox {
-
-}
+export class LabeledBox {}

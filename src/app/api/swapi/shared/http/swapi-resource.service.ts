@@ -11,7 +11,10 @@ import {
   MINIMAL_HTTP_RETRY_POLICY,
   retryableHttpResourceRequest,
 } from '@/api/swapi/shared/http/http-retry.interceptor'
-import type { SwapiResourceCollectionDto, SwapiResourceDto } from '@/api/swapi/shared/types/dto'
+import type {
+  SwapiResourceCollectionDto,
+  SwapiResourceDto,
+} from '@/api/swapi/shared/types/dto'
 import type {
   SwapiResource,
   SwapiResourceCollection,
@@ -23,7 +26,10 @@ import {
 } from '@/api/swapi/shared/types/service'
 import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
 
-export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends SwapiResource> {
+export class SwapiResourceService<
+  TDto extends SwapiResourceDto,
+  TModel extends SwapiResource,
+> {
   private static readonly swapiApiBaseUrl = 'https://swapi.dev/api'
 
   private readonly defaultItemCacheTtlMs = 5 * 60 * 1000
@@ -35,15 +41,14 @@ export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends 
     page: Signal<string>,
     options?: SwapiResourceServiceMethodOptions,
   ): SwapiServiceResult<SwapiResourceCollection<TModel>> {
-    const resource = runInInjectionContext(
-      this.config.injector,
-      () =>
-        httpResource<SwapiResourceCollectionDto<TDto>>(
-          retryableHttpResourceRequest(
-            () => SwapiResourceService.swapiUrl([this.config.resourcePath], { page: page() }),
-            options?.retryPolicy,
-          ),
+    const resource = runInInjectionContext(this.config.injector, () =>
+      httpResource<SwapiResourceCollectionDto<TDto>>(
+        retryableHttpResourceRequest(
+          () =>
+            SwapiResourceService.swapiUrl([this.config.resourcePath], { page: page() }),
+          options?.retryPolicy,
         ),
+      ),
     )
 
     const data = computed<SwapiResourceCollection<TModel>>(() => {
@@ -91,18 +96,16 @@ export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends 
     id: Signal<string>,
     options?: SwapiResourceServiceMethodOptions,
   ): SwapiServiceResult<TModel | undefined> {
-    const resource = runInInjectionContext(
-      this.config.injector,
-      () =>
-        httpResource<TModel>(
-          retryableHttpResourceRequest(
-            () => SwapiResourceService.swapiUrl([this.config.resourcePath, id()]),
-            options?.retryPolicy,
-          ),
-          {
-            parse: (value: unknown): TModel => this.config.mapDtoToModel(value as TDto),
-          },
+    const resource = runInInjectionContext(this.config.injector, () =>
+      httpResource<TModel>(
+        retryableHttpResourceRequest(
+          () => SwapiResourceService.swapiUrl([this.config.resourcePath, id()]),
+          options?.retryPolicy,
         ),
+        {
+          parse: (value: unknown): TModel => this.config.mapDtoToModel(value as TDto),
+        },
+      ),
     )
 
     const data = computed<TModel | undefined>(() => {
@@ -150,16 +153,19 @@ export class SwapiResourceService<TDto extends SwapiResourceDto, TModel extends 
       }
 
       const newResource = untracked(() =>
-        this.getItem(computed(() => id), {
-          ...options,
-          retryPolicy:
-            options?.includeMinimalRetryForItems === false
-              ? options.retryPolicy
-              : {
-                  ...MINIMAL_HTTP_RETRY_POLICY,
-                  ...options?.retryPolicy,
-                },
-        }),
+        this.getItem(
+          computed(() => id),
+          {
+            ...options,
+            retryPolicy:
+              options?.includeMinimalRetryForItems === false
+                ? options.retryPolicy
+                : {
+                    ...MINIMAL_HTTP_RETRY_POLICY,
+                    ...options?.retryPolicy,
+                  },
+          },
+        ),
       )
       this.setCacheEntry(id, { resource: newResource })
 
