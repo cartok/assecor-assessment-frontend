@@ -7,8 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "lint:fix": "ng lint --fix"
+    "lint": "bun run lint:tsc && bun run lint:ng && prettier --check . || true",
+    "lint:tsc": "tsc --noEmit -p tsconfig.app.json",
+    "lint:ng": "ng lint",
+    "fix": "bun run lint:tsc && bun run lint:ng --fix && bun run format",
+    "format": "prettier --write --list-different ."
   },
   "private": true,
   "packageManager": "bun@1.3.9",
