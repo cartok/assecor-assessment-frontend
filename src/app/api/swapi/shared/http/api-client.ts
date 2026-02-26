@@ -1,4 +1,4 @@
-export const SWAPI_API_BASE_URL = 'https://swapi.dev/api'
+const SWAPI_API_BASE_URL = 'https://swapi.dev/api'
 
 export function swapiUrl(
   pathSegments: string[],

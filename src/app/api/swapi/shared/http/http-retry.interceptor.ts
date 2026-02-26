@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http'
 import { retry, timer } from 'rxjs'
 
-export interface HttpRetryPolicy {
+interface HttpRetryPolicy {
   enabled: boolean
   retryCount: number
   baseDelayMs: number
@@ -20,13 +20,9 @@ export interface RetryableHttpResourceMethodOptions {
   retryPolicy?: Partial<HttpRetryPolicy>
 }
 
-export type RetryableHttpResourceMethodRequestBuilder = (
+type RetryableHttpResourceMethodRequestBuilder = (
   urlFactory: () => string | undefined,
 ) => () => HttpResourceRequest | undefined
-
-export interface RetryableHttpResourceMethodContext {
-  request: RetryableHttpResourceMethodRequestBuilder
-}
 
 const RETRYABLE_HTTP_METHODS = new Set<string>(['GET', 'HEAD'])
 

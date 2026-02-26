@@ -14,7 +14,7 @@ import type { SwapiResourceCollectionDto } from '@/api/swapi/shared/types/dto'
 import type { SwapiResourceCollection } from '@/api/swapi/shared/types/model'
 import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
 
-export interface SwapiServiceResult<T> {
+interface SwapiServiceResult<T> {
   status: Signal<ResourceStatus>
   data: Signal<T>
   errors: Signal<Error[] | undefined>
