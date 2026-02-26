@@ -13,6 +13,9 @@ describe('ImageSlider', () => {
     }).compileComponents()
 
     fixture = TestBed.createComponent(ImageSlider)
+    fixture.componentRef.setInput('images', [])
+    fixture.componentRef.setInput('viewportHeight', 374)
+    fixture.detectChanges()
     component = fixture.componentInstance
     await fixture.whenStable()
   })

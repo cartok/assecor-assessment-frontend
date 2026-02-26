@@ -64,6 +64,11 @@ export class ImageSlider {
       this.viewportWidth.set(viewportElement.getBoundingClientRect().width)
       lastWidth = this.viewportWidth()
 
+      // quickfix for unit-tests
+      if (typeof ResizeObserver === 'undefined') {
+        return
+      }
+
       const observer = new ResizeObserver(([entry]) => {
         const nextWidth = entry.contentRect.width
         if (nextWidth === lastWidth) {
