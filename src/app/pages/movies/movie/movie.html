@@ -23,14 +23,14 @@
       />
     }
 
-    @if (data.characterIds.length) {
+    @let characterItems = characters.data();
+    @if (characterItems.length) {
       <app-labeled-box resourceDetailLinks>
         <h2 class="g-title-3" id="details-heading" #label>Characters:</h2>
         <app-link-list>
-          @for (id of data.characterIds; track $index) {
-            @let mock = `Character no. ${id}`;
-            <app-link-list-item [linkUri]="['/character', id]">
-              {{ mock }}
+          @for (character of characterItems; track $index) {
+            <app-link-list-item [linkUri]="['/character', character.id]">
+              {{ character.name }}
             </app-link-list-item>
           }
         </app-link-list>

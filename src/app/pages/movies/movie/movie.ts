@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { map } from 'rxjs'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
+import { PeopleService } from '@/api/swapi/resources/people/people.service'
 import { CRITICAL_HTTP_RETRY_POLICY } from '@/api/swapi/shared/http/http-retry.interceptor'
 import { ImageSlider } from '@/components/image-slider/image-slider'
 import { LabeledBox } from '@/components/labeled-box/labeled-box'
@@ -33,6 +34,7 @@ export class Movie {
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
   private readonly filmsService = inject(FilmsService)
+  private readonly peopleService = inject(PeopleService)
 
   readonly id = toSignal(this.route.paramMap.pipe(map((pm) => pm.get('id')!)), {
     initialValue: this.route.snapshot.paramMap.get('id')!,
@@ -40,6 +42,8 @@ export class Movie {
   readonly item = this.filmsService.getItem(this.id, {
     retryPolicy: CRITICAL_HTTP_RETRY_POLICY,
   })
+  readonly characterIds = computed<string[]>(() => this.item.data()?.characterIds ?? [])
+  readonly characters = this.peopleService.getItems(this.characterIds)
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
     () => {

@@ -1,4 +1,4 @@
-import { Injectable, type Signal } from '@angular/core'
+import { inject, Injectable, Injector, type Signal } from '@angular/core'
 
 import type { PlanetDto } from '@/api/swapi/resources/planets/planets.dto'
 import { mapPlanetDtoToModel } from '@/api/swapi/resources/planets/planets.mapper'
@@ -14,7 +14,9 @@ import type { SwapiServiceResult } from '@/api/swapi/shared/types/service'
   providedIn: 'root',
 })
 export class PlanetsService {
+  private readonly injector = inject(Injector)
   private readonly service = new SwapiResourceService<PlanetDto, Planet>({
+    injector: this.injector,
     resourcePath: 'planets',
     mapDtoToModel: mapPlanetDtoToModel,
   })
