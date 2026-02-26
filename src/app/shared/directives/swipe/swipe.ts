@@ -132,7 +132,6 @@ export class SwipeDirective {
     this.resetTracking()
     this.swipeEnd.emit(endEvent)
 
-    console.log(`delta: ${Math.abs(deltaX)}, min: ${this.minDistance()}`)
     if (Math.abs(deltaX) < this.minDistance()) {
       this.swipeCancel.emit('distance-too-short')
       return

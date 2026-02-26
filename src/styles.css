@@ -6,7 +6,7 @@
 @import './css/variables/colors.css' layer(base);
 @import './css/variables/typography.css' layer(base);
 
-/* Global classes are only a temporary exception here. Don't create any new. */
+/* Global classes are only a temporary exception here. */
 @import './css/classes/layout.css' layer(global);
 @import './css/classes/typography.css' layer(global);
 @import './css/classes/truncation.css' layer(global);
