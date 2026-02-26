@@ -1,5 +1,5 @@
 <div class="image-grid-item">
-  <img class="image" [src]="imageUrl()" [alt]="imageTitle()" [title]="imageTitle()" />
+  <img class="image" [src]="imageUrl()" [alt]="imageAlt()" />
   <div class="description-container">
     <div class="g-title-3">
       <span class="g-truncate-1">
@@ -9,7 +9,12 @@
     <div class="g-text-2 description">
       <ng-content />
     </div>
-    <a class="g-label-3 link" [routerLink]="linkUri()" [attr.aria-label]="linkTitle()">
+    <a
+      class="g-label-3 link"
+      [routerLink]="linkUri()"
+      [attr.aria-label]="link.textContent.trim()"
+      #link
+    >
       More information...
     </a>
   </div>

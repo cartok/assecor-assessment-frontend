@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
-import { ActivatedRoute, Router, RouterLink } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { map } from 'rxjs'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
@@ -18,7 +18,6 @@ import type { InputValue } from '@/shared/types/component.types'
   imports: [
     PageHeading,
     RowDescriptionList,
-    RouterLink,
     ImageSlider,
     LinkList,
     LabeledBox,
