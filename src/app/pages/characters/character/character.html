@@ -1,3 +1,52 @@
 <div class="g-layout-container">
-  <h1 class="g-title-1">Charakter</h1>
+  @if (item.data(); as data) {
+    <app-page-heading
+      location="Character Details"
+      [title]="data.name"
+      [subtitle]="data.birthYear ?? ''"
+    />
+    <div class="layout">
+      <section class="details" aria-labelledby="details-heading">
+        <app-labeled-box>
+          <h2 class="g-title-3" id="details-heading" #label>Details:</h2>
+          <app-row-description-list [items]="descriptionRows()" />
+        </app-labeled-box>
+        <p class="g-text-1 description">
+          @if (data.eyeColor || data.hairColor || data.skinColor) {
+            Augen: {{ data.eyeColor ?? '-' }} · Haare: {{ data.hairColor ?? '-' }} · Haut:
+            {{ data.skinColor ?? '-' }}
+          }
+        </p>
+      </section>
+
+      @if (data.images.length) {
+        <app-image-slider class="slider" [images]="data.images" [viewportHeight]="374" />
+      }
+
+      <div class="links">
+        <app-labeled-box>
+          <h2 class="g-title-3" id="details-heading" #label>Films:</h2>
+          <app-link-list>
+            @for (id of data.filmIds; track $index) {
+              @let mock = `Film no. ${id}`;
+              <app-link-list-item [linkUri]="['/movie', id]">
+                {{ mock }}
+              </app-link-list-item>
+            }
+          </app-link-list>
+        </app-labeled-box>
+        <app-labeled-box>
+          <h2 class="g-title-3" id="details-heading" #label>Vehicles:</h2>
+          <app-link-list>
+            @for (id of data.vehicleIds; track $index) {
+              @let mock = `Vehicle no. ${id}`;
+              <app-link-list-item [linkUri]="['/error']">
+                {{ mock }}
+              </app-link-list-item>
+            }
+          </app-link-list>
+        </app-labeled-box>
+      </div>
+    </div>
+  }
 </div>
