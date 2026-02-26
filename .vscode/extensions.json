@@ -1,4 +1,19 @@
 {
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
-  "recommendations": ["angular.ng-template"]
+  "recommendations": [
+    "Angular.ng-template",
+    "segerdekort.angular-cli",
+    "infinity1207.angular2-switcher",
+    "pucelle.vscode-css-navigation",
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "YoavBls.pretty-ts-errors",
+    "redhat.vscode-yaml"
+  ],
+  "unwantedRecommendations": [
+    "firsttris.vscode-jest-runner",
+    "Orta.vscode-jest",
+    "vitest.explorer"
+  ]
 }

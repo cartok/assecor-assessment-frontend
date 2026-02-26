@@ -1,31 +1,7 @@
 {
-  // Basics
-  // -----------------------------------------------------------------------------------------------
   "search.exclude": {},
   "files.associations": {},
   "editor.wordBasedSuggestions": "matchingDocuments",
-
-  // Allow @scope
-  "css.lint.unknownAtRules": "ignore",
-
-  // Extensions
-  // -----------------------------------------------------------------------------------------------
-
-  // EXTENSION: EditorConfig.EditorConfig
-  "files.trimTrailingWhitespace": false,
-
-  // EXTENSION: Sort Lines
-  "sortLines.filterBlankLines": true,
-
-  // EXTENSION: ionutvmi.path-autocomplete
-  "path-autocomplete.enableFolderTrailingSlash": true,
-  "path-autocomplete.pathMappings": {
-    "/fonts": "${folder}/public/fonts"
-  },
-  "path-autocomplete.ignoredPrefixes": ["\"/", "'/", "`/"],
-
-  // Formatting & Language specific
-  // -----------------------------------------------------------------------------------------------
   "eslint.useFlatConfig": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.suggest.autoImports": true,
@@ -77,5 +53,19 @@
   "[json]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // EditorConfig.EditorConfig
+  "files.trimTrailingWhitespace": false,
+  // Tyriar.sort-lines
+  "sortLines.filterBlankLines": true,
+  // ionutvmi.path-autocomplete
+  "path-autocomplete.enableFolderTrailingSlash": true,
+  "path-autocomplete.pathMappings": {
+    "/fonts": "${folder}/public/fonts"
+  },
+  "path-autocomplete.ignoredPrefixes": ["=\"/", "=\"'/", "=\"`/"]
 }
