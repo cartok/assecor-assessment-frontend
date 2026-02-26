@@ -4,6 +4,7 @@ const { defineConfig } = require('eslint/config')
 const tseslint = require('typescript-eslint')
 const angular = require('angular-eslint')
 const eslintConfigPrettier = require('eslint-config-prettier')
+const importPlugin = require('eslint-plugin-import')
 const simpleImportSort = require('eslint-plugin-simple-import-sort')
 
 module.exports = defineConfig([
@@ -17,7 +18,20 @@ module.exports = defineConfig([
       eslintConfigPrettier,
     ],
     processor: angular.processInlineTemplates,
+    settings: {
+      'import/extensions': ['.js', '.mjs', '.cjs', '.ts'],
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts'],
+      },
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+          alwaysTryTypes: true,
+        },
+      },
+    },
     plugins: {
+      import: importPlugin,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
@@ -47,6 +61,13 @@ module.exports = defineConfig([
         },
       ],
       '@typescript-eslint/no-unused-vars': 'off',
+      'import/no-unused-modules': [
+        'error',
+        {
+          unusedExports: true,
+          ignoreUnusedTypeExports: false,
+        },
+      ],
     },
   },
   {
