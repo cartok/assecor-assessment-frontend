@@ -1,7 +1,6 @@
 /**
  * Base interface for all SWAPI resource model collections.
  */
-// TODO: Not yet sure what (and how) to expose to implement pagination in the application just basically copy-pasted the values from `ResourceCollectionResponse` for now.
 export interface SwapiResourceCollection<T extends SwapiResource> {
   /**
    * Total entries (page size = 10).

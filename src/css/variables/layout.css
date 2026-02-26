@@ -6,8 +6,8 @@
   --page-content-end-padding-big: 200px;
   --page-content-end-padding-medium: 150px;
   --page-content-end-padding-small: 100px;
-  /* TODO: Um die breakpoint variablen in media queries verwenden zu können müsste man SCSS oder PostCSS verwenden, weil die mediaqueries vor dem variablen ausgewertet werden */
-  --media-foo: 1100px;
+
+  /* Um diese breakpoint variablen in media queries verwenden zu können müsste man SCSS oder PostCSS verwenden, weil die mediaqueries vor dem variablen ausgewertet werden */
   --media-tablet-main: 768px;
   --media-tablet-min: 601px;
   --media-tablet-max: 1280px;

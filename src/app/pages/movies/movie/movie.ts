@@ -6,14 +6,25 @@ import { map } from 'rxjs'
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
 import { CRITICAL_HTTP_RETRY_POLICY } from '@/api/swapi/shared/http/http-retry.interceptor'
 import { ImageSlider } from '@/components/image-slider/image-slider'
+import { LabeledBox } from '@/components/labeled-box/labeled-box'
 import { LinkList } from '@/components/link-list/link-list'
+import { LinkListItem } from '@/components/link-list/link-list-item/link-list-item'
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { RowDescriptionList } from '@/components/row-description-list/row-description-list'
 import type { InputValue } from '@/shared/types/component.types'
 
 @Component({
   selector: 'app-movie',
-  imports: [PageHeading, RowDescriptionList, RouterLink, ImageSlider, LinkList],
+  imports: [
+    PageHeading,
+    RowDescriptionList,
+    RouterLink,
+    ImageSlider,
+    LinkList,
+    LabeledBox,
+    LabeledBox,
+    LinkListItem,
+  ],
   templateUrl: './movie.html',
   styleUrl: './movie.css',
 })

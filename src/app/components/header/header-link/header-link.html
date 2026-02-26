@@ -1,9 +1,11 @@
 <a
-  class="g-truncate-1 link"
+  class="link"
   [routerLink]="routerLink()"
   routerLinkActive="is-active"
   ariaCurrentWhenActive="page"
   [routerLinkActiveOptions]="{ exact: true }"
 >
-  {{ label() }}
+  <span class="g-truncate-1">
+    {{ label() }}
+  </span>
 </a>

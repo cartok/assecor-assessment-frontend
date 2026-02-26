@@ -1,9 +1,11 @@
-/* TODO: Consider SCSS for truncation again: https://github.com/cartok/cine-scope/blob/main/assets/css/mixins/_truncate.scss */
+/* Always use these classes on standalone elements that have no `display` CSS property set. */
 
 .g-truncate-1 {
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .g-truncate-2 {

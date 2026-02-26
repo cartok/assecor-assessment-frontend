@@ -1,11 +1,12 @@
 import { Component, input } from '@angular/core'
+import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'app-link-list-item',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './link-list-item.html',
   styleUrl: './link-list-item.css',
 })
 export class LinkListItem {
-  readonly text = input.required<string>()
+  readonly linkUri = input.required<RouterLink['routerLink']>()
 }

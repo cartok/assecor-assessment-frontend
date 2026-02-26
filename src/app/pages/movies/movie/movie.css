@@ -18,6 +18,11 @@
   grid-area: details;
 }
 
+.labeled-box {
+  display: grid;
+  row-gap: 10px;
+}
+
 .description {
   margin-top: 34px;
 }
@@ -28,11 +33,16 @@
 
 .links {
   grid-area: links;
+  display: grid;
+  row-gap: 47px;
 }
 
 @media (max-width: 1200px) {
   .movie {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-areas:
+      'details slider'
+      'links links';
   }
 }
 

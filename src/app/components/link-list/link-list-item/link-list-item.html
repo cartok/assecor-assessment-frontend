@@ -1,4 +1,9 @@
-<li>
-  {{ text() }}
-  <!-- <a [routerLink]="['/<resource>', <id>]">{{ text() }}</a> -->
-</li>
+<a
+  class="g-label-2 link-list-item"
+  [routerLink]="linkUri()"
+  [title]="content.textContent.trim()"
+>
+  <span class="g-truncate-1" #content>
+    <ng-content />
+  </span>
+</a>

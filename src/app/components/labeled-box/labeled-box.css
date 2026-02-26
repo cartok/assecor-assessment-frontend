@@ -1,0 +1,4 @@
+.labeled-box {
+  display: grid;
+  row-gap: 10px;
+}

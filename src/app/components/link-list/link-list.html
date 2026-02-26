@@ -1,12 +1,5 @@
 <div class="link-list">
-  <h2 class="g-title-3">{{ heading() }}</h2>
-  <nav>
-    <ul>
-      @for (link of links(); track $index) {
-        <app-link-list-item text="$index" />
-      }
-    </ul>
-    <!-- Wie hier die styles reusen? -->
-    <!-- <app-link-list-item>...</app-link-list-item> -->
-  </nav>
+  <div class="links">
+    <ng-content />
+  </div>
 </div>

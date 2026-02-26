@@ -1,10 +1,24 @@
 <header class="header">
   @if (location()) {
-    <p class="g-title-2 g-truncate-1">{{ location() }}</p>
+    <p class="g-title-2">
+      <span class="g-truncate-1">
+        {{ location() }}
+      </span>
+    </p>
     <div class="separator" aria-hidden="true"></div>
   }
-  <h1 class="g-title-1 g-truncate-1 title" [attr.id]="titleId()">{{ title() }}</h1>
+
+  <h1 class="g-title-1 title" [attr.id]="titleId()">
+    <span class="g-truncate-1">
+      {{ title() }}
+    </span>
+  </h1>
+
   @if (subtitle()) {
-    <p class="g-title-2 g-truncate-1 subtitle">{{ subtitle() }}</p>
+    <p class="g-title-2 subtitle">
+      <span class="g-truncate-1">
+        {{ subtitle() }}
+      </span>
+    </p>
   }
 </header>

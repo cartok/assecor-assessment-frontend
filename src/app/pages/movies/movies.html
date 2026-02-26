@@ -13,13 +13,15 @@
             [linkTitle]="linkTitle(item)"
           >
             @if (item.director) {
-              <div>Director: {{ item.director }}</div>
+              <div class="g-truncate-1">Director: {{ item.director }}</div>
             }
             @if (item.producer) {
-              <div>Producers: {{ item.producer }}</div>
+              <div class="g-truncate-1">Producers: {{ item.producer }}</div>
             }
             @if (item.releaseDate) {
-              <div>Publication Date: {{ item.releaseDate | date: 'shortDate' }}</div>
+              <div class="g-truncate-1">
+                Publication Date: {{ item.releaseDate | date: 'shortDate' }}
+              </div>
             }
           </app-image-grid-item>
         }

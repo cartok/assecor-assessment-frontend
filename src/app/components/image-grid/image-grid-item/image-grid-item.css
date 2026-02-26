@@ -1,7 +1,7 @@
 .image-grid-item {
   aspect-ratio: calc(423 / 527);
   display: grid;
-  grid-template-rows: 6fr 4fr;
+  grid-template-rows: 1fr 200px;
 }
 
 .image {
@@ -23,5 +23,12 @@
 }
 
 .link {
-  margin-top: 20px;
+  --marign-top: 20px;
+  --padding-for-click-area: 12px;
+  align-self: end;
+  justify-self: start;
+  margin-top: calc(var(--marign-top) - var(--padding-for-click-area));
+  padding: var(--padding-for-click-area);
+  margin-left: calc(var(--padding-for-click-area) * -1);
+  margin-bottom: calc(var(--padding-for-click-area) * -1);
 }

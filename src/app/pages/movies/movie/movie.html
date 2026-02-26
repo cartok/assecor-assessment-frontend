@@ -5,19 +5,13 @@
       [title]="data.title"
       [subtitle]="`Episode ${data.episodeId}`"
     />
-
     <div class="movie">
       <section class="details" aria-labelledby="details-heading">
-        <h2 class="g-title-3" id="details-heading">Details:</h2>
-        <app-row-description-list [items]="descriptionRows()" />
-        <p class="g-text-1 description">
-          Aenean fermentum volutpat tellus, non dictum tortor facilisis eget. Phasellus
-          hendrerit eros sit amet tortor hendrerit, quis aliquet arcu tristique. Aliquam
-          id ex ligula. Nam tempus mi id magna finibus, non rutrum dui iaculis. Maecenas
-          bibendum id augue eget vehicula.
-        </p>
-        <!-- <p class="g-text-1 description">{{ data.openingCrawl }}</p>
-        <p class="g-text-1 description">{{ data.openingCrawl }}</p> -->
+        <app-labeled-box>
+          <h2 class="g-title-3" id="details-heading" #label>Details:</h2>
+          <app-row-description-list [items]="descriptionRows()" />
+        </app-labeled-box>
+        <p class="g-text-1 description">{{ data.openingCrawl }}</p>
       </section>
 
       @if (data.images.length) {
@@ -25,7 +19,28 @@
       }
 
       <div class="links">
-        <app-link-list heading="Characters:" [links]="['foo', 'bar', 'baz']" />
+        <app-labeled-box>
+          <h2 class="g-title-3" id="details-heading" #label>Characters:</h2>
+          <app-link-list>
+            @for (id of data.characterIds; track $index) {
+              @let mock = `Character no. ${id}`;
+              <app-link-list-item [linkUri]="['/person', id]">
+                {{ mock }}
+              </app-link-list-item>
+            }
+          </app-link-list>
+        </app-labeled-box>
+        <app-labeled-box>
+          <h2 class="g-title-3" id="details-heading" #label>Planets:</h2>
+          <app-link-list>
+            @for (id of data.planetIds; track $index) {
+              @let mock = `Planet no. ${id}`;
+              <app-link-list-item [linkUri]="['/planet', id]">
+                {{ mock }}
+              </app-link-list-item>
+            }
+          </app-link-list>
+        </app-labeled-box>
       </div>
     </div>
   }

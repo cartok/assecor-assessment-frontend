@@ -4,3 +4,7 @@
   padding-top: 28px;
   background-color: var(--color-white);
 }
+
+.copyright {
+  color: var(--color-grey-60);
+}
