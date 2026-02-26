@@ -4,28 +4,31 @@
   display: grid;
   justify-items: center;
   row-gap: 16px;
-  background-color: blueviolet;
 }
 
 .viewport {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-color: red;
 }
 
 .slides {
   position: absolute;
-  left: -250px; /* TODO: update via index but first calculate width properly */
   height: 100%;
   display: flex;
   grid-auto-flow: column;
-  background-color: yellow;
-  border: 10px solid salmon;
+  transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
 }
 
 .slide {
   height: 100%;
+  box-sizing: content-box;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .indicators {
@@ -40,7 +43,4 @@
 
 .indicator-active {
   color: var(--color-tertriary);
-}
-
-.indicator svg {
 }

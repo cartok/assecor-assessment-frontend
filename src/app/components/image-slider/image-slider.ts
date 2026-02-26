@@ -2,6 +2,7 @@ import type { ElementRef } from '@angular/core'
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   input,
   signal,
@@ -21,14 +22,35 @@ export class ImageSlider {
   readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport')
   readonly viewportWidth = signal(0)
   readonly viewportHeight = input.required<number>()
-  readonly activeIndex = signal(0)
+  private readonly _activeIndex = signal(0)
+  readonly activeIndex = this._activeIndex.asReadonly()
+  readonly slidesX = computed<number>(() => this.activeIndex() * this.viewportWidth())
+
+  setActiveIndex(index: number): void {
+    const imageCount = this.images().length
+    if (imageCount === 0) {
+      this._activeIndex.set(0)
+      return
+    }
+
+    const wrappedIndex = ((index % imageCount) + imageCount) % imageCount
+    this._activeIndex.set(wrappedIndex)
+  }
+
+  decrementActiveIndex() {
+    this.setActiveIndex(this._activeIndex() - 1)
+  }
+
+  icrementActiveIndex() {
+    this.setActiveIndex(this._activeIndex() + 1)
+  }
 
   constructor() {
     effect((onCleanup) => {
-      const el = this.viewport().nativeElement
+      const viewportElement = this.viewport().nativeElement
       let lastWidth = 0
 
-      this.viewportWidth.set(el.getBoundingClientRect().width)
+      this.viewportWidth.set(viewportElement.getBoundingClientRect().width)
       lastWidth = this.viewportWidth()
 
       const observer = new ResizeObserver(([entry]) => {
@@ -40,7 +62,7 @@ export class ImageSlider {
         this.viewportWidth.set(lastWidth)
       })
 
-      observer.observe(el, { box: 'content-box' })
+      observer.observe(viewportElement)
       onCleanup(() => observer.disconnect())
     })
   }
