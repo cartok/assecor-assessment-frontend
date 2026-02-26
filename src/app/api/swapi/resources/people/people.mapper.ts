@@ -11,9 +11,11 @@ import {
 
 export function mapPersonDtoToModel(dto: PersonDto): Person {
   const id = extractSwapiId(dto.url)
+  const birthYear = toOptionalString(dto.birth_year)
+
   return {
     id,
-    birthYear: toOptionalString(dto.birth_year),
+    birthYear: mapBirthYear(birthYear),
     eyeColor: toOptionalString(dto.eye_color),
     filmIds: extractSwapiIds(dto.films),
     gender: toOptionalString(dto.gender),
@@ -28,4 +30,12 @@ export function mapPersonDtoToModel(dto: PersonDto): Person {
     vehicleIds: extractSwapiIds(dto.vehicles),
     images: createMockFilmImages('person', id, 3),
   }
+}
+
+function mapBirthYear(value?: string): string | undefined {
+  if (value === undefined) {
+    return undefined
+  }
+
+  return value.replace(/(\d+)(.*)/, '$1 $2').trim()
 }

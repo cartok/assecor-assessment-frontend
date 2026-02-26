@@ -60,6 +60,15 @@ export class Character {
       if (data.mass) {
         rows.push({ term: 'Mass:', detail: data.mass })
       }
+      if (data.eyeColor) {
+        rows.push({ term: 'Eye Color:', detail: data.eyeColor })
+      }
+      if (data.hairColor) {
+        rows.push({ term: 'Hair Color:', detail: data.hairColor })
+      }
+      if (data.skinColor) {
+        rows.push({ term: 'Skin Color:', detail: data.skinColor })
+      }
       return rows
     },
   )

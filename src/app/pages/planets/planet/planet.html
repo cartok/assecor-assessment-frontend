@@ -4,7 +4,6 @@
       resourceDetailHeading
       location="Planet Details"
       [title]="data.name"
-      [subtitle]="data.climate ?? ''"
     />
 
     <section resourceDetailDetails aria-labelledby="details-heading">
@@ -12,39 +11,42 @@
         <h2 class="g-title-3" id="details-heading" #label>Details:</h2>
         <app-row-description-list [items]="descriptionRows()" />
       </app-labeled-box>
-      <p class="g-text-1 description">
-        @if (data.terrain || data.orbitalPeriod || data.rotationPeriod) {
-          Terrain: {{ data.terrain ?? '-' }} · Orbital Period: {{ data.orbitalPeriod ?? '-' }} ·
-          Rotation: {{ data.rotationPeriod ?? '-' }}
-        }
-      </p>
     </section>
 
     @if (data.images.length) {
-      <app-image-slider resourceDetailSlider [images]="data.images" [viewportHeight]="374" />
+      <app-image-slider
+        resourceDetailSlider
+        [images]="data.images"
+        [viewportHeight]="374"
+      />
     }
 
-    <app-labeled-box resourceDetailLinks>
-      <h2 class="g-title-3" id="details-heading" #label>Residents:</h2>
-      <app-link-list>
-        @for (id of data.residentIds; track $index) {
-          @let mock = `Character no. ${id}`;
-          <app-link-list-item [linkUri]="['/character', id]">
-            {{ mock }}
-          </app-link-list-item>
-        }
-      </app-link-list>
-    </app-labeled-box>
-    <app-labeled-box resourceDetailLinks>
-      <h2 class="g-title-3" id="details-heading" #label>Films:</h2>
-      <app-link-list>
-        @for (id of data.filmIds; track $index) {
-          @let mock = `Film no. ${id}`;
-          <app-link-list-item [linkUri]="['/movie', id]">
-            {{ mock }}
-          </app-link-list-item>
-        }
-      </app-link-list>
-    </app-labeled-box>
+    @if (data.residentIds.length) {
+      <app-labeled-box resourceDetailLinks>
+        <h2 class="g-title-3" id="details-heading" #label>Residents:</h2>
+        <app-link-list>
+          @for (id of data.residentIds; track $index) {
+            @let mock = `Character no. ${id}`;
+            <app-link-list-item [linkUri]="['/character', id]">
+              {{ mock }}
+            </app-link-list-item>
+          }
+        </app-link-list>
+      </app-labeled-box>
+    }
+
+    @if (data.filmIds.length) {
+      <app-labeled-box resourceDetailLinks>
+        <h2 class="g-title-3" id="details-heading" #label>Films:</h2>
+        <app-link-list>
+          @for (id of data.filmIds; track $index) {
+            @let mock = `Film no. ${id}`;
+            <app-link-list-item [linkUri]="['/movie', id]">
+              {{ mock }}
+            </app-link-list-item>
+          }
+        </app-link-list>
+      </app-labeled-box>
+    }
   </app-resource-detail-layout>
 }

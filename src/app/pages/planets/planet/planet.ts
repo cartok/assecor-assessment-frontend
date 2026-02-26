@@ -48,17 +48,29 @@ export class Planet {
         return []
       }
       const rows = []
-      if (data.gravity) {
-        rows.push({ term: 'Gravity:', detail: data.gravity })
+      if (data.diameter) {
+        rows.push({ term: 'Diameter:', detail: data.diameter })
       }
       if (data.population) {
         rows.push({ term: 'Population:', detail: data.population })
       }
-      if (data.diameter) {
-        rows.push({ term: 'Diameter:', detail: data.diameter })
+      if (data.climate) {
+        rows.push({ term: 'Climate:', detail: data.climate })
+      }
+      if (data.terrain) {
+        rows.push({ term: 'Terrain:', detail: data.terrain })
       }
       if (data.surfaceWater) {
         rows.push({ term: 'Surface Water:', detail: data.surfaceWater })
+      }
+      if (data.gravity) {
+        rows.push({ term: 'Gravity:', detail: data.gravity })
+      }
+      if (data.orbitalPeriod) {
+        rows.push({ term: 'Orbital Period:', detail: data.orbitalPeriod })
+      }
+      if (data.rotationPeriod) {
+        rows.push({ term: 'Rotation Period:', detail: data.rotationPeriod })
       }
       return rows
     },
