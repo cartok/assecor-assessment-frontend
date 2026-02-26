@@ -11,3 +11,15 @@
 .link.is-active {
   border-bottom: 2px solid var(--color-primary);
 }
+
+@media (max-width: 768px) {
+  .link {
+    font-size: var(--fs-18);
+  }
+}
+
+@media (max-width: 430px) {
+  .link {
+    font-size: var(--fs-16);
+  }
+}

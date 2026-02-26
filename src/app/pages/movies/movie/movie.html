@@ -5,33 +5,43 @@
       [title]="data.title"
       [subtitle]="`Episode ${data.episodeId}`"
     />
+
     <div class="movie">
-      <div>
-        <section aria-labelledby="details-heading">
-          <h2 class="g-title-3" id="details-heading">Details:</h2>
-          <app-row-description-list [items]="descriptionRows()" />
-          <p class="g-text-1 description">{{ data.openingCrawl }}</p>
-        </section>
-      </div>
+      <section class="details" aria-labelledby="details-heading">
+        <h2 class="g-title-3" id="details-heading">Details:</h2>
+        <app-row-description-list [items]="descriptionRows()" />
+        <p class="g-text-1 description">
+          Aenean fermentum volutpat tellus, non dictum tortor facilisis eget. Phasellus
+          hendrerit eros sit amet tortor hendrerit, quis aliquet arcu tristique. Aliquam
+          id ex ligula. Nam tempus mi id magna finibus, non rutrum dui iaculis. Maecenas
+          bibendum id augue eget vehicula.
+        </p>
+        <!-- <p class="g-text-1 description">{{ data.openingCrawl }}</p>
+        <p class="g-text-1 description">{{ data.openingCrawl }}</p> -->
+      </section>
+
       @if (data.images.length) {
-        <app-image-slider [images]="data.images" [viewportHeight]="374" />
+        <app-image-slider class="slider" [images]="data.images" [viewportHeight]="374" />
       }
-      <aside aria-labelledby="characters-heading">
-        <h2 class="g-title-3" id="characters-heading">Charaktere:</h2>
-        <nav>
-          <ul>
-            @for (characterId of data.characterIds; track $index) {
-              <li>
-                <!-- TODO: Ich müsste hier nen sub request machen bzw. von vornherein alle Daten
-                  der id lists bulk fetchen. Die API ist echt kein kracher... So was würde kein Mensch machen. Man könnte schauen dass man alles in einen store lädt, zentralisiert cached. -->
-                <a [routerLink]="['/person', characterId]">Charakter Name</a>
-              </li>
-            }
-          </ul>
-          <!-- TODO: Den collapse button aria-technisch korrekt mit der liste zu verbinden ist nicht trivial. -->
-          <button>...</button>
-        </nav>
-      </aside>
+
+      <div class="links">
+        <aside aria-labelledby="characters-heading">
+          <h2 class="g-title-3" id="characters-heading">Charaktere:</h2>
+          <nav>
+            <ul>
+              @for (characterId of data.characterIds; track $index) {
+                <li>
+                  <!-- TODO: Ich müsste hier nen sub request machen bzw. von vornherein alle Daten
+                    der id lists bulk fetchen. Die API ist echt kein kracher... So was würde kein Mensch machen. Man könnte schauen dass man alles in einen store lädt, zentralisiert cached. -->
+                  <a [routerLink]="['/person', characterId]">Charakter Name</a>
+                </li>
+              }
+            </ul>
+            <!-- TODO: Den collapse button aria-technisch korrekt mit der liste zu verbinden ist nicht trivial. -->
+            <button>...</button>
+          </nav>
+        </aside>
+      </div>
     </div>
   }
 </div>
