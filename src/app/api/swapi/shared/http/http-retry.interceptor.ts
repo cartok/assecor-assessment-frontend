@@ -26,7 +26,7 @@ type RetryableHttpResourceMethodRequestBuilder = (
 
 const RETRYABLE_HTTP_METHODS = new Set<string>(['GET', 'HEAD'])
 
-export const DEFAULT_HTTP_RETRY_POLICY: HttpRetryPolicy = {
+const DEFAULT_HTTP_RETRY_POLICY: HttpRetryPolicy = {
   enabled: true,
   retryCount: 2,
   baseDelayMs: 150,
