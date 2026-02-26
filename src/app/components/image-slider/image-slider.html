@@ -24,6 +24,9 @@
               [alt]="image.alt"
               [width]="image.width"
               [height]="image.height"
+              [attr.loading]="$index === activeIndex() ? 'eager' : 'lazy'"
+              [attr.fetchpriority]="$index === activeIndex() ? 'high' : 'low'"
+              decoding="async"
             />
           </div>
         }
