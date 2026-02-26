@@ -1,4 +1,4 @@
-import type { SwapiResource } from '@/api/swapi/shared/types/model'
+import type { SwapiImageDataMock, SwapiResource } from '@/api/swapi/shared/types/model'
 
 /**
  * A planet.
@@ -50,4 +50,8 @@ export interface Planet extends SwapiResource {
    * the terrain of this planet. Comma-seperated if diverse.
    */
   readonly terrain?: string
+  /**
+   * Mock image URLs for this film.
+   */
+  readonly images: SwapiImageDataMock[]
 }

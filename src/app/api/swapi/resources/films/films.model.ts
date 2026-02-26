@@ -1,4 +1,4 @@
-import type { SwapiResource } from '@/api/swapi/shared/types/model'
+import type { SwapiImageDataMock, SwapiResource } from '@/api/swapi/shared/types/model'
 
 /**
  * A Star Wars film
@@ -51,5 +51,5 @@ export interface Film extends SwapiResource {
   /**
    * Mock image URLs for this film.
    */
-  readonly images: { url: string; alt: string; width: number; height: number }[]
+  readonly images: SwapiImageDataMock[]
 }

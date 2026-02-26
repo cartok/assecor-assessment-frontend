@@ -29,3 +29,10 @@ export interface SwapiResource {
    */
   readonly id: string
 }
+
+export interface SwapiImageDataMock {
+  url: string
+  alt: string
+  width: number
+  height: number
+}

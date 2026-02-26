@@ -1,3 +1,4 @@
+import { createMockFilmImages } from '@/api/swapi/resources/images.mock'
 import type { PersonDto } from '@/api/swapi/resources/people/people.dto'
 import type { Person } from '@/api/swapi/resources/people/people.model'
 import {
@@ -9,8 +10,9 @@ import {
 } from '@/api/swapi/shared/utils/mapping'
 
 export function mapPersonDtoToModel(dto: PersonDto): Person {
+  const id = extractSwapiId(dto.url)
   return {
-    id: extractSwapiId(dto.url),
+    id,
     birthYear: toOptionalString(dto.birth_year),
     eyeColor: toOptionalString(dto.eye_color),
     filmIds: extractSwapiIds(dto.films),
@@ -24,5 +26,6 @@ export function mapPersonDtoToModel(dto: PersonDto): Person {
     speciesIds: extractSwapiIds(dto.species),
     starshipIds: extractSwapiIds(dto.starships),
     vehicleIds: extractSwapiIds(dto.vehicles),
+    images: createMockFilmImages('person', id, 3),
   }
 }

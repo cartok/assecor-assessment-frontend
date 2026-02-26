@@ -1,5 +1,6 @@
 import type { FilmDto } from '@/api/swapi/resources/films/films.dto'
 import type { Film } from '@/api/swapi/resources/films/films.model'
+import { createMockFilmImages } from '@/api/swapi/resources/images.mock'
 import {
   extractSwapiId,
   extractSwapiIds,
@@ -10,10 +11,9 @@ import {
 } from '@/api/swapi/shared/utils/mapping'
 
 export function mapFilmDtoToModel(dto: FilmDto): Film {
-  const filmId = extractSwapiId(dto.url)
-
+  const id = extractSwapiId(dto.url)
   return {
-    id: filmId,
+    id: id,
     characterIds: extractSwapiIds(dto.characters),
     director: toOptionalString(dto.director),
     episodeId: toOptionalString(toRomanNumber(dto.episode_id)),
@@ -25,29 +25,6 @@ export function mapFilmDtoToModel(dto: FilmDto): Film {
     starshipIds: extractSwapiIds(dto.starships),
     title: toMandatoryString(dto.title, 'title'),
     vehicleIds: extractSwapiIds(dto.vehicles),
-    images: createMockFilmImages(filmId),
+    images: createMockFilmImages('film', id, 5),
   }
-}
-
-function createMockFilmImages(filmId: string): Film['images'] {
-  return [
-    {
-      url: `https://picsum.photos/seed/swapi-film-${filmId}-1/1280/720`,
-      alt: 'Mock image no. 1',
-      width: 1280,
-      height: 720,
-    },
-    {
-      url: `https://picsum.photos/seed/swapi-film-${filmId}-2/1280/720`,
-      alt: 'Mock image no. 2',
-      width: 1280,
-      height: 720,
-    },
-    {
-      url: `https://picsum.photos/seed/swapi-film-${filmId}-3/1280/720`,
-      alt: 'Mock image no. 3',
-      width: 1280,
-      height: 720,
-    },
-  ]
 }

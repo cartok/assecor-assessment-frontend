@@ -1,4 +1,4 @@
-import type { SwapiResource } from '@/api/swapi/shared/types/model'
+import type { SwapiImageDataMock, SwapiResource } from '@/api/swapi/shared/types/model'
 
 /**
  * A person within the Star Wars universe
@@ -57,4 +57,8 @@ export interface Person extends SwapiResource {
    * IDs of vehicle resources this person has piloted.
    */
   readonly vehicleIds: string[]
+  /**
+   * Mock image URLs for this film.
+   */
+  readonly images: SwapiImageDataMock[]
 }
