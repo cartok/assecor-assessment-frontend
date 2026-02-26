@@ -1,47 +1,45 @@
-<div class="g-layout-container">
-  @if (item.data(); as data) {
+@if (item.data(); as data) {
+  <app-resource-detail-layout [hasSlider]="data.images.length > 0">
     <app-page-heading
+      resourceDetailHeading
       location="Film Details"
       [title]="data.title"
       [subtitle]="`Episode ${data.episodeId}`"
     />
-    <div class="layout">
-      <section class="details" aria-labelledby="details-heading">
-        <app-labeled-box>
-          <h2 class="g-title-3" id="details-heading" #label>Details:</h2>
-          <app-row-description-list [items]="descriptionRows()" />
-        </app-labeled-box>
-        <p class="g-text-1 description">{{ data.openingCrawl }}</p>
-      </section>
 
-      @if (data.images.length) {
-        <app-image-slider class="slider" [images]="data.images" [viewportHeight]="374" />
-      }
+    <section resourceDetailDetails aria-labelledby="details-heading">
+      <app-labeled-box>
+        <h2 class="g-title-3" id="details-heading" #label>Details:</h2>
+        <app-row-description-list [items]="descriptionRows()" />
+      </app-labeled-box>
+      <p class="g-text-1 description">{{ data.openingCrawl }}</p>
+    </section>
 
-      <div class="links">
-        <app-labeled-box>
-          <h2 class="g-title-3" id="details-heading" #label>Characters:</h2>
-          <app-link-list>
-            @for (id of data.characterIds; track $index) {
-              @let mock = `Character no. ${id}`;
-              <app-link-list-item [linkUri]="['/character', id]">
-                {{ mock }}
-              </app-link-list-item>
-            }
-          </app-link-list>
-        </app-labeled-box>
-        <app-labeled-box>
-          <h2 class="g-title-3" id="details-heading" #label>Planets:</h2>
-          <app-link-list>
-            @for (id of data.planetIds; track $index) {
-              @let mock = `Planet no. ${id}`;
-              <app-link-list-item [linkUri]="['/planet', id]">
-                {{ mock }}
-              </app-link-list-item>
-            }
-          </app-link-list>
-        </app-labeled-box>
-      </div>
-    </div>
-  }
-</div>
+    @if (data.images.length) {
+      <app-image-slider resourceDetailSlider [images]="data.images" [viewportHeight]="374" />
+    }
+
+    <app-labeled-box resourceDetailLinks>
+      <h2 class="g-title-3" id="details-heading" #label>Characters:</h2>
+      <app-link-list>
+        @for (id of data.characterIds; track $index) {
+          @let mock = `Character no. ${id}`;
+          <app-link-list-item [linkUri]="['/character', id]">
+            {{ mock }}
+          </app-link-list-item>
+        }
+      </app-link-list>
+    </app-labeled-box>
+    <app-labeled-box resourceDetailLinks>
+      <h2 class="g-title-3" id="details-heading" #label>Planets:</h2>
+      <app-link-list>
+        @for (id of data.planetIds; track $index) {
+          @let mock = `Planet no. ${id}`;
+          <app-link-list-item [linkUri]="['/planet', id]">
+            {{ mock }}
+          </app-link-list-item>
+        }
+      </app-link-list>
+    </app-labeled-box>
+  </app-resource-detail-layout>
+}

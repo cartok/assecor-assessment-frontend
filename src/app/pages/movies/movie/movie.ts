@@ -10,6 +10,7 @@ import { LabeledBox } from '@/components/labeled-box/labeled-box'
 import { LinkList } from '@/components/link-list/link-list'
 import { LinkListItem } from '@/components/link-list/link-list-item/link-list-item'
 import { PageHeading } from '@/components/page-heading/page-heading'
+import { ResourceDetailLayout } from '@/components/resource-detail-layout/resource-detail-layout'
 import { RowDescriptionList } from '@/components/row-description-list/row-description-list'
 import type { InputValue } from '@/shared/types/component.types'
 
@@ -23,6 +24,7 @@ import type { InputValue } from '@/shared/types/component.types'
     LabeledBox,
     LabeledBox,
     LinkListItem,
+    ResourceDetailLayout,
   ],
   templateUrl: './movie.html',
   styleUrl: './movie.css',
