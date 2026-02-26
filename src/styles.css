@@ -6,7 +6,7 @@
 @import './css/variables/colors.css' layer(base);
 @import './css/variables/typography.css' layer(base);
 
-/* TODO: Create layout and text components later to replace those global styles, or at least use either SCSS selectively or PostCSS */
+/* Global classes are only a temporary exception here. Don't create any new. */
 @import './css/classes/layout.css' layer(global);
 @import './css/classes/typography.css' layer(global);
 @import './css/classes/truncation.css' layer(global);
