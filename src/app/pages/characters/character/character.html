@@ -22,17 +22,23 @@
       />
     }
 
-    @let filmItems = films.data();
-    @if (filmItems.length) {
-      <app-labeled-box resourceDetailLinks>
+    @if (data.filmIds.length) {
+      <app-labeled-box
+        resourceDetailLinks
+        appVisibleTrigger
+        (becameVisible)="onFilmLinksVisible()"
+      >
         <h2 class="g-title-3" id="details-heading" #label>Films:</h2>
-        <app-link-list>
-          @for (film of filmItems; track $index) {
-            <app-link-list-item [linkUri]="['/movie', film.id]">
-              {{ film.title }}
-            </app-link-list-item>
-          }
-        </app-link-list>
+        @let filmItems = films.data();
+        @if (filmItems.length) {
+          <app-link-list>
+            @for (film of filmItems; track $index) {
+              <app-link-list-item [linkUri]="['/movie', film.id]">
+                {{ film.title }}
+              </app-link-list-item>
+            }
+          </app-link-list>
+        }
       </app-labeled-box>
     }
   </app-resource-detail-layout>

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core'
+import { Component, computed, effect, inject, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, Router } from '@angular/router'
 import { map } from 'rxjs'
@@ -13,6 +13,7 @@ import { LinkListItem } from '@/components/link-list/link-list-item/link-list-it
 import { PageHeading } from '@/components/page-heading/page-heading'
 import { ResourceDetailLayout } from '@/components/resource-detail-layout/resource-detail-layout'
 import { RowDescriptionList } from '@/components/row-description-list/row-description-list'
+import { VisibleTriggerDirective } from '@/shared/directives/visible-trigger/visible-trigger'
 import type { InputValue } from '@/shared/types/component.types'
 
 @Component({
@@ -26,6 +27,7 @@ import type { InputValue } from '@/shared/types/component.types'
     LabeledBox,
     LinkListItem,
     ResourceDetailLayout,
+    VisibleTriggerDirective,
   ],
   templateUrl: './character.html',
   styleUrl: './character.css',
@@ -42,7 +44,14 @@ export class Character {
   readonly item = this.peopleService.getItem(this.id, {
     retryPolicy: CRITICAL_HTTP_RETRY_POLICY,
   })
-  readonly filmIds = computed<string[]>(() => this.item.data()?.filmIds ?? [])
+  readonly showFilmLinks = signal(false)
+  readonly filmIds = computed<string[]>(() => {
+    if (!this.showFilmLinks()) {
+      return []
+    }
+
+    return this.item.data()?.filmIds ?? []
+  })
   readonly films = this.filmsService.getItems(this.filmIds)
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
@@ -83,5 +92,9 @@ export class Character {
         void this.router.navigate(['/error'])
       }
     })
+  }
+
+  onFilmLinksVisible(): void {
+    this.showFilmLinks.set(true)
   }
 }
