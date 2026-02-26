@@ -1,7 +1,21 @@
 <div class="image-slider">
-  <div class="viewport" [style]="{ height: `${viewportHeight()}px` }" #viewport>
+  <div
+    class="viewport"
+    [style]="{ height: `${viewportHeight()}px` }"
+    appSwipe
+    (swipeStart)="enableDraggingCursor()"
+    (swipeEnd)="disableDraggingCursor()"
+    (swipeCancel)="disableDraggingCursor()"
+    (swipeLeft)="incrementActiveIndex()"
+    (swipeRight)="decrementActiveIndex()"
+    #viewport
+  >
     @if (viewportWidth() > 0) {
-      <div class="slides" [style]="{ transform: `translateX(${-slidesX()}px)` }">
+      <div
+        class="slides"
+        [class.slides-swiping]="isSwiping()"
+        [style]="{ transform: `translateX(${-slidesX()}px)` }"
+      >
         @for (image of images(); track $index) {
           <div class="slide" [style]="{ width: `${viewportWidth()}px` }">
             <img
@@ -33,8 +47,4 @@
       </button>
     }
   </div>
-  <!-- <div>
-    <button type="button" (click)="decrementActiveIndex()">left</button>
-    <button type="button" (click)="icrementActiveIndex()">right</button>
-  </div> -->
 </div>

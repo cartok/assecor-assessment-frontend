@@ -9,9 +9,11 @@ import {
   viewChild,
 } from '@angular/core'
 
+import { SwipeDirective } from '@/shared/directives/swipe/swipe'
+
 @Component({
   selector: 'app-image-slider',
-  imports: [],
+  imports: [SwipeDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './image-slider.html',
   styleUrl: './image-slider.css',
@@ -22,6 +24,7 @@ export class ImageSlider {
   readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport')
   readonly viewportWidth = signal(0)
   readonly viewportHeight = input.required<number>()
+  readonly isSwiping = signal(false)
   private readonly _activeIndex = signal(0)
   readonly activeIndex = this._activeIndex.asReadonly()
   readonly slidesX = computed<number>(() => this.activeIndex() * this.viewportWidth())
@@ -37,12 +40,20 @@ export class ImageSlider {
     this._activeIndex.set(wrappedIndex)
   }
 
-  decrementActiveIndex() {
+  decrementActiveIndex(): void {
     this.setActiveIndex(this._activeIndex() - 1)
   }
 
-  icrementActiveIndex() {
+  incrementActiveIndex(): void {
     this.setActiveIndex(this._activeIndex() + 1)
+  }
+
+  enableDraggingCursor(): void {
+    this.isSwiping.set(true)
+  }
+
+  disableDraggingCursor(): void {
+    this.isSwiping.set(false)
   }
 
   constructor() {
