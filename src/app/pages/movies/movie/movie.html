@@ -37,14 +37,14 @@
       </app-labeled-box>
     }
 
-    @if (data.planetIds.length) {
+    @let planetItems = planets.data();
+    @if (planetItems.length) {
       <app-labeled-box resourceDetailLinks>
         <h2 class="g-title-3" id="details-heading" #label>Planets:</h2>
         <app-link-list>
-          @for (id of data.planetIds; track $index) {
-            @let mock = `Planet no. ${id}`;
-            <app-link-list-item [linkUri]="['/planet', id]">
-              {{ mock }}
+          @for (planet of planetItems; track $index) {
+            <app-link-list-item [linkUri]="['/planet', planet.id]">
+              {{ planet.name }}
             </app-link-list-item>
           }
         </app-link-list>

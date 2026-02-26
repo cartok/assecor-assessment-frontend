@@ -5,6 +5,7 @@ import { map } from 'rxjs'
 
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
 import { PeopleService } from '@/api/swapi/resources/people/people.service'
+import { PlanetsService } from '@/api/swapi/resources/planets/planets.service'
 import { CRITICAL_HTTP_RETRY_POLICY } from '@/api/swapi/shared/http/http-retry.interceptor'
 import { ImageSlider } from '@/components/image-slider/image-slider'
 import { LabeledBox } from '@/components/labeled-box/labeled-box'
@@ -34,6 +35,7 @@ export class Movie {
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
   private readonly filmsService = inject(FilmsService)
+  private readonly planetsService = inject(PlanetsService)
   private readonly peopleService = inject(PeopleService)
 
   readonly id = toSignal(this.route.paramMap.pipe(map((pm) => pm.get('id')!)), {
@@ -44,6 +46,8 @@ export class Movie {
   })
   readonly characterIds = computed<string[]>(() => this.item.data()?.characterIds ?? [])
   readonly characters = this.peopleService.getItems(this.characterIds)
+  readonly planetIds = computed<string[]>(() => this.item.data()?.planetIds ?? [])
+  readonly planets = this.planetsService.getItems(this.planetIds)
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
     () => {

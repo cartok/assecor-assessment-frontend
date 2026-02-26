@@ -21,28 +21,28 @@
       />
     }
 
-    @if (data.residentIds.length) {
+    @let residentItems = residents.data();
+    @if (residentItems.length) {
       <app-labeled-box resourceDetailLinks>
         <h2 class="g-title-3" id="details-heading" #label>Residents:</h2>
         <app-link-list>
-          @for (id of data.residentIds; track $index) {
-            @let mock = `Character no. ${id}`;
-            <app-link-list-item [linkUri]="['/character', id]">
-              {{ mock }}
+          @for (resident of residentItems; track $index) {
+            <app-link-list-item [linkUri]="['/character', resident.id]">
+              {{ resident.name }}
             </app-link-list-item>
           }
         </app-link-list>
       </app-labeled-box>
     }
 
-    @if (data.filmIds.length) {
+    @let filmItems = films.data();
+    @if (filmItems.length) {
       <app-labeled-box resourceDetailLinks>
         <h2 class="g-title-3" id="details-heading" #label>Films:</h2>
         <app-link-list>
-          @for (id of data.filmIds; track $index) {
-            @let mock = `Film no. ${id}`;
-            <app-link-list-item [linkUri]="['/movie', id]">
-              {{ mock }}
+          @for (film of filmItems; track $index) {
+            <app-link-list-item [linkUri]="['/movie', film.id]">
+              {{ film.title }}
             </app-link-list-item>
           }
         </app-link-list>
