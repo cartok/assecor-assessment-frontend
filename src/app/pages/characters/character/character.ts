@@ -49,16 +49,16 @@ export class Character {
       }
       const rows = []
       if (data.gender) {
-        rows.push({ term: 'Geschlecht:', detail: data.gender })
+        rows.push({ term: 'Gender:', detail: data.gender })
       }
       if (data.birthYear) {
-        rows.push({ term: 'Geburtsjahr:', detail: data.birthYear })
+        rows.push({ term: 'Birth Year:', detail: data.birthYear })
       }
       if (data.height) {
-        rows.push({ term: 'Größe:', detail: data.height })
+        rows.push({ term: 'Height:', detail: data.height })
       }
       if (data.mass) {
-        rows.push({ term: 'Masse:', detail: data.mass })
+        rows.push({ term: 'Mass:', detail: data.mass })
       }
       return rows
     },

@@ -49,11 +49,11 @@ export class Movie {
       }
       const rows = []
       if (data.director) {
-        rows.push({ term: 'Regie:', detail: data.director })
+        rows.push({ term: 'Director:', detail: data.director })
       }
       if (data.releaseDate) {
         rows.push({
-          term: 'Erscheinungsjahr:',
+          term: 'Release Year:',
           detail: String(data.releaseDate.getFullYear()),
         })
       }
