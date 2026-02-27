@@ -75,14 +75,3 @@ a:visited {
 a {
   color: inherit;
 }
-
-a:not([draggable]),
-img:not([draggable]),
-audio:not([draggable]),
-video:not([draggable]),
-input:not([draggable]),
-textarea:not([draggable]),
-link:not([draggable]),
-button:not([draggable]) {
-  /* -webkit-user-drag: none; */
-}
