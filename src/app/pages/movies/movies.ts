@@ -3,14 +3,14 @@ import { Component, inject, signal } from '@angular/core'
 
 import type { Film } from '@/api/swapi/resources/films/films.model'
 import { FilmsService } from '@/api/swapi/resources/films/films.service'
+import { Heading } from '@/components/heading/heading'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
-import { PageHeading } from '@/components/page-heading/page-heading'
 import { ResourceGridLayout } from '@/layouts/resource-grid-layout/resource-grid-layout'
 
 @Component({
   selector: 'app-movies',
-  imports: [DatePipe, PageHeading, ResourceGridLayout, ImageGrid, ImageGridItem],
+  imports: [DatePipe, Heading, ResourceGridLayout, ImageGrid, ImageGridItem],
   templateUrl: './movies.html',
   styleUrl: './movies.css',
 })

@@ -1,12 +1,12 @@
 import { Component, input } from '@angular/core'
 
 @Component({
-  selector: 'app-page-heading',
+  selector: 'app-heading',
   imports: [],
-  templateUrl: './page-heading.html',
-  styleUrl: './page-heading.css',
+  templateUrl: './heading.html',
+  styleUrl: './heading.css',
 })
-export class PageHeading {
+export class Heading {
   readonly location = input<string>()
   readonly title = input.required<string>()
   readonly titleId = input<string>()

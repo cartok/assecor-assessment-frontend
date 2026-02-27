@@ -27,3 +27,13 @@
     padding: 50px 0;
   }
 }
+
+@media (max-width: 601px) {
+  .header {
+    padding: 40px 0;
+  }
+
+  .title {
+    font-size: var(--fs-50);
+  }
+}

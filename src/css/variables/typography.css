@@ -26,6 +26,7 @@
   --fs-16: 1rem;
   --fs-18: calc(18 / 16 * 1rem);
   --fs-25: calc(25 / 16 * 1rem);
+  --fs-50: calc(50 / 16 * 1rem);
   --fs-75: calc(75 / 16 * 1rem);
   --lh-14: calc(14 / 16 * 1rem);
   --lh-17: calc(17 / 16 * 1rem);

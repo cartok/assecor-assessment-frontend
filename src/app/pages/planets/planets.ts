@@ -2,14 +2,14 @@ import { Component, inject, signal } from '@angular/core'
 
 import type { Planet } from '@/api/swapi/resources/planets/planets.model'
 import { PlanetsService } from '@/api/swapi/resources/planets/planets.service'
+import { Heading } from '@/components/heading/heading'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
-import { PageHeading } from '@/components/page-heading/page-heading'
 import { ResourceGridLayout } from '@/layouts/resource-grid-layout/resource-grid-layout'
 
 @Component({
   selector: 'app-planets',
-  imports: [PageHeading, ResourceGridLayout, ImageGrid, ImageGridItem],
+  imports: [Heading, ResourceGridLayout, ImageGrid, ImageGridItem],
   templateUrl: './planets.html',
   styleUrl: './planets.css',
 })

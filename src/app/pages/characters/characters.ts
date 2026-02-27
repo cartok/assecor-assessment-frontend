@@ -2,14 +2,14 @@ import { Component, inject, signal } from '@angular/core'
 
 import type { Person } from '@/api/swapi/resources/people/people.model'
 import { PeopleService } from '@/api/swapi/resources/people/people.service'
+import { Heading } from '@/components/heading/heading'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
-import { PageHeading } from '@/components/page-heading/page-heading'
 import { ResourceGridLayout } from '@/layouts/resource-grid-layout/resource-grid-layout'
 
 @Component({
   selector: 'app-characters',
-  imports: [PageHeading, ResourceGridLayout, ImageGrid, ImageGridItem],
+  imports: [Heading, ResourceGridLayout, ImageGrid, ImageGridItem],
   templateUrl: './characters.html',
   styleUrl: './characters.css',
 })

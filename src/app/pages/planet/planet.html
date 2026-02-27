@@ -1,10 +1,6 @@
 @if (item.data(); as data) {
   <app-resource-detail-layout [hasSlider]="data.images.length > 0">
-    <app-page-heading
-      resourceDetailHeading
-      location="Planet Details"
-      [title]="data.name"
-    />
+    <app-heading resourceDetailHeading location="Planet Details" [title]="data.name" />
 
     <section resourceDetailDetails aria-labelledby="details-heading">
       <app-labeled-box>
