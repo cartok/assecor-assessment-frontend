@@ -70,3 +70,33 @@ App lokal:
 
 Kurz zu `docs/swapi.md`:
 Die Datei dokumentiert die technischen Schwachstellen der SWAPI (Schema, Datenqualitaet, Pagination, fehlende Assets) und beschreibt den gewaehlten Umgang damit in dieser Implementierung.
+
+## Nächste Ziele
+
+1. CSS
+- Präprozessor geziehlt wählen und einbauen
+  - Verwendung globaler CSS Klassen in .html Templates ersetzen
+  - Wiederverwendung der definierten CSS Variablen in Media Queries
+
+2. SSR + Device Detection + CSS
+- Grundlegend SSR per Elysia implementieren
+- Clientseitige device detection (angefangen nur mit Info ob "touch") mit redirect per `location.replace()`
+- Appweite Nutzung der device infos für SSR basiertes responsive rendering
+  - Auf JavaScript Seite ...
+  - Auf CSS Seite ...
+
+3. Erweiterungen für SSR + Device Detection + CSS
+- Cookie erstellen zum caching der device detection infos
+  - Fallback falls Cookie erstellen nicht möglich ist
+- Fallback für device detection, falls JS nicht aktiviert ist
+- Ggf. Hinzufügen weiterer device infos
+
+4. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
+
+---
+
+5. Production hosting ...
+
+6. Testing ...
+
+7. Monitoring ...
