@@ -8,7 +8,7 @@ Frontend-Implementierung der Assecor-Bewerbungsaufgabe auf Basis von Angular mit
 
 ## Original Aufgabenstellung
 
-Die Aufgabenstellung bleibt unveraendert und ist hier einsehbar:
+Die Aufgabenstellung bleibt unverändert und ist hier einsehbar:
 
 - [Assecor Assessment Frontend README](https://github.com/Assecor-GmbH/assecor-assessment-frontend/blob/master/README.md)
 - [UI Mockups / Design](https://xd.adobe.com/view/b3c98134-11a8-44c2-5dd2-477b8550307f-c5f8/)
@@ -18,23 +18,23 @@ Die Aufgabenstellung bleibt unveraendert und ist hier einsehbar:
 Die Abgabe ist ein belastbarer Zwischenstand:
 
 - Die Kernstruktur (Routing, Datenzugriff, Komponentenaufbau, Styling-Basis) steht.
-- Einzelne Komponenten sind funktional und nicht-funktional noch nicht vollstaendig ausgebaut.
-- Es gibt eine klare Roadmap fuer Weiterentwicklung, insbesondere bei Accessibility und Testing.
+- Einzelne Komponenten sind funktional und nicht-funktional noch nicht vollständig ausgebaut.
+- Es gibt eine klare Roadmap für Weiterentwicklung, insbesondere bei Accessibility und Testing.
 
 ## Aktueller Funktionsumfang
 
 - SPA mit lazy geladenen Routen
-- Seiten fuer `movies`, `movie/:id`, `characters`, `character/:id`, `planets`, `planet/:id`
-- API-Integration fuer SWAPI-Ressourcen (Films, People, Planets)
+- Seiten für `movies`, `movie/:id`, `characters`, `character/:id`, `planets`, `planet/:id`
+- API-Integration für SWAPI-Ressourcen (Films, People, Planets)
 - Robustes DTO-zu-Model-Mapping und Retry-Interception auf HTTP-Ebene
-- Eigene UI-Bausteine und Layouts fuer Listen- und Detailseiten
+- Eigene UI-Bausteine und Layouts für Listen- und Detailseiten
 
 ## Tech-Stack
 
 - Angular 21 (standalone, lazy routing, zoneless change detection)
 - TypeScript 5
 - Bun als Paketmanager und Script-Runner
-- ESLint + Prettier fuer Codequalitaet
+- ESLint + Prettier für Codequalität
 - Native CSS (ohne Tailwind/SCSS)
 
 ## Setup
@@ -55,13 +55,13 @@ App lokal:
 
 - `http://localhost:4200`
 
-## Verfuegbare Scripts
+## Verfügbare Scripts
 
 - `bun run start` startet den Dev-Server
 - `bun run build` erstellt den Production-Build
 - `bun run test` startet Unit-Tests
-- `bun run lint` fuehrt Typecheck, Angular-Lint und Prettier-Check aus
-- `bun run fix` fuehrt Lint-Fixes und Formatierung aus
+- `bun run lint` führt Typecheck, Angular-Lint und Prettier-Check aus
+- `bun run fix` führt Lint-Fixes und Formatierung aus
 
 ## Dokumentation
 
