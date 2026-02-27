@@ -106,6 +106,7 @@ Alternativen:
 Trade-off:
 
 - Bei Media-Query-Organisation und bestimmten Kompatibilitaetsdetails waere ein Preprocessing-Layer hilfreich
+- Die bereitgestellten Mockups waren fuer die Umsetzung ausreichend, Detailabstaende und Feinabstimmung liessen sich im vorhandenen Inspect-Workflow aber teils nur mit manueller Annaeherung uebernehmen
 
 Status:
 

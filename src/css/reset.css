@@ -30,7 +30,7 @@ body {
 
 *:focus-visible {
   outline-width: var(--width-focus-visible-outline);
-  outline-offset: 0px;
+  outline-offset: 0;
   outline-style: solid;
 }
 
