@@ -1,4 +1,4 @@
-/* Always use these classes on standalone elements that have no `display` CSS property set. */
+/* Only use these classes on standalone elements that have no `display` CSS property set. If that's not the case wrap the text into a span or div */
 
 .g-truncate-1 {
   display: -webkit-box;
