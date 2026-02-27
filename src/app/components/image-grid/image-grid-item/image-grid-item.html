@@ -1,5 +1,11 @@
 <div class="image-grid-item">
-  <img class="image" [src]="imageUrl()" [alt]="imageAlt()" />
+  <img
+    class="image"
+    [src]="imageUrl()"
+    [alt]="imageAlt()"
+    decoding="async"
+    loading="lazy"
+  />
   <div class="description-container">
     <div class="g-title-3">
       <span class="g-truncate-1">
