@@ -47,7 +47,7 @@
   .content {
     grid-auto-flow: row;
     justify-content: stretch;
-    column-gap: unset;
+    column-gap: 0;
     row-gap: 20px;
   }
 

@@ -27,12 +27,13 @@
   row-gap: 47px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1385px) {
   .resource-detail-body-layout {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-template-areas:
       'details slider'
       'links links';
+    margin-left: 0;
   }
 }
 
@@ -44,9 +45,8 @@
       'slider'
       'details'
       'links';
-    column-gap: unset;
+    column-gap: 0;
     row-gap: 55px;
-    margin-left: unset;
     padding-bottom: var(--page-content-end-padding-medium);
   }
 }
