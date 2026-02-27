@@ -84,6 +84,5 @@ input:not([draggable]),
 textarea:not([draggable]),
 link:not([draggable]),
 button:not([draggable]) {
-  -webkit-user-drag: none;
-  touch-action: none;
+  /* -webkit-user-drag: none; */
 }
