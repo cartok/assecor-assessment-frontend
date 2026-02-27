@@ -68,9 +68,6 @@ App lokal:
 - [Technische Entscheidungen und Trade-offs](docs/entscheidungen.md)
 - [SWAPI-Analyse, API-Probleme und Integrationsnotizen](docs/swapi.md)
 
-Kurz zu `docs/swapi.md`:
-Die Datei dokumentiert die technischen Schwachstellen der SWAPI (Schema, Datenqualitaet, Pagination, fehlende Assets) und beschreibt den gewaehlten Umgang damit in dieser Implementierung.
-
 ## Nächste Ziele
 
 1. CSS
