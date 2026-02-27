@@ -92,6 +92,14 @@ App lokal:
 
 ---
 
+5. Aria
+- Angular Aria
+- AI Scan
+- Browser Tools
+- Automations
+
+---
+
 5. Production hosting ...
 
 6. Testing ...
