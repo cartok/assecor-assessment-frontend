@@ -4,13 +4,13 @@
 
 Die Umsetzung wurde bewusst iterativ aufgebaut: erst eine belastbare technische Basis, dann schrittweise funktionale und nicht-funktionale Vertiefung.
 
-Ausgangslage fuer diese Aufgabe:
+Ausgangslage für diese Aufgabe:
 
 - Seit November 2024 kein klassisches Web-Frontend mit DOM/CSS entwickelt
 - Von Februar 2025 bis August 2025 primar React Native genutzt
 - Kein dauerhaft gepflegter "One-size-fits-all"-Frontend-Stack
 
-Das Ziel war daher, nachvollziehbare Architekturentscheidungen zu treffen, die schnell zu einem sauberen, erweiterbaren Ergebnis fuehren.
+Das Ziel war daher, nachvollziehbare Architekturentscheidungen zu treffen, die schnell zu einem sauberen, erweiterbaren Ergebnis führen.
 
 ## 1. Angular als Framework
 
@@ -19,13 +19,13 @@ Warum:
 - Sehr gute Trennung von Verantwortlichkeiten
 - Reifer, stabiler Stack mit klaren Konventionen
 - Passt fachlich und technisch zur Aufgabenstellung
-- Durch offene API ohne Auth war kein zusaetzliches Backend fuer Secret-Handling notwendig
+- Durch offene API ohne Auth war kein zusätzliches Backend für Secret-Handling notwendig
 
 Alternativen:
 
 - Vue + Nuxt
-- React + Next
 - Solid + SolidStart
+- React + Next
 
 Trade-off:
 
@@ -33,17 +33,17 @@ Trade-off:
 
 Status:
 
-- Grundarchitektur laeuft stabil
+- Grundarchitektur läuft stabil
 
-Naechster Schritt:
+Nächster Schritt:
 
-- Optionale Erweiterung um SSR/Hybrid-Rendering nach funktionaler Vervollstaendigung
+- Optionale Erweiterung um SSR/Hybrid-Rendering nach funktionaler Vervollständigung
 
 ## 2. Angular CLI statt Nx oder Analog
 
 Warum:
 
-- Moeglichst niedrige Einstiegskomplexitaet
+- Möglichst niedrige Einstiegskomplexität
 - Schneller Projektstart mit minimaler Tooling-Reibung
 
 Alternativen:
@@ -53,13 +53,13 @@ Alternativen:
 
 Trade-off:
 
-- Einzelne Tooling-Details mussten manuell ergaenzt werden
+- Einzelne Tooling-Details mussten manuell ergänzt werden
 
 Status:
 
-- Fuer den Aufgabenkontext passend und DX-seitig stabil
+- Für den Aufgabenkontext passend und DX-seitig stabil
 
-Naechster Schritt:
+Nächster Schritt:
 
 - Keine kurzfristige Aenderung geplant
 
@@ -67,35 +67,35 @@ Naechster Schritt:
 
 Warum:
 
-- Signals fuer lokalen Zustand sind direkt, einfach und performant
-- Zoneless reduziert unnoetige Change-Detection-Kosten
-- CSR war fuer den Projektkontext die schnellste und angemessene Basis
+- Signals für lokalen Zustand sind direkt, einfach und performant
+- Zoneless reduziert unnötige Change-Detection-Kosten
+- CSR war für den Projektkontext die schnellste und angemessene Basis
 
 Alternativen:
 
 - RxJS-fokussierter Ansatz
-- zusaetzlich SSR/SSG/Hybrid
+- zusätzlich SSR/SSG/Hybrid
 
 Trade-off:
 
 - Ohne SSR sind SEO und initiales Rendering nicht maximal optimiert
-- Route-spezifisches Prefetching bleibt ohne zusaetzliche Infrastruktur begrenzt
+- Route-spezifisches Prefetching bleibt ohne zusätzliche Infrastruktur begrenzt
 
 Status:
 
 - Architektur funktioniert gut und bleibt bewusst einfach
 
-Naechster Schritt:
+Nächster Schritt:
 
-- SSR/Hybrid optional spaeter evaluieren, wenn alle Kernanforderungen abgeschlossen sind
+- SSR/Hybrid optional später evaluieren, wenn alle Kernanforderungen abgeschlossen sind
 
 ## 4. Styling mit nativem CSS statt Tailwind/SCSS
 
 Warum:
 
 - Fokus auf Einfachheit und Lesbarkeit
-- Moderne CSS-Features reichen fuer den aktuellen Umfang weitgehend aus
-- Vermeidet zusaetzliche Tooling-Komplexitaet in frueher Projektphase
+- Moderne CSS-Features reichen für den aktuellen Umfang weitgehend aus
+- Vermeidet zusätzliche Tooling-Komplexität in früher Projektphase
 
 Alternativen:
 
@@ -105,23 +105,23 @@ Alternativen:
 
 Trade-off:
 
-- Bei Media-Query-Organisation und bestimmten Kompatibilitaetsdetails waere ein Preprocessing-Layer hilfreich
-- Die bereitgestellten Mockups waren fuer die Umsetzung ausreichend, Detailabstaende und Feinabstimmung liessen sich im vorhandenen Inspect-Workflow aber teils nur mit manueller Annaeherung uebernehmen
+- Bei Media-Query-Organisation und bestimmten Kompatibilitätsdetails wäre ein Preprocessing-Layer hilfreich
+- Die bereitgestellten Mockups waren für die Umsetzung ausreichend, Detailabstände und Feinabstimmung ließen sich im vorhandenen Inspect-Workflow aber teils nur mit manueller Annäherung übernehmen
 
 Status:
 
-- Funktioniert fuer den aktuellen Umfang, aber mit erkennbaren Grenzen
+- Funktioniert für den aktuellen Umfang, aber mit erkennbaren Grenzen
 
-Naechster Schritt:
+Nächster Schritt:
 
-- Pruefen, ob ein leichter PostCSS/SCSS-Einsatz die Wartbarkeit verbessert, ohne die Einfachheit zu verlieren
+- Prüfen, ob ein leichter PostCSS/SCSS-Einsatz die Wartbarkeit verbessert, ohne die Einfachheit zu verlieren
 
 ## 5. SVG-Asset-Strategie mit manuell gepflegtem Sprite-Sheet
 
 Warum:
 
 - SVG-Sprites sind flexibel, cachebar und technisch sauber
-- Fuer den Projektumfang war ein manuelles Sheet schneller als die Einfuehrung neuer Build-Werkzeuge
+- Für den Projektumfang war ein manuelles Sheet schneller als die Einführung neuer Build-Werkzeuge
 
 Alternativen:
 
@@ -134,18 +134,18 @@ Trade-off:
 
 Status:
 
-- Fuer den Scope ausreichend
+- Für den Scope ausreichend
 
-Naechster Schritt:
+Nächster Schritt:
 
-- Bei Projektfortfuehrung: automatisierte Sprite-Generierung einfuehren
+- Bei Projektfortführung: automatisierte Sprite-Generierung einführen
 
 ## 6. Store-Strategie: Signals und einfache Singleton-Services
 
 Warum:
 
-- API-Domain und Scope sind ueberschaubar
-- Direkte, leicht wartbare Loesung ohne zusaetzliche Store-Abstraktion
+- API-Domain und Scope sind überschaubar
+- Direkte, leicht wartbare Lösung ohne zusätzliche Store-Abstraktion
 
 Alternative:
 
@@ -153,15 +153,15 @@ Alternative:
 
 Trade-off:
 
-- Bei stark wachsender Komplexitaet waere ein formaler Store ggf. vorteilhaft
+- Bei stark wachsender Komplexität wäre ein formaler Store ggf. vorteilhaft
 
 Status:
 
-- Fuer den Umfang passend
+- Für den Umfang passend
 
-Naechster Schritt:
+Nächster Schritt:
 
-- Erst bei klarer Komplexitaetszunahme neu bewerten
+- Erst bei klarer Komplexitätszunahme neu bewerten
 
 ## 7. Testing-Ansatz
 
@@ -169,17 +169,17 @@ Aktueller Stand:
 
 - Es gibt nur wenig Unit-Test-Abdeckung
 
-Begruendung:
+Begründung:
 
-- Fuer den Umfang dieser Bewerbungsaufgabe lag der Fokus auf Architektur, Funktionalitaet und sauberer Integrationsbasis
-- Ein hohes Unit-Test-Volumen waere in dieser Phase unverhaeltnismaessig
+- Für den Umfang dieser Bewerbungsaufgabe lag der Fokus auf Architektur, Funktionalität und sauberer Integrationsbasis
+- Ein hohes Unit-Test-Volumen wäre in dieser Phase unverhältnismässig
 
 Geplanter Ansatz:
 
-- Unit-Tests gezielt fuer isolierbare, kritische Logik mit klaren In-/Outputs
-- E2E-Tests fuer kritische User-Flows (Navigation, Kern-Use-Cases)
-- Keine redundanten Assertions ueber mehrere Testebenen hinweg
-- Ergaenzend Integration-, Deployment- und bei Bedarf Contract-Tests in sinnvollem Umfang
+- Unit-Tests gezielt für isolierbare, kritische Logik mit klaren In-/Outputs
+- E2E-Tests für kritische User-Flows (Navigation, Kern-Use-Cases)
+- Keine redundanten Assertions über mehrere Testebenen hinweg
+- Ergänzend Integration-, Deployment- und bei Bedarf Contract-Tests in sinnvollem Umfang
 
 ## 8. Accessibility-Strategie und offene Punkte
 
@@ -190,10 +190,10 @@ Aktueller Stand:
 
 Priorisierte Weiterentwicklung:
 
-1. Tastatur-Navigation und Fokusfuehrung manuell pruefen und korrigieren
+1. Tastatur-Navigation und Fokusführung manuell prüfen und korrigieren
 2. Semantik, ARIA-Attribute und textuelle Metadaten systematisch verfeinern
-3. Manuelle Checks mit Browser-Tools/Plugins ergaenzen
-4. Danach automatisierte Accessibility-Pruefungen in E2E-Pipeline aufnehmen
+3. Manuelle Checks mit Browser-Tools/Plugins ergänzen
+4. Danach automatisierte Accessibility-Prüfungen in E2E-Pipeline aufnehmen
 
 Hinweis:
 
