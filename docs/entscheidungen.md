@@ -19,13 +19,13 @@ Warum:
 - Sehr gute Trennung von Verantwortlichkeiten
 - Reifer, stabiler Stack mit klaren Konventionen
 - Passt fachlich und technisch zur Aufgabenstellung
-- Durch offene API ohne Auth war kein zusätzliches Backend für Secret-Handling notwendig
+- Durch offene API ohne Auth war kein zusätzliches Backend für Secret-Handling notwendig, wodurch rein CSR kein Problem war. 
 
 Alternativen:
 
-- Vue + Nuxt
-- Solid + SolidStart
-- React + Next
+- Vue (+ Nuxt), bin gespannt auf vapor
+- Solid (+ SolidStart) 
+- React (+ Next/Remix) 
 
 Trade-off:
 
@@ -37,7 +37,7 @@ Status:
 
 Nächster Schritt:
 
-- Optionale Erweiterung um SSR/Hybrid-Rendering nach funktionaler Vervollständigung
+- Siehe unten in README
 
 ## 2. Angular CLI statt Nx oder Analog
 
@@ -61,7 +61,7 @@ Status:
 
 Nächster Schritt:
 
-- Keine kurzfristige Aenderung geplant
+- Keine kurzfristige Änderung geplant
 
 ## 3. State und Rendering: Signals + Zoneless + CSR
 
@@ -114,7 +114,7 @@ Status:
 
 Nächster Schritt:
 
-- Prüfen, ob ein leichter PostCSS/SCSS-Einsatz die Wartbarkeit verbessert, ohne die Einfachheit zu verlieren
+- Siehe unten in README
 
 ## 5. SVG-Asset-Strategie mit manuell gepflegtem Sprite-Sheet
 
