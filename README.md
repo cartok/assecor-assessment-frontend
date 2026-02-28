@@ -70,6 +70,8 @@ App lokal:
 
 ## Nächste Ziele
 
+Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur der SWAPI noch besser als nur mit Runtime Cache behandeln wollte. Es fühlt sich aber falsch an hier nicht erst das Backend zu verbessern. Ich habe nichts dergleichen vor. 
+
 1. CSS
 - Präprozessor geziehlt wählen und einbauen
   - Verwendung globaler CSS Klassen in .html Templates ersetzen
