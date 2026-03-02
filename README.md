@@ -70,7 +70,7 @@ App lokal:
 
 ## Nächste Ziele
 
-Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur der SWAPI noch besser als nur mit Runtime Cache behandeln wollte. Es würde sich aber falsch anfühlen nicht erst das Backend zu verbessern. Ich habe nichts dergleichen vor, aber sinnvoll wäre es, wenn man keine Optionen hätte.
+Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur der SWAPI noch besser als nur mit Runtime Cache behandeln wollte. Es würde sich aber falsch anfühlen nicht erst das Backend zu verbessern, aber eventuell konfiguriere ich später doch mal einen, einfach des Templates wegen.
 
 1. ~~CSS~~
    - ~~Präprozessor geziehlt wählen und einbauen~~
@@ -79,23 +79,21 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
 
    > Ich habe mich dafür entschieden die globalen Klassen beizubehalten, aber die Media Queries per PostCSS zu reusen.
 
-1. SSR + Device Detection + CSS
+2. SSR + Device Detection + CSS
    - Grundlegend SSR per Elysia implementieren
    - Clientseitige device detection (infos: `{ touch: boolean, width: number, height: number }`) mit redirect per `location.replace()`
    - Appweite Nutzung der device infos für SSR basiertes responsive rendering
      - Auf JavaScript Seite ...
      - Auf CSS Seite ...
+   - Image loading & preloading mit den dann vorhandenen Mitteln optimieren
+   - Die sub resource Listen mit den dann vorhandenen Mitteln abschließen
 
-- Image loading & preloading mit den dann vorhandenen Mitteln optimieren
-
-2. Erweiterungen für SSR + Device Detection + CSS
+3. Erweiterungen für SSR + Device Detection + CSS
    - Cookie erstellen zum caching der device detection infos
      - Fallback falls Cookie erstellen nicht möglich ist
    - Fallback für device detection, falls JS nicht aktiviert ist
 
-3. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
-
-4. Verbesserungen an Kern Komponenten & ggf. noch eine Suche implementieren ...
+4. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
 
 5. Aria
    - Angular Aria
