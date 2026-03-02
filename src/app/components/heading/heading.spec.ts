@@ -1,18 +1,18 @@
 import type { ComponentFixture } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 
-import { PageHeading } from '@/components/heading/heading'
+import { Heading } from '@/components/heading/heading'
 
 describe('PageHeading', () => {
-  let component: PageHeading
-  let fixture: ComponentFixture<PageHeading>
+  let component: Heading
+  let fixture: ComponentFixture<Heading>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageHeading],
+      imports: [Heading],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(PageHeading)
+    fixture = TestBed.createComponent(Heading)
     fixture.componentRef.setInput('title', 'Test Title')
     fixture.detectChanges()
     component = fixture.componentInstance
