@@ -1,5 +1,4 @@
 .resource-detail-body-layout {
-  background-color: var(--color-white);
   display: grid;
   align-content: start;
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -10,7 +9,6 @@
   column-gap: 152px;
   row-gap: 33px;
   margin-left: 20px;
-  padding-bottom: var(--page-content-end-padding-big);
 }
 
 .details {
@@ -47,12 +45,5 @@
       'links';
     column-gap: 0;
     row-gap: 55px;
-    padding-bottom: var(--page-content-end-padding-medium);
-  }
-}
-
-@media (max-width: 601px) {
-  .resource-detail-body-layout {
-    padding-bottom: var(--page-content-end-padding-small);
   }
 }

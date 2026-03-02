@@ -1,8 +1,7 @@
 .footer {
   display: grid;
-  align-items: center;
+  align-content: center;
   min-height: var(--footer-height);
-  height: 79px;
   background-color: var(--color-white);
 }
 

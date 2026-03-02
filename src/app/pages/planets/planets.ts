@@ -5,11 +5,11 @@ import { PlanetsService } from '@/api/swapi/resources/planets/planets.service'
 import { Heading } from '@/components/heading/heading'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
-import { ResourceGridLayout } from '@/layouts/resource-grid-layout/resource-grid-layout'
+import { DefaultLayout } from '@/layouts/default-layout/default-layout'
 
 @Component({
   selector: 'app-planets',
-  imports: [Heading, ResourceGridLayout, ImageGrid, ImageGridItem],
+  imports: [Heading, ImageGrid, ImageGridItem, DefaultLayout],
   templateUrl: './planets.html',
   styleUrl: './planets.css',
 })

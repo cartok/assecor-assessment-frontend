@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-resource-detail-layout',
   imports: [],
   templateUrl: './resource-detail-layout.html',
   styleUrl: './resource-detail-layout.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'g-layout-container g-page-content',
+  },
 })
-export class ResourceDetailLayout {
-  readonly hasSlider = input(true)
-}
+export class ResourceDetailLayout {}

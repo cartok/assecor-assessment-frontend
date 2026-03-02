@@ -1,4 +1,21 @@
 .g-layout-container {
+  display: block;
   width: min(100% - (var(--layout-gutter) * 2), var(--viewport-width-max));
   margin-inline: auto;
+}
+
+.g-page-content {
+  padding-bottom: var(--page-content-end-padding-big);
+}
+
+@media (max-width: 1100px) {
+  .g-page-content {
+    padding-bottom: var(--page-content-end-padding-medium);
+  }
+}
+
+@media (max-width: 601px) {
+  .g-page-content {
+    padding-bottom: var(--page-content-end-padding-small);
+  }
 }

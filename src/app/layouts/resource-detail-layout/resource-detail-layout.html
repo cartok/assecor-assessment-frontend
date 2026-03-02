@@ -1,19 +1,15 @@
-<div class="g-layout-container">
-  <ng-content select="[resourceDetailHeading]" />
+<ng-content select="[resourceDetailHeading]" />
 
-  <div class="resource-detail-body-layout">
-    <div class="details">
-      <ng-content select="[resourceDetailDetails]" />
-    </div>
+<div class="resource-detail-body-layout">
+  <div class="details">
+    <ng-content select="[resourceDetailDetails]" />
+  </div>
 
-    @if (hasSlider()) {
-      <div class="slider">
-        <ng-content select="[resourceDetailSlider]" />
-      </div>
-    }
+  <div class="slider">
+    <ng-content select="[resourceDetailSlider]" />
+  </div>
 
-    <div class="links">
-      <ng-content select="[resourceDetailLinks]" />
-    </div>
+  <div class="links">
+    <ng-content select="[resourceDetailLinks]" />
   </div>
 </div>
