@@ -15,13 +15,13 @@
   border-bottom: 2px solid var(--color-primary);
 }
 
-@media (max-width: 768px) {
+@media (--media-tablet-main) {
   .link {
     font-size: var(--fs-18);
   }
 }
 
-@media (max-width: 430px) {
+@media (--media-mobile-max) {
   .link {
     font-size: var(--fs-16);
   }

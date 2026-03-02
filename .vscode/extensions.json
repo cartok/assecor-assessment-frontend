@@ -14,6 +14,10 @@
   "unwantedRecommendations": [
     "firsttris.vscode-jest-runner",
     "Orta.vscode-jest",
-    "vitest.explorer"
+    "vitest.explorer",
+    "vunguyentuan.vscode-postcss",
+    "csstools.postcss",
+    "cpylua.language-postcss",
+    "ricard.PostCSS"
   ]
 }

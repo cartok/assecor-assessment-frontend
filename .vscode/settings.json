@@ -3,6 +3,7 @@
   "files.associations": {},
   "editor.wordBasedSuggestions": "matchingDocuments",
   "eslint.useFlatConfig": true,
+  "css.lint.unknownAtRules": "ignore",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.suggest.autoImports": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",

@@ -42,7 +42,7 @@
   padding: 15px 19px;
 }
 
-@media (max-width: 768px) {
+@media (--media-tablet-main) {
   .content {
     grid-auto-flow: row;
     justify-content: stretch;
@@ -59,7 +59,7 @@
   }
 }
 
-@media (max-width: 601px) {
+@media (--media-tablet-min) {
   .logo-and-navigation {
     grid-auto-flow: row;
     justify-content: center;
