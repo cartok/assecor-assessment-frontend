@@ -70,8 +70,6 @@ App lokal:
 
 ## Nächste Ziele
 
-Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur der SWAPI noch besser als nur mit Runtime Cache behandeln wollte. Es würde sich aber falsch anfühlen nicht erst das Backend zu verbessern, aber eventuell konfiguriere ich später doch mal einen, einfach des Templates wegen.
-
 1. ~~CSS~~
    - ~~Präprozessor geziehlt wählen und einbauen~~
      - ~~Verwendung globaler CSS Klassen in .html Templates ersetzen~~
@@ -85,10 +83,10 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
      > Abgebrochen und Zwischenlösung auf separatem Branch gespeichert
    - Clientseitige device detection (infos: `{ touch: boolean, width: number, height: number }`) mit redirect per `location.replace()`
    - Appweite Nutzung der device infos für SSR basiertes responsive rendering
-     - Auf JavaScript Seite ...
-     - Auf CSS Seite ...
-   - Image loading & preloading mit den dann vorhandenen Mitteln optimieren
-   - Die sub resource Listen mit den dann vorhandenen Mitteln abschließen
+     - Image loading & preloading mit den dann vorhandenen Mitteln optimieren
+     - Die sub resource Listen mit den dann vorhandenen Mitteln abschließen
+     - Ggf. weiteres
+   - Angular-basiertes route preloading ausprobieren und gucken wie man nach erstem SSR möglichst gutes CSR bekommt
    - Seiten-Globale CSS Cursor (dann im image slider während der interaktion verwenden)
 
 3. Erweiterungen für SSR + Device Detection + CSS
@@ -96,14 +94,26 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
      - Fallback falls Cookie erstellen nicht möglich ist
    - Fallback für device detection, falls JS nicht aktiviert ist
 
-4. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
-
-5. Aria
+4. Aria
    - Angular Aria
    - AI Scan
    - Browser Tools
-   - Automations
+   - Ggf. automation tools ausprobieren
 
-6. Sonstiges
+5. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX. Dafür evtl. `jannicz/ng-svg-icon-sprite` oder `ngneat/svg-icon` verwenden.
+
+6. Weiteres bzgl. Rendering & Loading
+   - Ggf. component lazy loading in Angular ausprobieren
+     - on idle
+     - on hover
+     - on interaction
+   - Ggf. Service Worker für diverse use-cases
+     - API response caching (SWAPI calls reduzieren und dadurch auch Performance noch weiter erhöhen)
+     - Ggf. weiteres aber unwahrscheinlich
+   - Ggf. SSG rendering aller pages ausprobieren
+
+7. Sonstige Verbesserungen
+   - Ggf. Git push hook mit linting und evtl. auch unit tests
    - Ggf. die Device Detection durch Nutzen von Sec-CH-UA-Mobile, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform macht
-   - Ggf. browser API mocks für unit tests
+   - Ggf. Browser API mocks für unit tests
+   - Ggf. eigene SVG Lösung bauen
