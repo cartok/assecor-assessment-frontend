@@ -81,7 +81,8 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
 
 2. SSR + Device Detection + CSS + Component improvements
    - ~~Grundlegend SSR per standard Template (nutzt express)~~
-   - SSR auf Elysia umstellen
+   - ~~SSR auf Elysia umstellen~~
+     > Abgebrochen und Zwischenlösung auf separatem Branch gespeichert
    - Clientseitige device detection (infos: `{ touch: boolean, width: number, height: number }`) mit redirect per `location.replace()`
    - Appweite Nutzung der device infos für SSR basiertes responsive rendering
      - Auf JavaScript Seite ...

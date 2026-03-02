@@ -6,31 +6,30 @@ import { fileURLToPath } from 'node:url'
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
-  createWebRequestFromNodeRequest,
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node'
-import { staticPlugin } from '@elysiajs/static'
-import { Elysia } from 'elysia'
+import express from 'express'
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url))
 const browserDistFolder = resolve(serverDistFolder, '../browser')
 
-const server = new Elysia()
+const server = express()
 const angularApp = new AngularNodeAppEngine()
 
 server.use(
-  staticPlugin({
-    prefix: '',
-    assets: browserDistFolder,
-    alwaysStatic: true,
-    maxAge: process.env['NODE_ENV'] === 'production' ? 60 * 60 * 24 : 60 * 30,
+  express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: false,
+    redirect: false,
   }),
 )
 
-server.get('/*', async (c) => {
-  const res = await angularApp.handle(c.request, { server: 'elysia' })
-  return res
+server.use((req, res, next) => {
+  angularApp
+    .handle(req)
+    .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))
+    .catch(next)
 })
 
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
@@ -40,21 +39,8 @@ if (isMainModule(import.meta.url) || process.env['pm_id']) {
       throw error
     }
 
-    console.log(`Elysia server listening on http://localhost:${port}`)
+    console.log(`Node Express server listening on http://localhost:${port}`)
   })
 }
 
-export const reqHandler = createNodeRequestHandler(async (req, res, next) => {
-  try {
-    const response = await server.fetch(createWebRequestFromNodeRequest(req))
-
-    if (response) {
-      await writeResponseToNodeResponse(response, res)
-      return
-    }
-
-    next()
-  } catch (error) {
-    next(error)
-  }
-})
+export const reqHandler = createNodeRequestHandler(server)
