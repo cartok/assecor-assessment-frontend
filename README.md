@@ -70,41 +70,43 @@ App lokal:
 
 ## Nächste Ziele
 
-Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur der SWAPI noch besser als nur mit Runtime Cache behandeln wollte. Es würde sich aber falsch anfühlen nicht erst das Backend zu verbessern. Ich habe nichts dergleichen vor, aber sinnvoll wäre es, wenn man keine Optionen hätte. 
+Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur der SWAPI noch besser als nur mit Runtime Cache behandeln wollte. Es würde sich aber falsch anfühlen nicht erst das Backend zu verbessern. Ich habe nichts dergleichen vor, aber sinnvoll wäre es, wenn man keine Optionen hätte.
 
-1. CSS
-- Präprozessor geziehlt wählen und einbauen
-  - Verwendung globaler CSS Klassen in .html Templates ersetzen
-  - Wiederverwendung der definierten CSS Variablen in Media Queries
+1. ~~CSS~~
+   - ~~Präprozessor geziehlt wählen und einbauen~~
+     - ~~Verwendung globaler CSS Klassen in .html Templates ersetzen~~
+     - ~~Wiederverwendung der definierten CSS Variablen in Media Queries~~
 
-2. SSR + Device Detection + CSS
-- Grundlegend SSR per Elysia implementieren
-- Clientseitige device detection (angefangen nur mit Info ob "touch") mit redirect per `location.replace()`
-- Appweite Nutzung der device infos für SSR basiertes responsive rendering
-  - Auf JavaScript Seite ...
-  - Auf CSS Seite ...
+   > Ich habe mich dafür entschieden die globalen Klassen beizubehalten, aber die Media Queries per PostCSS zu reusen.
 
-3. Erweiterungen für SSR + Device Detection + CSS
-- Cookie erstellen zum caching der device detection infos
-  - Fallback falls Cookie erstellen nicht möglich ist
-- Fallback für device detection, falls JS nicht aktiviert ist
-- Ggf. Hinzufügen weiterer device infos
+1. SSR + Device Detection + CSS
+   - Grundlegend SSR per Elysia implementieren
+   - Clientseitige device detection (angefangen nur mit Info ob "touch") mit redirect per `location.replace()`
+   - Appweite Nutzung der device infos für SSR basiertes responsive rendering
+     - Auf JavaScript Seite ...
+     - Auf CSS Seite ...
 
-4. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
+1. Erweiterungen für SSR + Device Detection + CSS
+   - Cookie erstellen zum caching der device detection infos
+     - Fallback falls Cookie erstellen nicht möglich ist
+   - Fallback für device detection, falls JS nicht aktiviert ist
+   - Ggf. Hinzufügen weiterer device infos
+
+1. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
 
 ---
 
 5. Aria
-- Angular Aria
-- AI Scan
-- Browser Tools
-- Automations
+   - Angular Aria
+   - AI Scan
+   - Browser Tools
+   - Automations
 
 6. Verbesserungen an Kern Komponenten & ggf. noch eine Suche implementieren ...
 
 ---
 
 7. Production hosting ...
-- Technologie Wahl & Architektur ...
-- Testing ...
-- Monitoring ...
+   - Technologie Wahl & Architektur ...
+   - Testing ...
+   - Monitoring ...
