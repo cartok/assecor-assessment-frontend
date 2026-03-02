@@ -1,32 +1,36 @@
+/// <reference types="node" />
+
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
+  createWebRequestFromNodeRequest,
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node'
-import express from 'express'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { staticPlugin } from '@elysiajs/static'
+import { Elysia } from 'elysia'
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url))
 const browserDistFolder = resolve(serverDistFolder, '../browser')
 
-const server = express()
+const server = new Elysia()
 const angularApp = new AngularNodeAppEngine()
 
 server.use(
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: false,
-    redirect: false,
+  staticPlugin({
+    prefix: '',
+    assets: browserDistFolder,
+    alwaysStatic: true,
+    maxAge: process.env['NODE_ENV'] === 'production' ? 60 * 60 * 24 : 60 * 30,
   }),
 )
 
-server.use((req, res, next) => {
-  angularApp
-    .handle(req)
-    .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))
-    .catch(next)
+server.get('/*', async (c) => {
+  const res = await angularApp.handle(c.request, { server: 'elysia' })
+  return res
 })
 
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
@@ -36,8 +40,21 @@ if (isMainModule(import.meta.url) || process.env['pm_id']) {
       throw error
     }
 
-    console.log(`Node Express server listening on http://localhost:${port}`)
+    console.log(`Elysia server listening on http://localhost:${port}`)
   })
 }
 
-export const reqHandler = createNodeRequestHandler(server)
+export const reqHandler = createNodeRequestHandler(async (req, res, next) => {
+  try {
+    const response = await server.fetch(createWebRequestFromNodeRequest(req))
+
+    if (response) {
+      await writeResponseToNodeResponse(response, res)
+      return
+    }
+
+    next()
+  } catch (error) {
+    next(error)
+  }
+})
