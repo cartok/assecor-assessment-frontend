@@ -4,6 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('@/pages/home/home').then(({ Home }) => Home),
+    pathMatch: 'full',
   },
   {
     path: 'error',
