@@ -79,14 +79,16 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
 
    > Ich habe mich dafür entschieden die globalen Klassen beizubehalten, aber die Media Queries per PostCSS zu reusen.
 
-2. SSR + Device Detection + CSS
-   - Grundlegend SSR per Elysia implementieren
+2. SSR + Device Detection + CSS + Component improvements
+   - Grundlegend SSR per standard Template (nutzt express)
+   - SSR auf Elysia umstellen
    - Clientseitige device detection (infos: `{ touch: boolean, width: number, height: number }`) mit redirect per `location.replace()`
    - Appweite Nutzung der device infos für SSR basiertes responsive rendering
      - Auf JavaScript Seite ...
      - Auf CSS Seite ...
    - Image loading & preloading mit den dann vorhandenen Mitteln optimieren
    - Die sub resource Listen mit den dann vorhandenen Mitteln abschließen
+   - Seiten-Globale CSS Cursor (dann im image slider während der interaktion verwenden)
 
 3. Erweiterungen für SSR + Device Detection + CSS
    - Cookie erstellen zum caching der device detection infos
