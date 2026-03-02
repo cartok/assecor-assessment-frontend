@@ -81,20 +81,21 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
 
 1. SSR + Device Detection + CSS
    - Grundlegend SSR per Elysia implementieren
-   - Clientseitige device detection (angefangen nur mit Info ob "touch") mit redirect per `location.replace()`
+   - Clientseitige device detection (infos: `{ touch: boolean, width: number, height: number }`) mit redirect per `location.replace()`
    - Appweite Nutzung der device infos für SSR basiertes responsive rendering
      - Auf JavaScript Seite ...
      - Auf CSS Seite ...
 
-1. Erweiterungen für SSR + Device Detection + CSS
+- Image loading & preloading mit den dann vorhandenen Mitteln optimieren
+
+2. Erweiterungen für SSR + Device Detection + CSS
    - Cookie erstellen zum caching der device detection infos
      - Fallback falls Cookie erstellen nicht möglich ist
    - Fallback für device detection, falls JS nicht aktiviert ist
-   - Ggf. Hinzufügen weiterer device infos
 
-1. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
+3. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX
 
----
+4. Verbesserungen an Kern Komponenten & ggf. noch eine Suche implementieren ...
 
 5. Aria
    - Angular Aria
@@ -102,11 +103,5 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
    - Browser Tools
    - Automations
 
-6. Verbesserungen an Kern Komponenten & ggf. noch eine Suche implementieren ...
-
----
-
-7. Production hosting ...
-   - Technologie Wahl & Architektur ...
-   - Testing ...
-   - Monitoring ...
+6. Sonstiges
+   - Ggf. die Device Detection durch Nutzen von Sec-CH-UA-Mobile, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform macht
