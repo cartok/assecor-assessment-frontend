@@ -105,3 +105,4 @@ Sicherlich wäre ein Service Worker sinnvoll, wenn man die schlechte Architektur
 
 6. Sonstiges
    - Ggf. die Device Detection durch Nutzen von Sec-CH-UA-Mobile, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform macht
+   - Ggf. browser API mocks für unit tests
