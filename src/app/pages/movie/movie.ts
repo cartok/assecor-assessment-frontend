@@ -13,7 +13,7 @@ import { LabeledBox } from '@/components/labeled-box/labeled-box'
 import { LinkList } from '@/components/link-list/link-list'
 import { LinkListItem } from '@/components/link-list/link-list-item/link-list-item'
 import { RowDescriptionList } from '@/components/row-description-list/row-description-list'
-import { ResourceDetailLayout } from '@/layouts/resource-detail-layout/resource-detail-layout'
+import { DetailPageLayout } from '@/layouts/detail-page-layout/detail-page-layout'
 import { VisibleTriggerDirective } from '@/shared/directives/visible-trigger/visible-trigger'
 import type { InputValue } from '@/shared/types/component.types'
 
@@ -27,7 +27,7 @@ import type { InputValue } from '@/shared/types/component.types'
     LabeledBox,
     LabeledBox,
     LinkListItem,
-    ResourceDetailLayout,
+    DetailPageLayout,
     VisibleTriggerDirective,
   ],
   templateUrl: './movie.html',

@@ -6,11 +6,11 @@ import { FilmsService } from '@/api/swapi/resources/films/films.service'
 import { Heading } from '@/components/heading/heading'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
-import { DefaultLayout } from '@/layouts/default-layout/default-layout'
+import { DefaultPageLayout } from '@/layouts/default-page-layout/default-page-layout'
 
 @Component({
   selector: 'app-movies',
-  imports: [DatePipe, Heading, ImageGrid, ImageGridItem, DefaultLayout],
+  imports: [DatePipe, Heading, ImageGrid, ImageGridItem, DefaultPageLayout],
   templateUrl: './movies.html',
   styleUrl: './movies.css',
 })

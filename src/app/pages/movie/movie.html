@@ -1,12 +1,16 @@
-@if (item.data(); as data) {
-  <app-resource-detail-layout>
+<app-detail-page-layout>
+  @let data = item.data();
+
+  @if (data) {
     <app-heading
       resourceDetailHeading
       location="Film Details"
       [title]="data.title"
       [subtitle]="`Episode ${data.episodeId}`"
     />
+  }
 
+  @if (data) {
     <section resourceDetailDetails aria-labelledby="details-heading">
       <app-labeled-box>
         <h2 class="g-title-3" id="details-heading" #label>Details:</h2>
@@ -14,53 +18,49 @@
       </app-labeled-box>
       <p class="g-text-1 description">{{ data.openingCrawl }}</p>
     </section>
+  }
 
-    @if (data.images.length) {
-      <app-image-slider
-        resourceDetailSlider
-        [images]="data.images"
-        [viewportHeight]="374"
-      />
-    }
+  @if (data && data.images.length) {
+    <app-image-slider resourceDetailSlider [images]="data.images" [viewportHeight]="374" />
+  }
 
-    @if (data.characterIds.length) {
-      <app-labeled-box
-        resourceDetailLinks
-        appVisibleTrigger
-        (becameVisible)="onCharacterLinksVisible()"
-      >
-        <h2 class="g-title-3" id="details-heading" #label>Characters:</h2>
-        @let characterItems = characters.data();
-        @if (characterItems.length) {
-          <app-link-list>
-            @for (character of characterItems; track $index) {
-              <app-link-list-item [linkUri]="['/character', character.id]">
-                {{ character.name }}
-              </app-link-list-item>
-            }
-          </app-link-list>
-        }
-      </app-labeled-box>
-    }
+  @if (data && data.characterIds.length) {
+    <app-labeled-box
+      resourceDetailLinks
+      appVisibleTrigger
+      (becameVisible)="onCharacterLinksVisible()"
+    >
+      <h2 class="g-title-3" id="details-heading" #label>Characters:</h2>
+      @let characterItems = characters.data();
+      @if (characterItems.length) {
+        <app-link-list>
+          @for (character of characterItems; track $index) {
+            <app-link-list-item [linkUri]="['/character', character.id]">
+              {{ character.name }}
+            </app-link-list-item>
+          }
+        </app-link-list>
+      }
+    </app-labeled-box>
+  }
 
-    @if (data.planetIds.length) {
-      <app-labeled-box
-        resourceDetailLinks
-        appVisibleTrigger
-        (becameVisible)="onPlanetLinksVisible()"
-      >
-        <h2 class="g-title-3" id="details-heading" #label>Planets:</h2>
-        @let planetItems = planets.data();
-        @if (planetItems.length) {
-          <app-link-list>
-            @for (planet of planetItems; track $index) {
-              <app-link-list-item [linkUri]="['/planet', planet.id]">
-                {{ planet.name }}
-              </app-link-list-item>
-            }
-          </app-link-list>
-        }
-      </app-labeled-box>
-    }
-  </app-resource-detail-layout>
-}
+  @if (data && data.planetIds.length) {
+    <app-labeled-box
+      resourceDetailLinks
+      appVisibleTrigger
+      (becameVisible)="onPlanetLinksVisible()"
+    >
+      <h2 class="g-title-3" id="details-heading" #label>Planets:</h2>
+      @let planetItems = planets.data();
+      @if (planetItems.length) {
+        <app-link-list>
+          @for (planet of planetItems; track $index) {
+            <app-link-list-item [linkUri]="['/planet', planet.id]">
+              {{ planet.name }}
+            </app-link-list-item>
+          }
+        </app-link-list>
+      }
+    </app-labeled-box>
+  }
+</app-detail-page-layout>

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-import { DefaultLayout } from '@/layouts/default-layout/default-layout'
+import { DefaultPageLayout } from '@/layouts/default-page-layout/default-page-layout'
 
 @Component({
   selector: 'app-error',
-  imports: [DefaultLayout],
+  imports: [DefaultPageLayout],
   templateUrl: './error.html',
   styleUrl: './error.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
