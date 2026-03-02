@@ -55,6 +55,7 @@ export class Movie {
     return this.item.data()?.characterIds ?? []
   })
   readonly characters = this.peopleService.getItems(this.characterIds)
+  readonly characterItems = computed(() => this.characters.data())
   readonly showPlanetLinks = signal(false)
   readonly planetIds = computed<string[]>(() => {
     if (!this.showPlanetLinks()) {
@@ -64,6 +65,7 @@ export class Movie {
     return this.item.data()?.planetIds ?? []
   })
   readonly planets = this.planetsService.getItems(this.planetIds)
+  readonly planetItems = computed(() => this.planets.data())
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
     () => {

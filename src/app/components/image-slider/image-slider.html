@@ -8,30 +8,27 @@
     (swipeCancel)="disableDraggingCursor()"
     (swipeLeft)="incrementActiveIndex()"
     (swipeRight)="decrementActiveIndex()"
-    #viewport
   >
-    @if (viewportWidth() > 0) {
-      <div
-        class="slides"
-        [class.slides-swiping]="isSwiping()"
-        [style]="{ transform: `translateX(${-slidesX()}px)` }"
-      >
-        @for (image of images(); track $index) {
-          <div class="slide" [style]="{ width: `${viewportWidth()}px` }">
-            <img
-              class="image"
-              [src]="image.url"
-              [alt]="image.alt"
-              [width]="image.width"
-              [height]="image.height"
-              [attr.loading]="$index === activeIndex() ? 'eager' : 'lazy'"
-              [attr.fetchpriority]="$index === activeIndex() ? 'high' : 'low'"
-              decoding="async"
-            />
-          </div>
-        }
-      </div>
-    }
+    <div
+      class="slides"
+      [class.slides-swiping]="isSwiping()"
+      [style]="{ transform: `translateX(${slidesTranslateX()})` }"
+    >
+      @for (image of images(); track $index) {
+        <div class="slide">
+          <img
+            class="image"
+            [src]="image.url"
+            [alt]="image.alt"
+            [width]="image.width"
+            [height]="image.height"
+            [attr.loading]="$index === activeIndex() ? 'eager' : 'lazy'"
+            [attr.fetchpriority]="$index === activeIndex() ? 'high' : 'low'"
+            decoding="async"
+          />
+        </div>
+      }
+    </div>
   </div>
   <div class="indicators" aria-hidden="true">
     @for (image of images(); track $index) {

@@ -55,6 +55,7 @@ export class Planet {
     return this.item.data()?.residentIds ?? []
   })
   readonly residents = this.peopleService.getItems(this.residentIds)
+  readonly residentItems = computed(() => this.residents.data())
   readonly showFilmLinks = signal(false)
   readonly filmIds = computed<string[]>(() => {
     if (!this.showFilmLinks()) {
@@ -64,6 +65,7 @@ export class Planet {
     return this.item.data()?.filmIds ?? []
   })
   readonly films = this.filmsService.getItems(this.filmIds)
+  readonly filmItems = computed(() => this.films.data())
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
     () => {

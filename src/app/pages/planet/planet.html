@@ -25,10 +25,9 @@
       (becameVisible)="onResidentLinksVisible()"
     >
       <h2 class="g-title-3" id="details-heading" #label>Residents:</h2>
-      @let residentItems = residents.data();
-      @if (residentItems.length) {
+      @if (residentItems().length) {
         <app-link-list>
-          @for (resident of residentItems; track $index) {
+          @for (resident of residentItems(); track $index) {
             <app-link-list-item [linkUri]="['/character', resident.id]">
               {{ resident.name }}
             </app-link-list-item>
@@ -45,10 +44,9 @@
       (becameVisible)="onFilmLinksVisible()"
     >
       <h2 class="g-title-3" id="details-heading" #label>Films:</h2>
-      @let filmItems = films.data();
-      @if (filmItems.length) {
+      @if (filmItems().length) {
         <app-link-list>
-          @for (film of filmItems; track $index) {
+          @for (film of filmItems(); track $index) {
             <app-link-list-item [linkUri]="['/movie', film.id]">
               {{ film.title }}
             </app-link-list-item>

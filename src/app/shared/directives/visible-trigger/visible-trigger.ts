@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common'
 import {
   DestroyRef,
   Directive,
@@ -5,6 +6,7 @@ import {
   inject,
   type OnInit,
   output,
+  PLATFORM_ID,
 } from '@angular/core'
 
 @Directive({
@@ -15,6 +17,7 @@ export class VisibleTriggerDirective implements OnInit {
 
   private readonly hostRef = inject<ElementRef<HTMLElement>>(ElementRef)
   private readonly destroyRef = inject(DestroyRef)
+  private readonly platformId = inject(PLATFORM_ID)
   private observer?: IntersectionObserver
 
   constructor() {
@@ -24,7 +27,7 @@ export class VisibleTriggerDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    if (typeof IntersectionObserver === 'undefined') {
+    if (!isPlatformBrowser(this.platformId)) {
       this.becameVisible.emit()
       return
     }

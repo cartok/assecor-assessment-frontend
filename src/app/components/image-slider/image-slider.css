@@ -8,30 +8,27 @@
 }
 
 .viewport {
-  position: relative;
   width: 100%;
   overflow: hidden;
-  contain: layout paint;
+  contain: layout;
 }
 
 .slides {
-  position: absolute;
   height: 100%;
-  display: flex;
+  display: grid;
   grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  width: 100%;
   transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
   cursor: grab;
-  transform: translate3d(0, 0, 0);
 }
 
 .slides-swiping {
   cursor: grabbing;
-  will-change: transform;
 }
 
 .slide {
   height: 100%;
-  box-sizing: content-box;
 }
 
 .image {

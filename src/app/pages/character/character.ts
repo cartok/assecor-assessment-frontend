@@ -53,6 +53,7 @@ export class Character {
     return this.item.data()?.filmIds ?? []
   })
   readonly films = this.filmsService.getItems(this.filmIds)
+  readonly filmItems = computed(() => this.films.data())
 
   readonly descriptionRows = computed<InputValue<typeof RowDescriptionList, 'items'>>(
     () => {
