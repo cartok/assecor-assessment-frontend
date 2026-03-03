@@ -4,13 +4,13 @@
   @if (data.items.length > 0) {
     <app-image-grid>
       @for (item of data.items; track $index) {
-        <!-- TODO: Eventuell schlechte Architektur: Könnte <img> rein geben, dann kann ich dessen loading hier direkt steuern. Alternativ gucken wie und ob ich durch reiche vs abstrahiere (evtl. unnötige Komplexität). Könnte dann auch den Link als slot definieren aber first things first. -->
+        <!-- TODO: Eventuell schlechte Architektur: Könnte <img> rein geben, dann kann ich dessen loading hier direkt steuern. Alternativ gucken wie und ob ich durch reiche vs abstrahiere (evtl. unnötige Komplexität). Könnte dann auch den Link als slot definieren aber first things first.-->
         <app-image-grid-item
           [imageUrl]="item.images[0].url"
           [imageAlt]="imageTitle(item)"
           [label]="item.title"
           [linkUri]="linkUri(item)"
-          [priorityImage]="device.breakpoint() === 's'"
+          [priorityImage]="device.maxWidth() === 1337"
         >
           @if (item.director) {
             <div class="g-truncate-1">Director: {{ item.director }}</div>

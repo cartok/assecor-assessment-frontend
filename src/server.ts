@@ -22,19 +22,9 @@ const angularApp = new AngularNodeAppEngine()
 
 // --- DEVICE BOOTSTRAP STORY: start ---
 
-//  TODO: Device-Bootstrap-Story grundlegend auslagern und Teile kuppeln
-/**
- * TODO: Hier hab ich keine single source of truth. Ggf. eine statische CSS-In-JS Lösung verwenden (vermutlich am saubersten; PostCSS würde dann nicht mehr gebraucht werden und könnte raus), oder alternativ `media.css` per build step oder ein kleines vite plugin generieren (nur wenn es keine bessere Lösung gibt).
- *   - Grundlagen auf App-Seite einbauen
- *   - Gucken ob z.b. vanilla-extract-css zudem eine Utility zur breakpoint Bestimmung mitbringen würde.
- *   - Lösung für korrekte Breakpoint-Bestimming erstellen (`mapWidthToBreakpoint`) und ggf. den `Ranges` code dropen, falls nicht nötig. Auf jeden Fall brauche ich JS-Based Breakpoint-Matching hierfür auch im Frontend. Allgemein sollten hier server und client code unabhängig sein, und nur fürs development gelten.
- *
- * Letzendlich will ich im render code so was benutzen:
- * ```ts
- *
- * const foo = 1
- * ```
- */
+// TODO: Device-Bootstrap-Story grundlegend auslagern und Teile kuppeln
+// TODO: Möglichst einfache Lösung und gute Backend/Frontend-Code-Trennung (muss aber nicht gleich perfekt sein)
+
 const breakpointMap = new Map<number, string>([
   [1385, '--desktop-gradation-1'],
   [1100, '--desktop-gradation-2'],
@@ -93,38 +83,37 @@ export class Range {
   }
 }
 
-function mapWidthToBreakpoint(width: number): BootstrapCookie['breakpoint'] {
-  // TODO: Der return value ist schlecht getyped. Daher verbessern sobald klar ist wie das breakpoint mapping aussehen wird und wie die responsibilities genau sein sollte (client vs. server: "Wer definiert?").
-  return '--media-mobile-min'
+function mapDimensionsToBreakpoint({
+  width,
+  height,
+}: {
+  width: number
+  height: number
+}): Parameters<typeof mapDimensionsToBreakpoint>[0] {
+  return {
+    width: 1,
+    height: 1,
+  }
 }
 
-const BootstrapRequestSchema = Type.Object(
+const BootstrapSchema = Type.Object(
   {
     touch: Type.Boolean(),
-    width: Type.Number(),
+    maxWidth: Type.Number(),
+    maxHeight: Type.Number(),
   },
   {
     additionalProperties: false,
   },
 )
 
-type BootstrapRequest = Type.Static<typeof BootstrapRequestSchema>
+type BootstrapRequest = Type.Static<typeof BootstrapSchema>
 
-const bootstrapRequestValidator = Compile(BootstrapRequestSchema)
+const bootstrapRequestValidator = Compile(BootstrapSchema)
 
-const BootstrapCookieSchema = Type.Object(
-  {
-    touch: Type.Boolean(),
-    breakpoint: Type.Enum(Object.values(breakpointMap)),
-  },
-  {
-    additionalProperties: false,
-  },
-)
+type BootstrapCookie = Type.Static<typeof BootstrapSchema>
 
-type BootstrapCookie = Type.Static<typeof BootstrapCookieSchema>
-
-const bootstrapCookieValidator = Compile(BootstrapCookieSchema)
+const bootstrapCookieValidator = Compile(BootstrapSchema)
 
 function validateBoostrapCookie(
   value: Record<string, unknown> | undefined,
