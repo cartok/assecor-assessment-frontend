@@ -117,3 +117,14 @@ App lokal:
    - Ggf. die Device Detection durch Nutzen von Sec-CH-UA-Mobile, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform macht
    - Ggf. Browser API mocks für unit tests
    - Ggf. eigene SVG Lösung bauen
+
+8. Hosting (TBD: Zwei Architekturen)
+
+   Grobe Richtung:
+   1. Eine Kubernetes Variante (Plattform: Fly.io oder Cloudflare Containers)
+      - Sehr gut vollständig automatisiert testbar: Lokal (Docker/compose/k3s) ^= CI ^= Prod
+      - Monitoring, Logging, Alerting braucht mehr Arbeit, ist dann aber klarer und flexibler
+      - Ich könnte mit Quarkus Microservices arbeiten z. B. als BFF für API, die Auth. benötig, für OCID, für die Device Detection Story.
+      - Alles Mögliche
+   2. Eine Serverless Function Variante (Plattform: Vercel oder Netlify)
+      - Minimalistischer
