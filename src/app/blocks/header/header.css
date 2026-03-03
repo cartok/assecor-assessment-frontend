@@ -42,7 +42,7 @@
   padding: 15px 19px;
 }
 
-@media (--media-tablet-main) {
+@media (--media-tablet-target) {
   .content {
     grid-auto-flow: row;
     justify-content: stretch;

@@ -15,7 +15,7 @@
   border-bottom: 2px solid var(--color-primary);
 }
 
-@media (--media-tablet-main) {
+@media (--media-tablet-target) {
   .link {
     font-size: var(--fs-18);
   }

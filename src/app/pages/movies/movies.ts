@@ -7,6 +7,7 @@ import { Heading } from '@/components/heading/heading'
 import { ImageGrid } from '@/components/image-grid/image-grid'
 import { ImageGridItem } from '@/components/image-grid/image-grid-item/image-grid-item'
 import { DefaultPageLayout } from '@/layouts/default-page-layout/default-page-layout'
+import { DeviceService } from '@/services/DeviceService'
 
 @Component({
   selector: 'app-movies',
@@ -18,6 +19,7 @@ export class Movies {
   readonly filmsService = inject(FilmsService)
   readonly page = signal('1')
   readonly collection = this.filmsService.getCollection(this.page)
+  readonly device = inject(DeviceService)
 
   imageTitle = (film: Film) => `Image of "${film.title}"`
   linkTitle = (film: Film) => `Go to "${film.title}" detail page`

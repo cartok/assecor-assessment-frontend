@@ -1,10 +1,12 @@
 <div class="image-grid-item">
+  <!-- WIP: Use `NgOptimizedImage` for images at some point -->
   <img
     class="image"
     [src]="imageUrl()"
     [alt]="imageAlt()"
+    [attr.loading]="priorityImage() ? 'eager' : 'lazy'"
+    [attr.fetchpriority]="priorityImage() ? 'high' : 'low'"
     decoding="async"
-    loading="lazy"
   />
   <div class="description-container">
     <div class="g-title-3">

@@ -47,6 +47,7 @@ module.exports = defineConfig([
         },
       ],
       '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-empty-function': 'warn',
     },
   },
   {
