@@ -1,13 +1,7 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common'
-import {
-  DestroyRef,
-  Directive,
-  ElementRef,
-  inject,
-  input,
-  output,
-  PLATFORM_ID,
-} from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { DestroyRef, Directive, ElementRef, inject, input, output } from '@angular/core'
+
+import { injectIsBrowser } from '@/shared/utils/platform'
 
 type SwipeDirection = 'left' | 'right'
 type SwipeCancelReason =
@@ -64,7 +58,7 @@ export class SwipeDirective {
   private readonly hostRef = inject<ElementRef<HTMLElement>>(ElementRef)
   private readonly destroyRef = inject(DestroyRef)
   private readonly document = inject(DOCUMENT)
-  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
+  private readonly isBrowser = injectIsBrowser()
   private tracking: SwipeTracking | null = null
 
   constructor() {

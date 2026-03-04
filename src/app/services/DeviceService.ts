@@ -1,17 +1,22 @@
 import type { Signal } from '@angular/core'
-import { Injectable, signal } from '@angular/core'
+import { inject, Injectable, signal } from '@angular/core'
+
+import { MediaQueryService } from '@/services/MediaQueryService'
+import { injectIsBrowser } from '@/shared/utils/platform'
 
 @Injectable({ providedIn: 'root' })
 export class DeviceService {
+  private readonly mediaQueryService = inject(MediaQueryService)
+  private readonly isBrowser = injectIsBrowser()
+
   readonly touch: Signal<boolean | undefined> = signal(undefined)
   readonly maxWidth: Signal<number | undefined> = signal(undefined)
   readonly maxHeight: Signal<number | undefined> = signal(undefined)
 }
 
-// TOOD: 1. vanilla-extract-css genauer angucken
 // TOOD: 2. Lösung für JS-machting rules & CSS rule options bei gemeinsamer definitions-basis (single source of truth für width und height breakpoints). Überlegen ob aliase (desktop, tablet, mobile & <gradiations>, target, min, max) am ende worthy sind.
 // TODO: 3. Bevor es Konkreter wird mal überlegen: Ich hab die device prams als Signal angelegt. Wenn ich sie beim window resize updaten würde, wie würde sich das z.b. auf bereits geladene `<img>`s auswirken? Würden sich dann nur die Attribute ändern? Das wäre zwar unnötig, aber nicht schädlich. Schädlich wäre es, wenn sie z.b. neu geladen werden würden, oder die ganze component, die von dem Signal / Input abhängig ist. Bin da noch nicht vertraut genug mit. Man könnte auch zwischen SSR Parametern und dynamischen Parametern unterscheiden, falls nötig, dann hätte man die flexiblen SSR Optimierungen und zuätzlich die Möglichkeit (falls nötig), z. B. unterschiedlichen Content auszuspielen oder ggf. andere JS-basierte Dinge durch resize zu beinflussenm aber gut möglich dass da kein Bedarf ist. Definitiv zu einem sauberen Ergebnis kommen, kein Bug-Beast bauen.
-// TOOD: 4. API fertig definieren damit features & constraints klarer sind
+// TOOD: 4. API fertig definieren damit features & constraints klarer sind. Sicherstellen dass ein bei verwendung auch default values definiert werden, damit es auch ohne SSR (und dadurch eben auch bei in app navigation) sauber läuft.
 // - builder vs config und/oder mehrere utils/methods
 
 // CSS Wise

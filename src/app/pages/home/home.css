@@ -43,3 +43,13 @@
     color: yellow;
   }
 }
+
+/* kein linting, nix */
+.foo {
+  width: var(--bar);
+}
+@media (--foo) {
+  .logo {
+    color: red !important;
+  }
+}
