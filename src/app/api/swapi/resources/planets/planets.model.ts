@@ -1,4 +1,7 @@
-import type { SwapiImageDataMock, SwapiResource } from '@/api/swapi/shared/types/model'
+import type {
+  SwapiImageDataMock,
+  SwapiResource,
+} from '@/app/api/swapi/shared/types/model'
 
 /**
  * A planet.

@@ -7,7 +7,7 @@ import {
   output,
 } from '@angular/core'
 
-import { injectIsBrowser } from '@/shared/utils/platform'
+import { injectIsBrowser } from '@/app/shared/utils/platform'
 
 @Directive({
   selector: '[appVisibleTrigger]',

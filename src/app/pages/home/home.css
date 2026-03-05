@@ -38,9 +38,25 @@
 
 /* Kombinieren via PostCSS geht nicht (es sei denn da gibts ne option). Falls PostCSS müsste ich kartesisches prd. wäre eher uncool */
 /* @media (--max-width-700) and (--max-height-700) { */
-@media (max-width: 700px) and (max-height: 700px) {
+/* @media (max-width: 700px) and (max-height: 700px) {
   .logo {
     color: yellow;
+  }
+} */
+/* oder doch? -> nein */
+@media (--max-width-700) {
+  @media (--max-height-700) {
+    .logo {
+      color: yellow;
+    }
+  }
+}
+/* aber so, ohne postcss tokens geht es */
+@media (max-width: 700px) {
+  @media (max-height: 700px) {
+    .logo {
+      color: yellow;
+    }
   }
 }
 

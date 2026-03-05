@@ -10,21 +10,21 @@ import {
 import {
   MINIMAL_HTTP_RETRY_POLICY,
   retryableHttpResourceRequest,
-} from '@/api/swapi/shared/http/http-retry.interceptor'
+} from '@/app/api/swapi/shared/http/http-retry.interceptor'
 import type {
   SwapiResourceCollectionDto,
   SwapiResourceDto,
-} from '@/api/swapi/shared/types/dto'
+} from '@/app/api/swapi/shared/types/dto'
 import type {
   SwapiResource,
   SwapiResourceCollection,
-} from '@/api/swapi/shared/types/model'
+} from '@/app/api/swapi/shared/types/model'
 import {
   type SwapiResourceServiceConfig,
   type SwapiResourceServiceMethodOptions,
   type SwapiServiceResult,
-} from '@/api/swapi/shared/types/service'
-import { extractSwapiIdOptional } from '@/api/swapi/shared/utils/mapping'
+} from '@/app/api/swapi/shared/types/service'
+import { extractSwapiIdOptional } from '@/app/api/swapi/shared/utils/mapping'
 
 export class SwapiResourceService<
   TDto extends SwapiResourceDto,

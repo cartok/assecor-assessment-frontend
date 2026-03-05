@@ -6,7 +6,7 @@ import {
   signal,
 } from '@angular/core'
 
-import { SwipeDirective } from '@/shared/directives/swipe/swipe'
+import { SwipeDirective } from '@/app/shared/directives/swipe/swipe'
 
 @Component({
   selector: 'app-image-slider',

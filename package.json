@@ -2,6 +2,10 @@
   "name": "swapi-angular-frontend",
   "version": "0.0.0",
   "scripts": {
+    "generate:device:schema": "tsx scripts/generate-device-schema.mts",
+    "generate:device:types": "quicktype --src generated/schema/device.schema.json --src-lang schema --lang typescript --just-types -o src/generated/types/device.ts",
+    "generate:device:validator": "tsx scripts/generate-validator.mts",
+    "codegen": "bun run generate:device:schema && bun run generate:device:types && bun run generate:device:validator",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -39,6 +43,7 @@
     "@csstools/postcss-global-data": "^4.0.0",
     "@types/express": "^5.0.6",
     "@types/node": "^25.3.3",
+    "ajv": "^8.18.0",
     "angular-eslint": "21.0.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
@@ -49,8 +54,10 @@
     "prettier": "^3.8.1",
     "prettier-eslint": "^16.4.2",
     "quicktype": "^23.2.6",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.46.4",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.8",
+    "ya-json-schema-types": "^1.0.1"
   }
 }
