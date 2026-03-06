@@ -111,7 +111,12 @@ Entscheidung: Per prefix routes.
 
 ---
 
-- TODO: Docs update ist gestern per browser commit verloren gegangen...
+- TODO: Grundlegend die device init page incl. redirect umsetzen
+- TODO: Cookie und header daten vereinen
+- TODO: Fallback Logik die über die device init seite entscheidet sollte gut und togglebar sein
+
+---
+
 - TODO: Sollte taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
 - TODO: Sollte für touch prüfung js touchpoints check hinzugenommen werden?
   ```js
