@@ -78,7 +78,7 @@ App lokal:
 
    > Ich habe mich dafür entschieden die globalen Klassen beizubehalten, aber die Media Queries per PostCSS zu reusen.
 
-2. SSR + Device Detection + CSS + Component improvements
+2. SSR + Device Detection
    - ~~Grundlegend SSR per standard Template (nutzt express)~~
    - ~~SSR auf Elysia umstellen~~
      > Abgebrochen und Zwischenlösung auf separatem Branch gespeichert
@@ -88,22 +88,24 @@ App lokal:
      - Die sub resource Listen mit den dann vorhandenen Mitteln abschließen
      - Ggf. weiteres
    - Angular-basiertes route preloading ausprobieren und gucken wie man nach erstem SSR möglichst gutes CSR bekommt
-   - Seiten-Globale CSS Cursor (dann im image slider während der interaktion verwenden)
 
 3. Erweiterungen für SSR + Device Detection + CSS
    - Cookie erstellen zum caching der device detection infos
      - Fallback falls Cookie erstellen nicht möglich ist
    - Fallback für device detection, falls JS nicht aktiviert ist
 
-4. Aria
+4. Seiten-Globale CSS Cursor (dann im image slider während der interaktion verwenden)
+5. Bessere CSS Lösung
+
+6. Aria
    - Angular Aria
    - AI Scan
    - Browser Tools
    - Ggf. automation tools ausprobieren
 
-5. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX. Dafür evtl. `jannicz/ng-svg-icon-sprite` oder `ngneat/svg-icon` verwenden.
+7. Lösung zur automatisierten Generierung und Verwendung von SVG Spritesheet(s) mit guter DX. Dafür evtl. `jannicz/ng-svg-icon-sprite` oder `ngneat/svg-icon` verwenden.
 
-6. Weiteres bzgl. Rendering & Loading
+8. Weiteres bzgl. Rendering & Loading
    - Ggf. component lazy loading in Angular ausprobieren
      - on idle
      - on hover
@@ -113,19 +115,19 @@ App lokal:
      - Ggf. weiteres aber unwahrscheinlich
    - Ggf. SSG rendering aller pages ausprobieren
 
-7. Sonstige Verbesserungen
+9. Sonstige Verbesserungen
    - Ggf. Git push hook mit linting und evtl. auch unit tests
-   - Ggf. die Device Detection durch Nutzen von Sec-CH-UA-Mobile, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform macht
+   - ~~Ggf. die Device Detection durch Nutzen von Sec-CH-UA-Mobile, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform macht~~
    - Ggf. Browser API mocks für unit tests
    - Ggf. eigene SVG Lösung bauen
 
-8. Hosting (TBD: Zwei Architekturen)
+10. Hosting (TBD: Zwei Architekturen)
 
-   Grobe Richtung:
-   1. Eine Kubernetes Variante (Plattform: Fly.io oder Cloudflare Containers)
-      - Sehr gut vollständig automatisiert testbar: Lokal (Docker/compose/k3s) ^= CI ^= Prod
-      - Monitoring, Logging, Alerting braucht mehr Arbeit, ist dann aber klarer und flexibler
-      - Ich könnte mit Quarkus Microservices arbeiten z. B. als BFF für API, die Auth. benötig, für OCID, für die Device Detection Story.
-      - Alles Mögliche
-   2. Eine Serverless Function Variante (Plattform: Vercel oder Netlify)
-      - Minimalistischer
+    Grobe Richtung:
+    1. Eine Kubernetes Variante (Plattform: Fly.io oder Cloudflare Containers)
+       - Sehr gut vollständig automatisiert testbar: Lokal (Docker/compose/k3s) ^= CI ^= Prod
+       - Monitoring, Logging, Alerting braucht mehr Arbeit, ist dann aber klarer und flexibler
+       - Ich könnte mit Quarkus Microservices arbeiten z. B. als BFF für API, die Auth. benötig, für OCID, für die Device Detection Story.
+       - Alles Mögliche
+    2. Eine Serverless Function Variante (Plattform: Vercel oder Netlify)
+       - Minimalistischer
