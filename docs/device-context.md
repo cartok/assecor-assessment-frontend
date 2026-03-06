@@ -102,24 +102,35 @@ Entscheidung: Per prefix routes.
 
 #### TODOs
 
-- TODO: Device width/height Werte der Sec-CH Headers auf die Breakpoints mappen
-- TODO: DeviceService Signals während SPA für CSR updaten
+- Breakpoints
+  - Device width/height Werte der Sec-CH Headers auf die Breakpoints mappen
+  - DeviceService Signals während SPA für CSR updaten
 
 ---
 
-- TODO: API zum verwenden der device infos + anwendung und manuelle tests
+- API zum verwenden der device infos + anwendung und manuelle tests
 
 ---
 
-- TODO: Grundlegend die device init page incl. redirect umsetzen
-- TODO: Cookie und header daten vereinen
-- TODO: Fallback Logik die über die device init seite entscheidet sollte gut und togglebar sein
+- SSG dynamisch machen -> Path prefixe einführen
 
 ---
 
-- TODO: Sollte taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
-- TODO: Sollte für touch prüfung js touchpoints check hinzugenommen werden?
-  ```js
-  const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
-  ```
-- TODO: Bin unzufrieden mit der AJV validator Lösung
+- Fallback Mechanimsus
+  - Grundlegend die device init page incl. redirect umsetzen
+  - Cookie und header daten vereinen
+  - Fallback Logik die über die device init seite entscheidet sollte gut und togglebar sein
+
+---
+
+- Grundlegende Finalisierung
+
+---
+
+- Eventuelle QOL Verbesserungen
+  - TODO: Sollte taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
+  - TODO: Sollte für touch prüfung js touchpoints check hinzugenommen werden?
+    ```js
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+    ```
+  - TODO: Bin unzufrieden mit der AJV validator Lösung
