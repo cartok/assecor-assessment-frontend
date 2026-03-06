@@ -33,6 +33,7 @@
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "rxjs": "~7.8.0",
+    "structured-headers": "^2.0.2",
     "tslib": "^2.3.0",
     "typebox": "^1.1.5"
   },

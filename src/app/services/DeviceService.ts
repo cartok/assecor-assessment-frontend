@@ -26,9 +26,9 @@ export class DeviceService {
   private readonly hover = signal<DeviceRenderContext['hover']>(undefined)
 
   constructor() {
-    const device = this.getInitialDeviceContext()
-    this.applyDeviceContext(device)
-    console.log(device)
+    const deviceContext = this.getInitialDeviceContext()
+    this.applyDeviceContext(deviceContext)
+    console.log('APP:', { deviceContext }, { ssr: this.isServer })
   }
 
   updateDeviceContext(context: Partial<DeviceRenderContext>): void {

@@ -13,7 +13,7 @@ export interface DeviceRenderContext {
 }
 
 export const DEFAULT_DEVICE_RENDER_CONTEXT: DeviceRenderContext = {
-  format: 'desktop',
+  format: 'mobile',
 }
 
 export const RENDER_CONTEXT = makeStateKey<RequestContext>('render-context')
