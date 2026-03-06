@@ -120,6 +120,7 @@ Entscheidung: Per prefix routes.
   - Grundlegend die device init page incl. redirect umsetzen
   - Cookie und header daten vereinen
   - Fallback Logik die über die device init seite entscheidet sollte gut und togglebar sein
+- Touch/Hover Geschichte abschließen / bereinigen oder erstmal entfernen
 
 ---
 
