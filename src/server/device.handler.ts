@@ -3,6 +3,8 @@ import { parseItem, parseList } from 'structured-headers'
 
 import type { DeviceContext } from '@/shared/render/context'
 
+type HeaderType = ReturnType<express.Request['get']>
+
 export function addDeviceHandler(server: express.Express): void {
   server.use(async (req, res, next) => {
     // Get client hints from low-entropy headers.
@@ -16,8 +18,7 @@ export function addDeviceHandler(server: express.Express): void {
     // Parse headers and store them.
     const deviceContext: DeviceContext = {
       format: resolveDeviceFormat({ formFactorsHeader, mobileHeader }),
-      width: parseViewportDimensionHeader(widthHeader),
-      height: parseViewportDimensionHeader(heightHeader),
+      ...parseViewportDimensionHeaders({ widthHeader, heightHeader }),
     }
     res.locals['deviceContext'] = deviceContext
 
@@ -35,15 +36,28 @@ export function addDeviceHandler(server: express.Express): void {
   })
 }
 
-function parseFormFactorHeader(
-  value: string | undefined,
-): DeviceContext['format'] | undefined {
-  if (!value) {
+function resolveDeviceFormat({
+  formFactorsHeader,
+  mobileHeader,
+}: {
+  formFactorsHeader: HeaderType
+  mobileHeader: HeaderType
+}): DeviceContext['format'] {
+  const formFactor = parseFormFactorHeader(formFactorsHeader)
+  if (formFactor) {
+    return formFactor
+  }
+
+  return mobileHeader === '?0' ? 'desktop' : 'mobile'
+}
+
+function parseFormFactorHeader(header: HeaderType): DeviceContext['format'] | undefined {
+  if (!header) {
     return undefined
   }
 
   try {
-    const parsed = parseList(value)
+    const parsed = parseList(header)
     for (const member of parsed) {
       if (Array.isArray(member[0])) {
         continue
@@ -70,13 +84,32 @@ function parseFormFactorHeader(
   return undefined
 }
 
-function parseViewportDimensionHeader(value: string | undefined): number | undefined {
-  if (!value) {
+/**
+ * Notice: The `width` and `height` values the browser sends in the `Sec-CH-Viewport-*` will
+ * not exactly match `window.innerWidth` and `window.InnerHeight`. The browser somewhat seems
+ * to calculate in the zoom level. Accurate values can only be received by client-side detection
+ * and redirection.
+ */
+function parseViewportDimensionHeaders({
+  widthHeader,
+  heightHeader,
+}: {
+  widthHeader: HeaderType
+  heightHeader: HeaderType
+}): { width?: number; height?: number } {
+  return {
+    width: parseViewportDimensionHeader(widthHeader),
+    height: parseViewportDimensionHeader(heightHeader),
+  }
+}
+
+function parseViewportDimensionHeader(headerValue: HeaderType): number | undefined {
+  if (!headerValue) {
     return undefined
   }
 
   try {
-    const [bareItem] = parseItem(value)
+    const [bareItem] = parseItem(headerValue)
     if (typeof bareItem !== 'number' || !Number.isInteger(bareItem) || bareItem <= 0) {
       return undefined
     }
@@ -85,19 +118,4 @@ function parseViewportDimensionHeader(value: string | undefined): number | undef
   } catch {
     return undefined
   }
-}
-
-function resolveDeviceFormat({
-  formFactorsHeader: formFactorHeader,
-  mobileHeader,
-}: {
-  formFactorsHeader: string | undefined
-  mobileHeader: string | undefined
-}): DeviceContext['format'] {
-  const formFactor = parseFormFactorHeader(formFactorHeader)
-  if (formFactor) {
-    return formFactor
-  }
-
-  return mobileHeader === '?0' ? 'desktop' : 'mobile'
 }

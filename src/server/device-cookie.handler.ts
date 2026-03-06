@@ -22,7 +22,7 @@ export function addDeviceCookieHandler(server: express.Express): void {
  *
  * @example
  * curl http://localhost:4200/bootstrap \
- *   --json '{ "touch": true, "width": 802 }' \
+ *   --json '{ "format": "desktop", "touch": false }' \
  *   --cookie-jar cookie \
  *   --cookie cookie \
  * && echo "\n\nCookie is:"; cat cookie
@@ -32,7 +32,7 @@ const deviceCookieHandler: express.RequestHandler<ParamsDictionary, unknown, unk
   res,
 ) => {
   const deviceCookieValue = validateBoostrapCookie(req.cookies[DEVICE_COOKIE_KEY])
-  console.debug({ cookieValue: deviceCookieValue })
+  console.debug({ deviceCookieValue })
 
   if (!deviceCookieValue) {
     res.clearCookie(DEVICE_COOKIE_KEY, { path: '/' })

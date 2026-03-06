@@ -106,6 +106,4 @@ TODO: Wie kann ich zuverlässig von Desktop / Laptop Geräte die einen Touchscre
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
   ```
 
-```
-
-```
+TODO: Docs update ist gestern per browser commit verloren gegangen...
