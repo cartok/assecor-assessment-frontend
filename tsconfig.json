@@ -18,6 +18,9 @@
     "paths": {
       "@/app/*": ["src/app/*"],
       "@/css/*": ["src/css/*"],
+      "@/shared/*": ["src/shared/*"],
+      "@/server/*": ["src/server/*"],
+      "@/config/*": ["config/*"],
       "@/generated/*": ["generated/*"]
     }
   },
@@ -39,7 +42,7 @@
       "path": "./tsconfig.spec.json"
     },
     {
-      "path": "./tsconfig.scripts.json"
+      "path": "./tsconfig.generators.json"
     }
   ]
 }

@@ -22,13 +22,13 @@
   margin-top: 2px;
 }
 
-@media (--desktop-gradation-2) {
+@media (--mw-1280) {
   .header {
     padding: 50px 0;
   }
 }
 
-@media (--media-tablet-min) {
+@media (--mw-601) {
   .header {
     padding: 40px 0;
   }

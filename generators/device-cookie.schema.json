@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "device-cookie.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "pointer": {
+      "type": "string",
+      "enum": ["coarse", "fine", "none"]
+    },
+    "hover": {
+      "type": "boolean"
+    }
+  },
+  "required": ["version", "pointer", "hover"]
+}

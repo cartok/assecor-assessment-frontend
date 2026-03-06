@@ -1,12 +1,12 @@
 import { inject, Injectable, REQUEST_CONTEXT, signal, TransferState } from '@angular/core'
 
+import { injectIsBrowser, injectIsServer } from '@/app/shared/utils/platform'
 import {
   DEFAULT_DEVICE_RENDER_CONTEXT,
   type DeviceContext,
   REQUEST_CONTEXT_TRANSFER,
   type RequestContext,
-} from '@/app/shared/render/context'
-import { injectIsBrowser, injectIsServer } from '@/app/shared/utils/platform'
+} from '@/shared/render/context'
 
 @Injectable({ providedIn: 'root' })
 export class DeviceService {

@@ -8,19 +8,19 @@
   --page-content-end-padding-small: 80px;
 }
 
-@media (--desktop-gradation-2) {
+@media (--mw-1280) {
   :root {
     --layout-gutter: 50px;
   }
 }
 
-@media (--media-tablet-min) {
+@media (--mw-601) {
   :root {
     --layout-gutter: 40px;
   }
 }
 
-@media (--media-mobile-max) {
+@media (--mw-430) {
   :root {
     --layout-gutter: 25px;
   }

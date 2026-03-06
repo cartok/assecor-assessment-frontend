@@ -8,13 +8,13 @@
   padding-bottom: var(--page-content-end-padding-big);
 }
 
-@media (--desktop-gradation-2) {
+@media (--mw-1280) {
   .g-page-content {
     padding-bottom: var(--page-content-end-padding-medium);
   }
 }
 
-@media (--media-tablet-min) {
+@media (--mw-601) {
   .g-page-content {
     padding-bottom: var(--page-content-end-padding-small);
   }

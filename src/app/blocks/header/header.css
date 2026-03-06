@@ -42,7 +42,7 @@
   padding: 15px 19px;
 }
 
-@media (--media-tablet-target) {
+@media (--mw-768) {
   .content {
     grid-auto-flow: row;
     justify-content: stretch;
@@ -59,7 +59,7 @@
   }
 }
 
-@media (--media-tablet-min) {
+@media (--mw-601) {
   .logo-and-navigation {
     grid-auto-flow: row;
     justify-content: center;

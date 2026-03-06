@@ -48,6 +48,7 @@ Installation und Start:
 
 ```bash
 bun install
+bun run generate
 bun run start
 ```
 

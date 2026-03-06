@@ -3,8 +3,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/scripts",
+    "outDir": "./out-tsc/generators",
     "types": ["node"]
   },
-  "include": ["scripts/**/*.ts", "scripts/**/*.mts"]
+  "include": ["generators/**/*.ts", "generators/**/*.mts", "config/**/*.ts"]
 }
