@@ -102,17 +102,12 @@ Entscheidung: Per prefix routes.
 
 #### TODOs
 
-- Breakpoints
-  - Device width/height Werte der Sec-CH Headers auf die Breakpoints mappen
-  - DeviceService Signals während SPA für CSR updaten
-
----
-
-- API zum verwenden der device infos + anwendung und manuelle tests
-
----
-
-- SSG dynamisch machen -> Path prefixe einführen
+- Device Context / Breakpoints
+  - SSG dynamisch erzeugen
+    - Path prefixe einführen: `/<form>/<width>/<height>/**`
+  - Die width und height Werte auf die Breakpoints mappen
+  - DeviceService Signals während SPA für CSR updaten (MediaQueryService)
+  - DeviceService anwenden
 
 ---
 
