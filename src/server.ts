@@ -23,18 +23,6 @@ const angularApp = new AngularNodeAppEngine()
 // --- DEVICE BOOTSTRAP STORY: start ---
 
 // TODO: Device-Bootstrap-Story grundlegend auslagern und Teile kuppeln
-// TODO: Möglichst einfache Lösung und gute Backend/Frontend-Code-Trennung (muss aber nicht gleich perfekt sein)
-
-const breakpointMap = new Map<number, string>([
-  [1385, '--desktop-gradation-1'],
-  [1100, '--desktop-gradation-2'],
-  [768, '--media-tablet-target'],
-  [601, '--media-tablet-min'],
-  [1280, '--media-tablet-max'],
-  [360, '--media-mobile-target'],
-  [360, '--media-mobile-min'],
-  [430, '--media-mobile-max'],
-])
 
 interface RangeOptions {
   /**
@@ -131,17 +119,7 @@ function validateBoostrapCookie(
 const BOOTSTRAP_COOKIE_KEY = 'bootstrap'
 
 /**
- * TODO: Grad bin ich mir nicht mehr ganz sicher mit dem Ablauf. Ggf. erstmal grundlegend dafür sorgen dass ich die bootstrap Parameter in die App rein bekomme. Es bestanden zwei grundlegend verschieden Ideen:
- *
- * Idee 1 (Client Post):
- * 1. Client (Browser) fragt beliebige Seite an.
- * 2. Server prüft ob er weiß, was der Client für aktuelle Parameter hat (`BootstrapBody`).
- * 3. ...
- *
- * Idee 2 (Server Redirect):
- * 1. ...
- *
- * Manual test command:
+ * How to test cookies:
  *
  * @example
  * curl http://localhost:4200/bootstrap \
@@ -159,11 +137,7 @@ const bootstrapHandler: express.RequestHandler<
   console.debug({ bootstrapCookieValue })
 
   if (!bootstrapCookieValue) {
-    res.clearCookie(BOOTSTRAP_COOKIE_KEY, {
-      sameSite: 'lax',
-      secure: isProd,
-      path: '/',
-    })
+    res.clearCookie(BOOTSTRAP_COOKIE_KEY, { path: '/' })
   }
 
   let bootstrapRequestValue: BootstrapRequest
