@@ -23,8 +23,8 @@ const browserDistFolder = resolve(serverDistFolder, '../browser')
 const server = express()
 const angularApp = new AngularNodeAppEngine()
 
-addDeviceHandler(server)
 addDeviceCookieHandler(server)
+addDeviceHandler(server)
 
 server.use(
   express.static(browserDistFolder, {
