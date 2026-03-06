@@ -15,7 +15,11 @@
   }
 
   @if (data && data.images.length) {
-    <app-image-slider resourceDetailSlider [images]="data.images" [viewportHeight]="374" />
+    <app-image-slider
+      resourceDetailSlider
+      [images]="data.images"
+      [viewportHeight]="374"
+    />
   }
 
   @if (data && data.filmIds.length) {

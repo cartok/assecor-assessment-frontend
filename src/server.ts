@@ -9,8 +9,8 @@ import {
 } from '@angular/ssr/node'
 import express from 'express'
 
-import { addDeviceCookieHandler } from '@/server/device-cookie.handler'
 import { addDeviceHandler } from '@/server/device.handler'
+import { addDeviceCookieHandler } from '@/server/device-cookie.handler'
 import {
   DEFAULT_DEVICE_RENDER_CONTEXT,
   type DeviceContext,

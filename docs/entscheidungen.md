@@ -19,13 +19,13 @@ Warum:
 - Sehr gute Trennung von Verantwortlichkeiten
 - Reifer, stabiler Stack mit klaren Konventionen
 - Passt fachlich und technisch zur Aufgabenstellung
-- Durch offene API ohne Auth war kein zusätzliches Backend für Secret-Handling notwendig, wodurch rein CSR kein Problem war. 
+- Durch offene API ohne Auth war kein zusätzliches Backend für Secret-Handling notwendig, wodurch rein CSR kein Problem war.
 
 Alternativen:
 
 - Vue (+ Nuxt), bin gespannt auf vapor
-- Solid (+ SolidStart) 
-- React (+ Next/Remix) 
+- Solid (+ SolidStart)
+- React (+ Next/Remix)
 
 Trade-off:
 
