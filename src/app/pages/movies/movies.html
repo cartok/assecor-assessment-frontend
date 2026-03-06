@@ -10,7 +10,7 @@
           [imageAlt]="imageTitle(item)"
           [label]="item.title"
           [linkUri]="linkUri(item)"
-          [priorityImage]="device.maxWidth() === 1337"
+          [priorityImage]="false"
         >
           @if (item.director) {
             <div class="g-truncate-1">Director: {{ item.director }}</div>

@@ -179,7 +179,12 @@ server.use(
 
 server.use(async (req, res, next) => {
   try {
-    const response = await angularApp.handle(req)
+    // TODO: wie krieg ich das in den handler? weiter oben an request packen, korrekt?
+    /**
+     * Temporary test data
+     */
+    const requestContext: RequestContext = { device: { format: DEFAULT_DEVICE_FORMAT } }
+    const response = await angularApp.handle(req, requestContext)
     if (response) {
       writeResponseToNodeResponse(response, res)
       return
