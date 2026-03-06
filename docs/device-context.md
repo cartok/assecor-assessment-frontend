@@ -107,6 +107,10 @@ Entscheidung: Per prefix routes.
 
 ---
 
+- TODO: API zum verwenden der device infos + anwendung und manuelle tests
+
+---
+
 - TODO: Docs update ist gestern per browser commit verloren gegangen...
 - TODO: Sollte taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
 - TODO: Sollte für touch prüfung js touchpoints check hinzugenommen werden?
