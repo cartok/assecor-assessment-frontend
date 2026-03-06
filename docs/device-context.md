@@ -122,3 +122,4 @@ Entscheidung: Per prefix routes.
   ```js
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
   ```
+- TODO: Bin unzufrieden mit der AJV validator Lösung
