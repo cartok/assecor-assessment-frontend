@@ -94,6 +94,7 @@ TODO: Wie kann ich zuverlässig von Desktop / Laptop Geräte die einen Touchscre
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/orientation
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/resolution
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/pointer
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/any-pointer
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/display-mode
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/hover
 
@@ -107,3 +108,4 @@ TODO: Wie kann ich zuverlässig von Desktop / Laptop Geräte die einen Touchscre
   ```
 
 TODO: Docs update ist gestern per browser commit verloren gegangen...
+TODO: Sollte taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation

@@ -10,18 +10,26 @@ const ajv = new Ajv2020({
 })
 
 const validate = ajv.compile(schema)
+
+const BASE_NAME = 'device-cookie.validator'
 const validator = standaloneCode(ajv, validate)
 const dts = `
-declare module '@/generated/validators/*.mjs' {
-  const validator: any
-  export default validator
-  export const validate: any
+declare module '@/generated/validators/${BASE_NAME}.mjs' {
+  export const validate: ((data: unknown) => boolean) & {
+    errors: null | {
+      instancePath: string,
+      schemaPath: string,
+      keyword: string,
+      params: Record<string, unknown>,
+      message: string,
+    }
+    evaluated: { props: boolean, dynamicProps: boolean, dynamicItems: boolean }
+  }
 }
 `
-
 const outputDir = new URL('../generated/validators/', import.meta.url)
-const outputFile = new URL('device-cookie.validator.mjs', outputDir)
-const outputFileDts = new URL('device-cookie.validator.d.ts', outputDir)
+const outputFile = new URL(`${BASE_NAME}.mjs`, outputDir)
+const outputFileDts = new URL(`${BASE_NAME}.d.ts`, outputDir)
 
 await fs.mkdir(outputDir, { recursive: true })
 await fs.writeFile(outputFile, validator)

@@ -13,6 +13,12 @@
     },
     "hover": {
       "type": "boolean"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
     }
   },
   "required": ["version", "pointer", "hover"]
