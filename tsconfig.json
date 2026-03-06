@@ -20,7 +20,6 @@
       "@/css/*": ["src/css/*"],
       "@/shared/*": ["src/shared/*"],
       "@/server/*": ["src/server/*"],
-      "@/config/*": ["config/*"],
       "@/generated/*": ["generated/*"]
     }
   },
