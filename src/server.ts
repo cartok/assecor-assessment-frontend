@@ -16,7 +16,7 @@ import { Compile } from 'typebox/compile'
 
 import {
   DEFAULT_DEVICE_RENDER_CONTEXT,
-  type DeviceRenderContext,
+  type DeviceContext,
   type RequestContext,
 } from '@/app/shared/render/context'
 
@@ -176,7 +176,7 @@ server.post(
 
 function parseFormFactorHeader(
   value: string | undefined,
-): DeviceRenderContext['format'] | undefined {
+): DeviceContext['format'] | undefined {
   if (!value) {
     return undefined
   }
@@ -232,7 +232,7 @@ function resolveDeviceFormat({
 }: {
   formFactorsHeader: string | undefined
   mobileHeader: string | undefined
-}): DeviceRenderContext['format'] {
+}): DeviceContext['format'] {
   const formFactor = parseFormFactorHeader(formFactorHeader)
   if (formFactor) {
     return formFactor
@@ -251,7 +251,7 @@ server.use(async (req, res, next) => {
   const heightHeader = req.get('sec-ch-viewport-height')
 
   // Parse headers and store them.
-  const deviceContext: DeviceRenderContext = {
+  const deviceContext: DeviceContext = {
     format: resolveDeviceFormat({ formFactorsHeader, mobileHeader }),
     width: parseViewportDimensionHeader(widthHeader),
     height: parseViewportDimensionHeader(heightHeader),
@@ -285,7 +285,7 @@ server.use(async (req, res, next) => {
   try {
     const requestContext: RequestContext = {
       device:
-        (res.locals['deviceContext'] as DeviceRenderContext | undefined) ??
+        (res.locals['deviceContext'] as DeviceContext | undefined) ??
         DEFAULT_DEVICE_RENDER_CONTEXT,
     }
     const response = await angularApp.handle(req, requestContext)

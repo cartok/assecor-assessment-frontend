@@ -1,10 +1,10 @@
 import { makeStateKey } from '@angular/core'
 
 export interface RequestContext {
-  device: DeviceRenderContext
+  device: DeviceContext
 }
 
-export interface DeviceRenderContext {
+export interface DeviceContext {
   format: 'desktop' | 'tablet' | 'mobile'
   width?: number
   height?: number
@@ -12,8 +12,10 @@ export interface DeviceRenderContext {
   hover?: boolean
 }
 
-export const DEFAULT_DEVICE_RENDER_CONTEXT: DeviceRenderContext = {
+export const DEFAULT_DEVICE_RENDER_CONTEXT: DeviceContext = {
   format: 'mobile',
 }
 
-export const RENDER_CONTEXT = makeStateKey<RequestContext>('render-context')
+export const REQUEST_CONTEXT_TRANSFER = makeStateKey<RequestContext>(
+  'request-context-transfer',
+)

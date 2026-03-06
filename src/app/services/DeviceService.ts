@@ -2,8 +2,8 @@ import { inject, Injectable, REQUEST_CONTEXT, signal, TransferState } from '@ang
 
 import {
   DEFAULT_DEVICE_RENDER_CONTEXT,
-  type DeviceRenderContext,
-  RENDER_CONTEXT,
+  type DeviceContext,
+  REQUEST_CONTEXT_TRANSFER,
   type RequestContext,
 } from '@/app/shared/render/context'
 import { injectIsBrowser, injectIsServer } from '@/app/shared/utils/platform'
@@ -17,13 +17,13 @@ export class DeviceService {
   })
   private readonly transferState = inject(TransferState)
 
-  private readonly format = signal<DeviceRenderContext['format']>(
+  private readonly format = signal<DeviceContext['format']>(
     DEFAULT_DEVICE_RENDER_CONTEXT.format,
   )
-  private readonly width = signal<DeviceRenderContext['width']>(undefined)
-  private readonly height = signal<DeviceRenderContext['height']>(undefined)
-  private readonly touch = signal<DeviceRenderContext['touch']>(undefined)
-  private readonly hover = signal<DeviceRenderContext['hover']>(undefined)
+  private readonly width = signal<DeviceContext['width']>(undefined)
+  private readonly height = signal<DeviceContext['height']>(undefined)
+  private readonly touch = signal<DeviceContext['touch']>(undefined)
+  private readonly hover = signal<DeviceContext['hover']>(undefined)
 
   constructor() {
     const deviceContext = this.getInitialDeviceContext()
@@ -31,28 +31,28 @@ export class DeviceService {
     console.log('APP:', { deviceContext }, { ssr: this.isServer })
   }
 
-  updateDeviceContext(context: Partial<DeviceRenderContext>): void {
+  updateDeviceContext(context: Partial<DeviceContext>): void {
     this.applyDeviceContext(context)
   }
 
-  private getInitialDeviceContext(): DeviceRenderContext {
+  private getInitialDeviceContext(): DeviceContext {
     if (this.isServer && this.renderContext) {
-      this.transferState.set(RENDER_CONTEXT, this.renderContext)
+      this.transferState.set(REQUEST_CONTEXT_TRANSFER, this.renderContext)
       return this.renderContext.device
     }
 
-    if (this.isBrowser && this.transferState.hasKey(RENDER_CONTEXT)) {
-      const transferredContext = this.transferState.get(RENDER_CONTEXT, {
+    if (this.isBrowser && this.transferState.hasKey(REQUEST_CONTEXT_TRANSFER)) {
+      const transferredContext = this.transferState.get(REQUEST_CONTEXT_TRANSFER, {
         device: DEFAULT_DEVICE_RENDER_CONTEXT,
       })
-      this.transferState.remove(RENDER_CONTEXT)
+      this.transferState.remove(REQUEST_CONTEXT_TRANSFER)
       return transferredContext.device
     }
 
     return DEFAULT_DEVICE_RENDER_CONTEXT
   }
 
-  private applyDeviceContext(context: Partial<DeviceRenderContext>): void {
+  private applyDeviceContext(context: Partial<DeviceContext>): void {
     if (context.format !== undefined) {
       this.format.set(context.format)
     }
