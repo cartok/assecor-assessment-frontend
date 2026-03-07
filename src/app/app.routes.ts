@@ -1,5 +1,5 @@
-import type { ParamMap } from '@angular/router'
-import { type Routes } from '@angular/router'
+import type { ParamMap, Route, UrlSegment } from '@angular/router'
+import { defaultUrlMatcher, type Routes, UrlSegmentGroup } from '@angular/router'
 import BREAKPOINTS from 'breakpoints.json' with { type: 'json' }
 
 import type { DeviceFormat } from '@/shared/render/context'
@@ -63,8 +63,6 @@ const variableRoutes = Object.freeze(
   VARIANT_PATHS.map((path) => ({ path, children: actualRoutes })),
 )
 
-// FYI: SSR redirect hätte nur initial effekt, ich kann also nicht alle redirects allein im server machen.
-// TODO: sollte vermutlich die actual routes raus nehmen, beides mal mit anderer base href testen wenn ich die raus nehmen würde, müsste ich aber ein redirect erzeugen, aber was wenn ich keine oder kaum device context infos habe...
 export const routes: Routes = [
   ...variableRoutes,
   ...actualRoutes,
@@ -73,6 +71,9 @@ export const routes: Routes = [
      * URLs for manual testing:
      * - http://localhost:4200/desktop/1385/400
      * - http://localhost:4200/desktop/1385/000
+     *   TODO: Muss doch noch empty width but height und empty height but width ermöglichen
+     *         Empty heist ja nicht limitiert und das muss ja jeweils möglich sein.
+     *         Aber insgesamt schon mal nicht schlecht.
      * - http://localhost:4200/desktop/99999999999/400
      * - http://localhost:4200/desktop/1385/99999999999
      * - http://localhost:4200/desktop/99999999999/99999999999
@@ -109,10 +110,11 @@ export const routes: Routes = [
         return `${deviceFormatOrFallback}/**`
       }
 
-      const actualPath = redirectData.url.slice(3).join('/')
-      if (!actualPathExists(actualPath)) {
+      const actualPathSegments = redirectData.url.slice(3)
+      if (!actualPathExists(actualPathSegments)) {
         return '/error'
       }
+      const actualPath = actualPathSegments.map((segment) => segment.toString()).join('/')
 
       const widthBreakpoint =
         width === null ? null : findClosestBreakpoint(BREAKPOINTS.width, width)
@@ -155,10 +157,12 @@ export const routes: Routes = [
       const deviceFormatOrFallback = parseDeviceFormatFromParamMapOrFallback(
         redirectData.paramMap,
       )
-      const actualPath = redirectData.url.slice(1).join('/')
-      if (!actualPathExists(actualPath)) {
+
+      const actualPathSegments = redirectData.url.slice(1)
+      if (!actualPathExists(actualPathSegments)) {
         return '/error'
       }
+      const actualPath = actualPathSegments.map((segment) => segment.toString()).join('/')
 
       const correctedPath = actualPath.length
         ? [deviceFormatOrFallback, actualPath].join('/')
@@ -196,8 +200,34 @@ function parseDeviceFormatFromParamMapOrFallback(paramMap: ParamMap): DeviceForm
   return deviceFormatOrFallback
 }
 
-function actualPathExists(path: string): boolean {
-  return actualRoutes.some((actualRoute) => actualRoute.path === path)
+const actualRouteMatchers = Object.freeze(
+  actualRoutes
+    .map((route) => createActualRouteMatcher(route))
+    .filter((matcher): matcher is ActualRouteMatcher => matcher !== null),
+)
+
+type ActualRouteMatcher = (segmentGroup: UrlSegmentGroup) => boolean
+
+function createActualRouteMatcher(route: Route): ActualRouteMatcher | null {
+  if (route.path === undefined || route.path === '**') {
+    return null
+  }
+  if (route.path === '') {
+    return (segmentGroup) => segmentGroup.segments.length === 0
+  }
+
+  const routeForMatching: Route = {
+    path: route.path,
+    pathMatch: 'full',
+  }
+
+  return (segmentGroup) =>
+    defaultUrlMatcher(segmentGroup.segments, segmentGroup, routeForMatching) !== null
+}
+
+function actualPathExists(segments: UrlSegment[]): boolean {
+  const segmentGroup = new UrlSegmentGroup(segments, {})
+  return actualRouteMatchers.some((matcher) => matcher(segmentGroup))
 }
 
 function findClosestBreakpoint(breakpoints: number[], value: number) {
