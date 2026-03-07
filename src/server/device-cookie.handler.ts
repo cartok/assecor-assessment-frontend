@@ -1,7 +1,6 @@
 import cookieParser from 'cookie-parser'
 import express from 'express'
 import type { ParamsDictionary } from 'express-serve-static-core'
-import value from 'typebox/value'
 
 import type { DeviceCookie } from '@/generated/types/device-cookie.types'
 import { validate } from '@/generated/validators/device-cookie.validator.mjs'
@@ -32,26 +31,37 @@ const deviceCookieHandler: express.RequestHandler<ParamsDictionary, unknown, unk
   req,
   res,
 ) => {
-  const existingDeviceCookie = parseExistingDeviceCookie(req.cookies[DEVICE_COOKIE_KEY])
-  if (!existingDeviceCookie) {
+  // Check for existing cookie and delete it if it's bad.
+  try {
+    const currentCookie: unknown = req.cookies[DEVICE_COOKIE_KEY]
+    const valid = validate<DeviceCookie>(currentCookie)
+    if (!valid) {
+      throw JSON.stringify(validate.errors)
+    }
+    console.info('Current device cookie:', currentCookie)
+  } catch (error) {
+    console.warn('Device cookie was invalid:', error)
     res.clearCookie(DEVICE_COOKIE_KEY, { path: '/' })
     console.info('Cleared invalid device cookie.')
   }
 
-  let deviceCookie: DeviceCookie
+  // Assure that request body is valid cookie data.
+  const requestBody: unknown = req.body
   try {
-    const valid = validate(req.body)
+    const valid = validate<DeviceCookie>(requestBody)
     if (!valid) {
       throw JSON.stringify(validate.errors)
     }
-    deviceCookie = req.body as DeviceCookie
-    console.debug({ deviceCookie })
+    console.info('New device cookie:', requestBody)
   } catch (error) {
-    console.error('Invalid request body.', error)
-    return res.status(400).json({ message: `Invalid body: ${JSON.stringify(req.body)}` })
+    console.error('Invalid request body:', error)
+    return res
+      .status(400)
+      .json({ message: `Invalid request body: ${JSON.stringify(req.body)}` })
   }
 
-  res.cookie(DEVICE_COOKIE_KEY, deviceCookie, {
+  // Set new cookie from request body.
+  res.cookie(DEVICE_COOKIE_KEY, requestBody, {
     sameSite: 'lax',
     secure: isProd,
     path: '/',
@@ -59,19 +69,6 @@ const deviceCookieHandler: express.RequestHandler<ParamsDictionary, unknown, unk
   })
 
   return res.status(200).json({
-    message: `Successfully set ${DEVICE_COOKIE_KEY} cookie to ${JSON.stringify(deviceCookie)}`,
+    message: `Successfully set ${DEVICE_COOKIE_KEY} cookie to ${JSON.stringify(requestBody)}`,
   })
-}
-
-function parseExistingDeviceCookie(value: unknown): DeviceCookie | null {
-  try {
-    const valid = validate(value)
-    if (!valid) {
-      throw JSON.stringify(validate.errors)
-    }
-    return value as DeviceCookie
-  } catch (error) {
-    console.warn('Device cookie was invalid.', error)
-    return null
-  }
 }

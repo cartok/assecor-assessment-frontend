@@ -15,7 +15,7 @@ const BASE_NAME = 'device-cookie.validator'
 const validator = standaloneCode(ajv, validate)
 const dts = `
 declare module '@/generated/validators/${BASE_NAME}.mjs' {
-  export const validate: ((data: unknown) => boolean) & {
+  export const validate: (<T>(data: unknown) => data is T) & {
     errors: null | {
       instancePath: string,
       schemaPath: string,
