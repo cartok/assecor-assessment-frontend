@@ -1,18 +1,27 @@
+import { inject } from '@angular/core'
+import { Router } from '@angular/router'
 import type { ServerRoute } from '@angular/ssr'
 import { RenderMode } from '@angular/ssr'
 
-// TODO: Wenn ich die boostrap story grundlegend drin hab müsste ich für alle prerendered routes (SSG) mehrere versionen erzeugen lassen, falls das denn verbindbar ist. Ansonsten erstmal alles auf SSR setzen, oder eben auf fallback behavior (default werte falls seite ohne bootstrap laden soll) setzen.
+// const baseRoutesSSG: ServerRoute[] = []
 export const serverRoutes: ServerRoute[] = [
   {
     path: '',
-    renderMode: RenderMode.Prerender,
+    renderMode: RenderMode.Client,
+    // renderMode: RenderMode.Prerender,
+    // async getPrerenderParams() {
+    //   const router = inject(Router)
+    //   console.log('STATE:', router.routerState)
+    //   throw "ho"
+    // },
   },
-  {
-    path: 'error',
-    renderMode: RenderMode.Prerender,
-  },
+  // {
+  //   path: 'error',
+  //   renderMode: RenderMode.Prerender,
+  // },
   {
     path: '**',
-    renderMode: RenderMode.Server,
+    // renderMode: RenderMode.Server,
+    renderMode: RenderMode.Client,
   },
 ]
