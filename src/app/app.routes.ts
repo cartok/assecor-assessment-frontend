@@ -74,6 +74,8 @@ export const routes: Routes = [
      *   TODO: Muss doch noch empty width but height und empty height but width ermöglichen
      *         Empty heist ja nicht limitiert und das muss ja jeweils möglich sein.
      *         Aber insgesamt schon mal nicht schlecht.
+     *         Ich könnte ggf. auch alles mit einem pfad machen und matrix parameter verwenden?
+     *         -> ':device-context' -> 'responsive;f=mobile;w=1000;h=1000/movies'
      * - http://localhost:4200/desktop/99999999999/400
      * - http://localhost:4200/desktop/1385/99999999999
      * - http://localhost:4200/desktop/99999999999/99999999999
