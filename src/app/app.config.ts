@@ -1,3 +1,4 @@
+import { LocationStrategy, NoTrailingSlashPathLocationStrategy } from '@angular/common'
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'
 import type { ApplicationConfig } from '@angular/core'
 import { LOCALE_ID, provideZonelessChangeDetection } from '@angular/core'
@@ -10,6 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
     provideZonelessChangeDetection(),
+    { provide: LocationStrategy, useClass: NoTrailingSlashPathLocationStrategy },
     provideRouter(
       routes,
       withInMemoryScrolling({
