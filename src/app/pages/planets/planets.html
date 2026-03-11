@@ -1,5 +1,9 @@
 <app-default-page-layout>
-  <app-heading title="Planets" />
+  @if (deviceService.isWidth601()) {
+    <app-heading title="Hallo 601" />
+  } @else {
+    <app-heading title="Planets" />
+  }
   @let data = collection.data();
   @if (data.items.length > 0) {
     <app-image-grid>

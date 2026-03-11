@@ -9,7 +9,7 @@
     },
     "pointer": {
       "type": "string",
-      "enum": ["coarse", "fine", "none"]
+      "oneOf": [{ "const": "coarse" }, { "const": "fine" }, { "const": "none" }]
     },
     "hover": {
       "type": "boolean"

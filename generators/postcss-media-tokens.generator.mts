@@ -1,17 +1,16 @@
+import { BREAKPOINTS } from 'breakpoints'
 import fs from 'node:fs/promises'
 
-import deviceBreakpoints from 'breakpoints.json' with { type: 'json' }
-
-const widthTokenLines = deviceBreakpoints.width.map(
+const widthTokenLines = BREAKPOINTS.width.map(
   (widthValue) => `@custom-media --mw-${widthValue} (max-width: ${widthValue}px);`,
 )
-const heightTokensLines = deviceBreakpoints.height.map(
+const heightTokensLines = BREAKPOINTS.height.map(
   (heightValue) => `@custom-media --mh-${heightValue} (max-height: ${heightValue}px);`,
 )
 const combinedTokens: string[] = []
 
-for (const widthValue of deviceBreakpoints.width) {
-  for (const heightValue of deviceBreakpoints.height) {
+for (const widthValue of BREAKPOINTS.width) {
+  for (const heightValue of BREAKPOINTS.height) {
     combinedTokens.push(
       `@custom-media --mw-${widthValue}-mh-${heightValue} (max-width: ${widthValue}px) and (max-height: ${heightValue}px);`,
     )

@@ -1,12 +1,12 @@
 import type express from 'express'
 import { parseItem, parseList } from 'structured-headers'
 
-import type { DeviceContext } from '@/shared/render/context'
+import type { DeviceContext } from '@/shared/device/context'
 
 type HeaderType = ReturnType<express.Request['get']>
 
-export function addDeviceHandler(server: express.Express): void {
-  server.use(async (req, res, next) => {
+export function addDeviceContextHandler(server: express.Express): void {
+  server.get(/.*/, (req, res, next) => {
     // Get client hints from low-entropy headers.
     const mobileHeader = req.get('sec-ch-ua-mobile')
 
@@ -16,6 +16,7 @@ export function addDeviceHandler(server: express.Express): void {
     const heightHeader = req.get('sec-ch-viewport-height')
 
     // Parse headers and store them.
+    // TODO: Add, inject and process info from device cookie
     const deviceContext: DeviceContext = {
       format: resolveDeviceFormat({ formFactorsHeader, mobileHeader }),
       ...parseViewportDimensionHeaders({ widthHeader, heightHeader }),

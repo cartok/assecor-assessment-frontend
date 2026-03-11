@@ -119,14 +119,18 @@ Entscheidung: Per prefix routes.
 
 ---
 
-- Grundlegende Finalisierung
+- Grundlegende Finalisierungen
+  [] Image Grids sind optimiert
+  [] Link Lists sind optimiert
 
 ---
 
-- Eventuelle QOL Verbesserungen
-  - TODO: Sollte taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
-  - TODO: Sollte für touch prüfung js touchpoints check hinzugenommen werden?
+- Eventuelle Verbesserungen
+  - Der Mix aus den unfertigen Schemas und der Definition der Breakpoints hier, ist nicht gut. Idee war ja grundlegend von der Architektur her mal zu gucken wie es aussehen würde möglichst Server- und Sprach-neutral die Schnittmenge an Informationen zu definieren die auf beiden Seiten gebraucht werden. Auch der Workaround mit dem d.ts File für den Cookie Validator gefällt mir nicht.
+  - Taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
+  - Sollte für touch prüfung js touchpoints check hinzugenommen werden?
     ```js
     const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
     ```
-  - TODO: Bin unzufrieden mit der AJV validator Lösung
+  - `NgOptimizedImage` nutzen
+  - Eventuell schlechte Architektur von `app-image-grid-item`: Könnte <img> rein geben, dann kann ich dessen loading hier direkt steuern. Alternativ gucken wie und ob ich durch reiche vs abstrahiere (evtl. unnötige Komplexität). Könnte dann auch den Link als slot definieren aber first things first.

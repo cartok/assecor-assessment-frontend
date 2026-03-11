@@ -1,24 +1,25 @@
-import type { ParamMap, Route, UrlSegment } from '@angular/router'
+import type { Route } from '@angular/router'
+import type { UrlSegment } from '@angular/router'
 import { defaultUrlMatcher, type Routes, UrlSegmentGroup } from '@angular/router'
-import BREAKPOINTS from 'breakpoints.json' with { type: 'json' }
 
-import type { DeviceFormat } from '@/shared/render/context'
 import {
-  DEFAULT_DEVICE_FORMAT,
-  DEVICE_FORMATS,
-  isDeviceFormat,
-} from '@/shared/render/context'
+  DEVICE_CONTEXT_PATH_PARAM_PREFIX,
+  deviceContextToPathSegment,
+  findClosestBreakpoints,
+  findClosestHeightBreakpoint,
+  findClosestWidthBreakpoint,
+  isHeightBreakpointValid,
+  isWidthBreakpointValid,
+  objectToDeviceContext,
+} from '@/shared/device/context'
+
+export const APP_ERROR_PATH_NAME = 'error'
 
 const actualRoutes: Routes = [
   {
     path: '',
     loadComponent: () => import('@/app/pages/home/home').then(({ Home }) => Home),
     pathMatch: 'full',
-  },
-  {
-    path: 'error',
-    loadComponent: () =>
-      import('@/app/pages/error/error').then(({ ErrorPage }) => ErrorPage),
   },
   {
     path: 'movies',
@@ -49,158 +50,82 @@ const actualRoutes: Routes = [
   },
 ]
 
-const VARIANT_PATHS: string[] = [...DEVICE_FORMATS]
-for (const deviceFormat of DEVICE_FORMATS) {
-  for (const width of BREAKPOINTS.width) {
-    for (const height of BREAKPOINTS.height) {
-      VARIANT_PATHS.push(`${deviceFormat}/${width}/${height}`)
-    }
-  }
-}
-Object.freeze(VARIANT_PATHS)
-
-const variableRoutes = Object.freeze(
-  VARIANT_PATHS.map((path) => ({ path, children: actualRoutes })),
-)
-
 export const routes: Routes = [
-  ...variableRoutes,
-  ...actualRoutes,
-  {
-    /**
-     * URLs for manual testing:
-     * - http://localhost:4200/desktop/1385/400
-     * - http://localhost:4200/desktop/1385/000
-     *   TODO: Muss doch noch empty width but height und empty height but width ermöglichen
-     *         Empty heist ja nicht limitiert und das muss ja jeweils möglich sein.
-     *         Aber insgesamt schon mal nicht schlecht.
-     *         Ich könnte ggf. auch alles mit einem pfad machen und matrix parameter verwenden?
-     *         -> ':device-context' -> 'responsive;f=mobile;w=1000;h=1000/movies'
-     * - http://localhost:4200/desktop/99999999999/400
-     * - http://localhost:4200/desktop/1385/99999999999
-     * - http://localhost:4200/desktop/99999999999/99999999999
-     * - http://localhost:4200/desktop/1385/xxx
-     * - http://localhost:4200/desktop/1385/400/planets
-     * - http://localhost:4200/desktop/1385/400/planet/1
-     * - http://localhost:4200/desktop/1385/400/planets;one=1
-     * - http://localhost:4200/desktop/1385/400/planets;one=1;two=2
-     * - http://localhost:4200/desktop/1385/400/planets;one=1;two=2?three=3
-     * - http://localhost:4200/desktop/1385/400/planet;one=1/1;one=one
-     * - http://localhost:4200/desktop/1385/400/planet;one=1;two=2/1;one=one;two=2
-     * - http://localhost:4200/desktop/1385/400/planet;one=1;two=2/1;one=one;two=2?three=3
-     * - http://localhost:4200/desktop/1385/751/planets
-     * - http://localhost:4200/desktop/0000/750/planets
-     * - http://localhost:4200/desktop/1385/000/planets
-     * - http://localhost:4200/xxxxxxx/1385/750/planets
-     * - http://localhost:4200/xxxxxxx/1385/000/planets
-     * - http://localhost:4200/xxxxxxx/0000/000/planets
-     * - http://localhost:4200/xxxxxxx/0000/000/planets
-     * - http://localhost:4200/xxxxxxx/0000/xxx/planets
-     */
-    path: ':device-format/:width/:height/**',
-    redirectTo(redirectData) {
-      // Device format can be auto-corrected.
-      const deviceFormatOrFallback = parseDeviceFormatFromParamMapOrFallback(
-        redirectData.paramMap,
-      )
-
-      // Check if width and height parameters really exist / are numbers.
-      // Otherwise it could still be ':device-format/**'
-      const width = parseIntFromParamMap(redirectData.paramMap, 'width')
-      const height = parseIntFromParamMap(redirectData.paramMap, 'height')
-      if (width === null || height === null) {
-        return `${deviceFormatOrFallback}/**`
-      }
-
-      const actualPathSegments = redirectData.url.slice(3)
-      if (!actualPathExists(actualPathSegments)) {
-        return '/error'
-      }
-      const actualPath = actualPathSegments.map((segment) => segment.toString()).join('/')
-
-      const widthBreakpoint =
-        width === null ? null : findClosestBreakpoint(BREAKPOINTS.width, width)
-
-      const heightBreakpoint =
-        height === null ? null : findClosestBreakpoint(BREAKPOINTS.height, height)
-
-      const correctedVariantPath =
-        widthBreakpoint === null || heightBreakpoint === null
-          ? `${deviceFormatOrFallback}`
-          : `${deviceFormatOrFallback}/${widthBreakpoint}/${heightBreakpoint}`
-
-      const correctedPath = actualPath.length
-        ? [correctedVariantPath, actualPath].join('/')
-        : correctedVariantPath
-
-      console.error({
-        correctedPath,
-        correctedVariantPath,
-        heightBreakpoint,
-        actualPath,
-        widthBreakpoint,
-      })
-      return correctedPath
-    },
-  },
   /**
-   * URLs for manual testing:
-   * - http://localhost:4200/desktop
-   * - http://localhost:4200/xxxxxxx
-   * - http://localhost:4200/desktop/movies
-   * - http://localhost:4200/xxxxxxx/movies
-   * - http://localhost:4200/desktop/movie/1
-   * - http://localhost:4200/xxxxxxx/movie/1
+   * This route is made to patch bad device parameters.
+   *
+   * It checks if the path has device parameters set, corrects the values to whats closest and redirects to it. If the path had no device parameters, the router continues with the next route.
    */
   {
-    path: ':device-format/**',
+    matcher(segments) {
+      console.log('matcher', { segments })
+      const firstSegment = segments[0]
+      if (firstSegment.path !== DEVICE_CONTEXT_PATH_PARAM_PREFIX) {
+        return null
+      }
+      const deviceContext = objectToDeviceContext(firstSegment.parameters)
+      if (!deviceContext) {
+        console.error('Detected Device URL with no context data.', firstSegment)
+        return null
+      }
+      if (
+        (deviceContext.width && !isWidthBreakpointValid(deviceContext.width)) ||
+        (deviceContext.height && !isHeightBreakpointValid(deviceContext.height))
+      ) {
+        console.warn('Detected invalid width or height in device context.', deviceContext)
+        return { consumed: [] }
+      }
+      return null
+    },
     redirectTo(redirectData) {
-      // Device format can be auto-corrected.
-      const deviceFormatOrFallback = parseDeviceFormatFromParamMapOrFallback(
-        redirectData.paramMap,
-      )
+      console.log('redirect', { redirectData })
+      const firstSegment = redirectData.url[0]
+      const deviceContext = objectToDeviceContext(firstSegment.parameters)
 
-      const actualPathSegments = redirectData.url.slice(1)
-      if (!actualPathExists(actualPathSegments)) {
+      if (!deviceContext) {
+        console.error(
+          "Matcher should've already made sure that device context exists, but with invalid data.",
+        )
         return '/error'
       }
-      const actualPath = actualPathSegments.map((segment) => segment.toString()).join('/')
 
-      const correctedPath = actualPath.length
-        ? [deviceFormatOrFallback, actualPath].join('/')
-        : deviceFormatOrFallback
+      const actualPathSegments: UrlSegment[] = redirectData.url.slice(1)
 
-      return correctedPath
+      const { widthBreakpoint, heightBreakpoint } = findClosestBreakpoints({
+        width: deviceContext.width,
+        height: deviceContext.height,
+      })
+      deviceContext.width = widthBreakpoint ?? undefined
+      deviceContext.height = heightBreakpoint ?? undefined
+
+      const correctedFirstSegment: string = deviceContextToPathSegment(deviceContext)
+
+      const correctedPath = actualPathSegments.length
+        ? [
+            correctedFirstSegment,
+            ...actualPathSegments.map((segment) => segment.toString()),
+          ].join('/')
+        : correctedFirstSegment
+
+      return `/${correctedPath}`
     },
   },
+  {
+    path: DEVICE_CONTEXT_PATH_PARAM_PREFIX,
+    children: actualRoutes,
+  },
+  ...actualRoutes,
+  {
+    path: APP_ERROR_PATH_NAME,
+    loadComponent: () =>
+      import('@/app/pages/error/error').then(({ ErrorPage }) => ErrorPage),
+  },
+
   {
     path: '**',
     redirectTo: '/error',
   },
 ]
-
-function parseIntFromParamMap(paramMap: ParamMap, key: string): number | null {
-  const value = paramMap.get(key)
-  if (!value) {
-    return null
-  }
-
-  const parsedValue = parseInt(value)
-  if (isNaN(parsedValue)) {
-    return null
-  }
-
-  return parsedValue
-}
-
-function parseDeviceFormatFromParamMapOrFallback(paramMap: ParamMap): DeviceFormat {
-  const deviceFormat = paramMap.get('device-format')
-  const deviceFormatOrFallback = isDeviceFormat(deviceFormat)
-    ? deviceFormat
-    : DEFAULT_DEVICE_FORMAT
-
-  return deviceFormatOrFallback
-}
 
 const actualRouteMatchers = Object.freeze(
   actualRoutes
@@ -230,22 +155,4 @@ function createActualRouteMatcher(route: Route): ActualRouteMatcher | null {
 function actualPathExists(segments: UrlSegment[]): boolean {
   const segmentGroup = new UrlSegmentGroup(segments, {})
   return actualRouteMatchers.some((matcher) => matcher(segmentGroup))
-}
-
-function findClosestBreakpoint(breakpoints: number[], value: number) {
-  let closestBreakpoint = null
-
-  for (const breakpoint of breakpoints) {
-    if (breakpoint >= value) {
-      if (closestBreakpoint) {
-        if (breakpoint < closestBreakpoint) {
-          closestBreakpoint = breakpoint
-        }
-      } else {
-        closestBreakpoint = breakpoint
-      }
-    }
-  }
-
-  return closestBreakpoint
 }

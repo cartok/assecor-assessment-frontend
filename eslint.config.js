@@ -43,6 +43,7 @@ module.exports = defineConfig([
         'error',
         {
           prefer: 'type-imports',
+          // TODO: Umstellen. Zumindest im vscode workflow "gibt es da Probleme mit".
           fixStyle: 'separate-type-imports',
         },
       ],

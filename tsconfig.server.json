@@ -15,6 +15,7 @@
     "src/app/app.routes.server.ts",
     "generated/**/*.ts",
     "generated/**/*.mts",
-    "generated/**/*.mjs"
+    "generated/**/*.mjs",
+    "breakpoints.ts"
   ]
 }

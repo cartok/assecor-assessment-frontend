@@ -9,13 +9,9 @@ import {
 } from '@angular/ssr/node'
 import express from 'express'
 
-import { addDeviceHandler } from '@/server/device.handler'
+import { addDeviceContextHandler } from '@/server/device-context.handler'
 import { addDeviceCookieHandler } from '@/server/device-cookie.handler'
-import {
-  DEFAULT_DEVICE_RENDER_CONTEXT,
-  type DeviceContext,
-  type RequestContext,
-} from '@/shared/render/context'
+import { addDeviceRedirectHandler } from '@/server/device-redirect.handler'
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url))
 const browserDistFolder = resolve(serverDistFolder, '../browser')
@@ -24,7 +20,8 @@ const server = express()
 const angularApp = new AngularNodeAppEngine()
 
 addDeviceCookieHandler(server)
-addDeviceHandler(server)
+addDeviceContextHandler(server)
+addDeviceRedirectHandler(server)
 
 server.use(
   express.static(browserDistFolder, {
@@ -36,12 +33,7 @@ server.use(
 
 server.use(async (req, res, next) => {
   try {
-    const requestContext: RequestContext = {
-      device:
-        (res.locals['deviceContext'] as DeviceContext | undefined) ??
-        DEFAULT_DEVICE_RENDER_CONTEXT,
-    }
-    const response = await angularApp.handle(req, requestContext)
+    const response = await angularApp.handle(req)
     if (response) {
       writeResponseToNodeResponse(response, res)
       return

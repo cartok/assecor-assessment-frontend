@@ -1,72 +1,72 @@
-import { inject, Injectable, REQUEST_CONTEXT, signal, TransferState } from '@angular/core'
+import { PlatformLocation } from '@angular/common'
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { NavigationEnd, Router } from '@angular/router'
+import type { WidthBreakpoint } from 'breakpoints'
+import { BREAKPOINTS } from 'breakpoints'
+import { distinctUntilChanged, filter, map } from 'rxjs'
 
-import { injectIsBrowser, injectIsServer } from '@/app/shared/utils/platform'
 import {
-  DEFAULT_DEVICE_RENDER_CONTEXT,
+  DEFAULT_DEVICE_FORMAT,
   type DeviceContext,
-  REQUEST_CONTEXT_TRANSFER,
-  type RequestContext,
-} from '@/shared/render/context'
+  urlPathToDeviceContext,
+} from '@/shared/device/context'
 
 @Injectable({ providedIn: 'root' })
 export class DeviceService {
-  private readonly isBrowser = injectIsBrowser()
-  private readonly isServer = injectIsServer()
-  private readonly renderContext = inject<RequestContext>(REQUEST_CONTEXT, {
-    optional: true,
-  })
-  private readonly transferState = inject(TransferState)
+  private readonly destroyRef = inject(DestroyRef)
+  private readonly platformLocation = inject(PlatformLocation)
+  private readonly router = inject(Router)
+  private initialized = false
 
-  private readonly format = signal<DeviceContext['format']>(
-    DEFAULT_DEVICE_RENDER_CONTEXT.format,
-  )
+  private readonly format = signal<DeviceContext['format']>(DEFAULT_DEVICE_FORMAT)
+
+  // TODO: width und height updates
+  // TODO: DeviceContext width und height mit BREAKPOINTS kombinieren
   private readonly width = signal<DeviceContext['width']>(undefined)
   private readonly height = signal<DeviceContext['height']>(undefined)
-  private readonly touch = signal<DeviceContext['touch']>(undefined)
-  private readonly hover = signal<DeviceContext['hover']>(undefined)
+
+  readonly isMobile = computed(() => this.format() === 'mobile')
+  readonly isTablet = computed(() => this.format() === 'tablet')
+  readonly isDesktop = computed(() => this.format() === 'desktop')
+
+  // WIP
+  readonly isWidth601 = computed(() => {
+    const width = this.width()
+    // TODO: Media Query API verwenden?
+    return width !== undefined && width <= 601 && width >= 430
+  })
 
   constructor() {
-    const deviceContext = this.getInitialDeviceContext()
-    this.applyDeviceContext(deviceContext)
-    console.log('APP:', { deviceContext }, { ssr: this.isServer })
+    this.init()
   }
 
-  updateDeviceContext(context: Partial<DeviceContext>): void {
-    this.applyDeviceContext(context)
-  }
-
-  private getInitialDeviceContext(): DeviceContext {
-    if (this.isServer && this.renderContext) {
-      this.transferState.set(REQUEST_CONTEXT_TRANSFER, this.renderContext)
-      return this.renderContext.device
+  init(): void {
+    if (this.initialized) {
+      return
     }
+    this.initialized = true
+    this.subscribeToRouterNavigation()
+  }
 
-    if (this.isBrowser && this.transferState.hasKey(REQUEST_CONTEXT_TRANSFER)) {
-      const transferredContext = this.transferState.get(REQUEST_CONTEXT_TRANSFER, {
-        device: DEFAULT_DEVICE_RENDER_CONTEXT,
+  private subscribeToRouterNavigation(): void {
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        map((event) => event.urlAfterRedirects),
+        distinctUntilChanged(),
+        takeUntilDestroyed(),
+      )
+      .subscribe((urlPath) => {
+        const deviceContext = urlPathToDeviceContext(urlPath)
+        console.log('device service', { deviceContext })
+        if (!deviceContext) {
+          return
+        }
+
+        this.format.set(deviceContext.format)
+        this.width.set(deviceContext.width)
+        this.height.set(deviceContext.height)
       })
-      this.transferState.remove(REQUEST_CONTEXT_TRANSFER)
-      return transferredContext.device
-    }
-
-    return DEFAULT_DEVICE_RENDER_CONTEXT
-  }
-
-  private applyDeviceContext(context: Partial<DeviceContext>): void {
-    if (context.format !== undefined) {
-      this.format.set(context.format)
-    }
-    if (context.width !== undefined) {
-      this.width.set(context.width)
-    }
-    if (context.height !== undefined) {
-      this.height.set(context.height)
-    }
-    if (context.touch !== undefined) {
-      this.touch.set(context.touch)
-    }
-    if (context.hover !== undefined) {
-      this.hover.set(context.hover)
-    }
   }
 }

@@ -6,5 +6,10 @@
     "outDir": "./out-tsc/generators",
     "types": ["node"]
   },
-  "include": ["generators/**/*.ts", "generators/**/*.mts", "config/**/*.ts"]
+  "include": [
+    "generators/**/*.ts",
+    "generators/**/*.mts",
+    "config/**/*.ts",
+    "breakpoints.ts"
+  ]
 }

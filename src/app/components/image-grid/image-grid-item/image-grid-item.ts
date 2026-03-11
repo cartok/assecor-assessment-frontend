@@ -12,6 +12,5 @@ export class ImageGridItem {
   readonly imageAlt = input.required<string>()
   readonly label = input.required<string>()
   readonly linkUri = input.required<RouterLink['routerLink']>()
-  // TODO: WIP
   readonly priorityImage = input<boolean>(false)
 }

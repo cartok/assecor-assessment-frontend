@@ -3,8 +3,28 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "start",
+      "label": "serve:ssr:inspect",
+      "type": "shell",
+      "command": "bunx ng serve --inspect=9229",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "Watch mode enabled|Application bundle generation complete"
+          }
+        }
+      }
+    },
+    {
+      "label": "build:ssr:watch",
+      "type": "shell",
+      "command": "bunx ng build --watch --configuration development",
       "isBackground": true,
       "problemMatcher": {
         "owner": "typescript",
@@ -21,8 +41,28 @@
       }
     },
     {
-      "type": "npm",
-      "script": "test",
+      "type": "shell",
+      "label": "start",
+      "command": "bun run start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation complete"
+          }
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "label": "test",
+      "command": "bun run test",
       "isBackground": true,
       "problemMatcher": {
         "owner": "typescript",

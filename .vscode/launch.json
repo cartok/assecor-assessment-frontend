@@ -1,20 +1,48 @@
 {
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Angular SSR Debug + Browser",
+      "configurations": ["Angular SSR (ng serve --inspect)", "Browser (4200)"]
+    }
+  ],
   "configurations": [
     {
-      "name": "ng serve",
-      "type": "chrome",
-      "request": "launch",
-      "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "name": "Angular SSR (ng serve --inspect)",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "preLaunchTask": "serve:ssr:inspect",
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "ng test",
+      "name": "Express SSR (Debug)",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "build:ssr:watch",
+      "program": "${workspaceFolder}/dist/swapi-angular-frontend/server/server.mjs",
+      "cwd": "${workspaceFolder}",
+      "runtimeArgs": ["--enable-source-maps", "--watch"],
+      "env": {
+        "PORT": "4000"
+      },
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/swapi-angular-frontend/server/**/*.mjs"],
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Node Express server listening on http://localhost:(\\d+)",
+        "uriFormat": "http://localhost:%s"
+      }
+    },
+    {
+      "name": "Browser (4200)",
       "type": "chrome",
       "request": "launch",
-      "preLaunchTask": "npm: test",
-      "url": "http://localhost:9876/debug.html"
+      "url": "http://localhost:4200/"
     }
   ]
 }
