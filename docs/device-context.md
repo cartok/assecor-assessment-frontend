@@ -122,6 +122,7 @@ Entscheidung: Per prefix routes.
 - Grundlegende Finalisierungen
   [] Image Grids sind optimiert
   [] Link Lists sind optimiert
+  [] Github Pages ist wieder funktionsfähig
 
 ---
 
