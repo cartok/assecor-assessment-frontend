@@ -1,5 +1,5 @@
 import { PlatformLocation } from '@angular/common'
-import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core'
+import { computed, DestroyRef, effect, inject, Injectable, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router } from '@angular/router'
 import type { WidthBreakpoint } from 'breakpoints'
@@ -23,7 +23,8 @@ export class DeviceService {
 
   // TODO: width und height updates
   // TODO: DeviceContext width und height mit BREAKPOINTS kombinieren
-  private readonly width = signal<DeviceContext['width']>(undefined)
+  private readonly deviceContext = signal<DeviceContext | null>(null)
+  readonly width = signal<DeviceContext['width']>(undefined)
   private readonly height = signal<DeviceContext['height']>(undefined)
 
   readonly isMobile = computed(() => this.format() === 'mobile')
@@ -39,6 +40,9 @@ export class DeviceService {
 
   constructor() {
     this.init()
+    effect(() => {
+      console.log('device context changed', this.deviceContext)
+    })
   }
 
   init(): void {
@@ -59,7 +63,7 @@ export class DeviceService {
       )
       .subscribe((urlPath) => {
         const deviceContext = urlPathToDeviceContext(urlPath)
-        console.log('device service', { deviceContext })
+        console.log('device context', deviceContext)
         if (!deviceContext) {
           return
         }

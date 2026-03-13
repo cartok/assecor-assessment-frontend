@@ -14,6 +14,18 @@ type DeviceFormat = (typeof DEVICE_FORMATS)[number]
 const DeviceContextSchema = Type.Object(
   {
     format: DeviceFormatSchema,
+    // TODO: strict values here
+    width: Type.Optional(Type.Integer({ minimum: 1 })),
+    height: Type.Optional(Type.Integer({ minimum: 1 })),
+  },
+  {
+    additionalProperties: false,
+  },
+)
+
+const AdjustableDeviceContextSchema = Type.Object(
+  {
+    format: Type.Optional(Type.String()),
     width: Type.Optional(Type.Integer({ minimum: 1 })),
     height: Type.Optional(Type.Integer({ minimum: 1 })),
   },
@@ -23,6 +35,7 @@ const DeviceContextSchema = Type.Object(
 )
 
 export type DeviceContext = Static<typeof DeviceContextSchema>
+export type AdjustableDeviceContext = Static<typeof AdjustableDeviceContextSchema>
 
 export const DEFAULT_DEVICE_FORMAT: DeviceFormat = 'mobile'
 
@@ -128,6 +141,16 @@ export function objectToDeviceContext(
 ): DeviceContext | null {
   try {
     return Value.Parse(DeviceContextSchema, value)
+  } catch (error) {
+    return null
+  }
+}
+
+export function objectToAdjustableDeviceContext(
+  value: Record<string, string>,
+): AdjustableDeviceContext | null {
+  try {
+    return Value.Parse(AdjustableDeviceContextSchema, value)
   } catch (error) {
     return null
   }

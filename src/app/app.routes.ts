@@ -59,13 +59,16 @@ export const routes: Routes = [
   {
     matcher(segments) {
       console.log('matcher', { segments })
+      if (!segments.length) {
+        return null
+      }
       const firstSegment = segments[0]
       if (firstSegment.path !== DEVICE_CONTEXT_PATH_PARAM_PREFIX) {
         return null
       }
       const deviceContext = objectToDeviceContext(firstSegment.parameters)
       if (!deviceContext) {
-        console.error('Detected Device URL with no context data.', firstSegment)
+        console.error('Detected Device URL with bad or no context data.', firstSegment)
         return null
       }
       if (

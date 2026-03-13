@@ -1,3 +1,8 @@
+@let width = deviceService.width();
+<h1>width: {{ width }}</h1>
+@if (width !== undefined && width < 900) {
+  <h1>I'm under 900</h1>
+}
 <div class="home">
   <svg class="logo" width="989" height="441" role="img" aria-label="Star Wars Logo">
     <use

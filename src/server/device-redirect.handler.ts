@@ -18,14 +18,23 @@ export function addDeviceRedirectHandler(server: express.Express): void {
     }
 
     const deviceContextFromUrlPath = urlPathToDeviceContext(req.path)
-    if (deviceContextFromUrlPath) {
-      // TODO: Patch bad device context parameters instead.
+    const deviceContext = res.locals['deviceContext'] as null | DeviceContext
+    if (!deviceContext) {
+      console.info('No device context available.')
       return next()
     }
 
-    const deviceContext = res.locals['deviceContext'] as null | DeviceContext
-    if (!deviceContext) {
-      console.warn('No device context available for redirect.')
+    // TODO: Patch bad device context parameters
+    if (deviceContextFromUrlPath) {
+      // WIP: if url already has device context, it could be wrong (bookmark with lower width for example) --- hm ok but angular would correct it, at least at the moment as of my redirect route in app.routes... maybe i would'nt have needed it at all in case i do not update urls during SPA navigations and do not forward the device path prefix to other routes?
+      // if (
+      //   deviceContextFromUrlPath.width &&
+      //   !isWidthBreakpointValid(deviceContextFromUrlPath.width)
+      // ) {
+      //   console.warn('Detected invalid device width in URL Path.', req.path)
+      // } else {
+      //   return next()
+      // }
       return next()
     }
 
