@@ -1,11 +1,5 @@
 <app-default-page-layout>
   <app-heading title="Planets" />
-  <!-- TODO: Remove test code -->
-  @let width = device.width();
-  <h1>width: {{ width }}</h1>
-  @if (device.is({ maxWidth: device.WIDTH.W768 })) {
-    <h1>I'm under 768</h1>
-  }
   @let data = collection.data();
   @if (data.items.length > 0) {
     <app-image-grid>

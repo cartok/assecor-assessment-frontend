@@ -28,7 +28,6 @@ for (const deviceFormat of DEVICE_FORMATS) {
     }
   }
 }
-type x = typeof BREAKPOINTS.width
 
 export const DEVICE_CONTEXT_VARIANT_PATHS: readonly string[] = Object.freeze([
   ...deviceContextVariantPathSet,
@@ -55,6 +54,6 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: '**',
     // TODO: Temporär alles andere auf CSR umgestellt.
-    renderMode: RenderMode.Client,
+    renderMode: RenderMode.Server,
   },
 ]

@@ -58,7 +58,6 @@ export const routes: Routes = [
    */
   {
     matcher(segments) {
-      console.log('matcher', { segments })
       if (!segments.length) {
         return null
       }
@@ -81,7 +80,6 @@ export const routes: Routes = [
       return null
     },
     redirectTo(redirectData) {
-      console.log('redirect', { redirectData })
       const firstSegment = redirectData.url[0]
       const deviceContext = objectToDeviceContext(firstSegment.parameters)
 
@@ -129,33 +127,3 @@ export const routes: Routes = [
     redirectTo: '/error',
   },
 ]
-
-const actualRouteMatchers = Object.freeze(
-  actualRoutes
-    .map((route) => createActualRouteMatcher(route))
-    .filter((matcher): matcher is ActualRouteMatcher => matcher !== null),
-)
-
-type ActualRouteMatcher = (segmentGroup: UrlSegmentGroup) => boolean
-
-function createActualRouteMatcher(route: Route): ActualRouteMatcher | null {
-  if (route.path === undefined || route.path === '**') {
-    return null
-  }
-  if (route.path === '') {
-    return (segmentGroup) => segmentGroup.segments.length === 0
-  }
-
-  const routeForMatching: Route = {
-    path: route.path,
-    pathMatch: 'full',
-  }
-
-  return (segmentGroup) =>
-    defaultUrlMatcher(segmentGroup.segments, segmentGroup, routeForMatching) !== null
-}
-
-function actualPathExists(segments: UrlSegment[]): boolean {
-  const segmentGroup = new UrlSegmentGroup(segments, {})
-  return actualRouteMatchers.some((matcher) => matcher(segmentGroup))
-}
