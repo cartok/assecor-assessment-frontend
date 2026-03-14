@@ -1,48 +1,82 @@
 import { PlatformLocation } from '@angular/common'
-import { computed, DestroyRef, effect, inject, Injectable, signal } from '@angular/core'
+import { computed, DestroyRef, DOCUMENT, inject, Injectable, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router } from '@angular/router'
-import type { WidthBreakpoint } from 'breakpoints'
+import type { HeightBreakpoint, WidthBreakpoint } from 'breakpoints'
 import { BREAKPOINTS } from 'breakpoints'
 import { distinctUntilChanged, filter, map } from 'rxjs'
 
+import { injectIsBrowser } from '@/app/shared/utils/platform'
 import {
   DEFAULT_DEVICE_FORMAT,
   type DeviceContext,
   urlPathToDeviceContext,
 } from '@/shared/device/context'
 
+interface DeviceQuery {
+  format?: DeviceContext['format']
+  maxWidth?: WidthBreakpoint
+  maxHeight?: HeightBreakpoint
+}
+
+type DeviceFormatTokenMap = {
+  readonly [Format in DeviceContext['format'] as Uppercase<Format>]: Format
+}
+
+type BreakpointTokenMap<Prefix extends string, Values extends readonly number[]> = {
+  readonly [Value in Values[number] as `${Prefix}${Value}`]: Value
+}
+
 @Injectable({ providedIn: 'root' })
 export class DeviceService {
+  readonly FORMAT: DeviceFormatTokenMap = {
+    DESKTOP: 'desktop',
+    MOBILE: 'mobile',
+    TABLET: 'tablet',
+  }
+  readonly WIDTH: BreakpointTokenMap<'W', typeof BREAKPOINTS.width> =
+    createBreakpointTokenMap('W', BREAKPOINTS.width)
+  readonly HEIGHT: BreakpointTokenMap<'H', typeof BREAKPOINTS.height> =
+    createBreakpointTokenMap('H', BREAKPOINTS.height)
+
   private readonly destroyRef = inject(DestroyRef)
   private readonly platformLocation = inject(PlatformLocation)
+  private readonly document = inject(DOCUMENT)
+  private readonly isBrowser = injectIsBrowser()
   private readonly router = inject(Router)
   private initialized = false
 
-  private readonly format = signal<DeviceContext['format']>(DEFAULT_DEVICE_FORMAT)
+  private readonly routeFormat = signal<DeviceContext['format']>(DEFAULT_DEVICE_FORMAT)
+  private readonly routeWidth = signal<DeviceContext['width']>(undefined)
+  private readonly routeHeight = signal<DeviceContext['height']>(undefined)
 
-  // TODO: width und height updates
-  // TODO: DeviceContext width und height mit BREAKPOINTS kombinieren
-  private readonly deviceContext = signal<DeviceContext | null>(null)
-  readonly width = signal<DeviceContext['width']>(undefined)
-  private readonly height = signal<DeviceContext['height']>(undefined)
+  private readonly maxWidthMatches = signal(
+    createInitialBreakpointState(BREAKPOINTS.width),
+  )
+  private readonly maxHeightMatches = signal(
+    createInitialBreakpointState(BREAKPOINTS.height),
+  )
 
-  readonly isMobile = computed(() => this.format() === 'mobile')
-  readonly isTablet = computed(() => this.format() === 'tablet')
-  readonly isDesktop = computed(() => this.format() === 'desktop')
-
-  // WIP
-  readonly isWidth601 = computed(() => {
-    const width = this.width()
-    // TODO: Media Query API verwenden?
-    return width !== undefined && width <= 601 && width >= 430
+  readonly format = computed(() => this.routeFormat())
+  readonly width = computed(() => {
+    const viewportWidth = resolveMatchedBreakpoint(this.maxWidthMatches())
+    return this.isBrowser && viewportWidth !== undefined
+      ? viewportWidth
+      : this.routeWidth()
   })
+  readonly height = computed(() => {
+    const viewportHeight = resolveMatchedBreakpoint(this.maxHeightMatches())
+    return this.isBrowser && viewportHeight !== undefined
+      ? viewportHeight
+      : this.routeHeight()
+  })
+
+  readonly isMobile = computed(() => this.format() === this.FORMAT.MOBILE)
+  readonly isTablet = computed(() => this.format() === this.FORMAT.TABLET)
+  readonly isDesktop = computed(() => this.format() === this.FORMAT.DESKTOP)
 
   constructor() {
     this.init()
-    effect(() => {
-      console.log('device context changed', this.deviceContext)
-    })
   }
 
   init(): void {
@@ -50,7 +84,13 @@ export class DeviceService {
       return
     }
     this.initialized = true
+    this.setDeviceContextFromUrlPath(this.platformLocation.pathname)
+    /**
+     * Right now the route subscription is not really necessary as long as the app does not
+     * maintain the device context path prefix during SPA navigation.
+     */
     this.subscribeToRouterNavigation()
+    this.subscribeToResize()
   }
 
   private subscribeToRouterNavigation(): void {
@@ -59,18 +99,146 @@ export class DeviceService {
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         map((event) => event.urlAfterRedirects),
         distinctUntilChanged(),
-        takeUntilDestroyed(),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((urlPath) => {
-        const deviceContext = urlPathToDeviceContext(urlPath)
-        console.log('device context', deviceContext)
-        if (!deviceContext) {
-          return
-        }
-
-        this.format.set(deviceContext.format)
-        this.width.set(deviceContext.width)
-        this.height.set(deviceContext.height)
+        this.setDeviceContextFromUrlPath(urlPath)
       })
   }
+
+  private setDeviceContextFromUrlPath(urlPath: string): void {
+    const deviceContext = urlPathToDeviceContext(urlPath)
+    if (!deviceContext) {
+      return
+    }
+
+    this.routeFormat.set(deviceContext.format)
+    this.routeWidth.set(deviceContext.width)
+    this.routeHeight.set(deviceContext.height)
+  }
+
+  is(criteria: DeviceQuery): boolean {
+    if (criteria.format !== undefined && !this.isFormat(criteria.format)) {
+      return false
+    }
+
+    if (criteria.maxWidth !== undefined && !this.isMaxWidth(criteria.maxWidth)) {
+      return false
+    }
+
+    if (criteria.maxHeight !== undefined && !this.isMaxHeight(criteria.maxHeight)) {
+      return false
+    }
+
+    return true
+  }
+
+  isFormat(format: DeviceContext['format']): boolean {
+    return this.format() === format
+  }
+
+  isMaxWidth(breakpoint: WidthBreakpoint): boolean {
+    if (this.isBrowser) {
+      return this.maxWidthMatches()[breakpoint]
+    }
+
+    const routeWidth = this.routeWidth()
+    return routeWidth !== undefined && routeWidth <= breakpoint
+  }
+
+  isMaxHeight(breakpoint: HeightBreakpoint): boolean {
+    if (this.isBrowser) {
+      return this.maxHeightMatches()[breakpoint]
+    }
+
+    const routeHeight = this.routeHeight()
+    return routeHeight !== undefined && routeHeight <= breakpoint
+  }
+
+  private subscribeToResize(): void {
+    if (!this.isBrowser || !this.document.defaultView) {
+      return
+    }
+
+    for (const breakpoint of BREAKPOINTS.width) {
+      const mediaQueryList = this.document.defaultView.matchMedia(
+        `(max-width: ${breakpoint}px)`,
+      )
+
+      this.maxWidthMatches.update((state) => ({
+        ...state,
+        [breakpoint]: mediaQueryList.matches,
+      }))
+
+      const listener = () => {
+        this.maxWidthMatches.update((state) => ({
+          ...state,
+          [breakpoint]: mediaQueryList.matches,
+        }))
+      }
+      mediaQueryList.addEventListener('change', listener)
+      this.destroyRef.onDestroy(() => {
+        mediaQueryList.removeEventListener('change', listener)
+      })
+    }
+
+    for (const breakpoint of BREAKPOINTS.height) {
+      const mediaQueryList = this.document.defaultView.matchMedia(
+        `(max-height: ${breakpoint}px)`,
+      )
+
+      this.maxHeightMatches.update((state) => ({
+        ...state,
+        [breakpoint]: mediaQueryList.matches,
+      }))
+
+      const listener = () => {
+        this.maxHeightMatches.update((state) => ({
+          ...state,
+          [breakpoint]: mediaQueryList.matches,
+        }))
+      }
+      mediaQueryList.addEventListener('change', listener)
+      this.destroyRef.onDestroy(() => {
+        mediaQueryList.removeEventListener('change', listener)
+      })
+    }
+  }
+}
+
+function createInitialBreakpointState<const Values extends readonly number[]>(
+  breakpoints: Values,
+): Record<Values[number], boolean> {
+  return breakpoints.reduce(
+    (acc, breakpoint) => ({ ...acc, [breakpoint]: false }),
+    {} as Record<Values[number], boolean>,
+  )
+}
+
+function createBreakpointTokenMap<
+  const Prefix extends string,
+  const Values extends readonly number[],
+>(prefix: Prefix, breakpoints: Values): BreakpointTokenMap<Prefix, Values> {
+  return Object.fromEntries(
+    breakpoints.map((breakpoint) => [`${prefix}${breakpoint}`, breakpoint]),
+  ) as BreakpointTokenMap<Prefix, Values>
+}
+
+function resolveMatchedBreakpoint<const Values extends readonly number[]>(
+  state: Record<Values[number], boolean>,
+): Values[number] | undefined {
+  let matchedBreakpoint: Values[number] | undefined
+
+  for (const [breakpoint, matches] of Object.entries(state)) {
+    if (!matches) {
+      continue
+    }
+
+    const numericBreakpoint = Number(breakpoint) as Values[number]
+    if (matchedBreakpoint === undefined || numericBreakpoint < matchedBreakpoint) {
+      matchedBreakpoint = numericBreakpoint
+    }
+  }
+
+  return matchedBreakpoint
 }

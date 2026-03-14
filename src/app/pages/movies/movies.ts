@@ -19,7 +19,7 @@ export class Movies {
   readonly filmsService = inject(FilmsService)
   readonly page = signal('1')
   readonly collection = this.filmsService.getCollection(this.page)
-  readonly deviceService = inject(DeviceService)
+  readonly device = inject(DeviceService)
 
   imageTitle = (film: Film) => `Image of "${film.title}"`
   linkTitle = (film: Film) => `Go to "${film.title}" detail page`

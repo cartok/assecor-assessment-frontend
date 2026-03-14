@@ -9,5 +9,5 @@ import { DeviceService } from '@/app/services/DeviceService'
   styleUrl: './home.css',
 })
 export class Home {
-  readonly deviceService = inject(DeviceService)
+  readonly device = inject(DeviceService)
 }

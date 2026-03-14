@@ -1,7 +1,8 @@
-@let width = deviceService.width();
+<!-- TODO: Remove test code -->
+@let width = device.width();
 <h1>width: {{ width }}</h1>
-@if (width !== undefined && width < 900) {
-  <h1>I'm under 900</h1>
+@if (device.is({ maxWidth: device.WIDTH.W768 })) {
+  <h1>I'm under 768</h1>
 }
 <div class="home">
   <svg class="logo" width="989" height="441" role="img" aria-label="Star Wars Logo">

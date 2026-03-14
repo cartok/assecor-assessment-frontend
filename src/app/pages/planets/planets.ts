@@ -16,7 +16,7 @@ import { DeviceService } from '@/app/services/DeviceService'
 })
 export class Planets {
   readonly planetsService = inject(PlanetsService)
-  readonly deviceService = inject(DeviceService)
+  readonly device = inject(DeviceService)
   readonly page = signal('1')
   readonly collection = this.planetsService.getCollection(this.page)
 
