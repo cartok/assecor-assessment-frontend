@@ -103,10 +103,6 @@ Entscheidung: Per prefix routes.
 #### TODOs
 
 - Device Context / Breakpoints
-  - SSG dynamisch erzeugen
-    - Path prefixe einführen: `/<form>/<width>/<height>/**`
-  - Die width und height Werte auf die Breakpoints mappen
-  - DeviceService Signals während SPA für CSR updaten (MediaQueryService)
   - DeviceService anwenden
 
 ---
@@ -116,6 +112,10 @@ Entscheidung: Per prefix routes.
   - Cookie und header daten vereinen
   - Fallback Logik die über die device init seite entscheidet sollte gut und togglebar sein
 - Touch/Hover Geschichte abschließen / bereinigen oder erstmal entfernen
+  - Sollte für touch prüfung js touchpoints check hinzugenommen werden?
+    ```js
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+    ```
 
 ---
 
@@ -127,11 +127,8 @@ Entscheidung: Per prefix routes.
 ---
 
 - Eventuelle Verbesserungen
+  - Noch mal gegen prüfen ob man das nicht doch incl. SSG auch ohne URL parameter robust lösen kann, dann könnte man URL rewrite statt redirect verwenden und / sich den redirect sparen und hätte eine saubere URL. Caching muss passen.
   - Der Mix aus den unfertigen Schemas und der Definition der Breakpoints hier, ist nicht gut. Idee war ja grundlegend von der Architektur her mal zu gucken wie es aussehen würde möglichst Server- und Sprach-neutral die Schnittmenge an Informationen zu definieren die auf beiden Seiten gebraucht werden. Auch der Workaround mit dem d.ts File für den Cookie Validator gefällt mir nicht.
   - Taskfile oder ähnliches verwenden statt npm scripts, allein wegen der code generation
-  - Sollte für touch prüfung js touchpoints check hinzugenommen werden?
-    ```js
-    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
-    ```
   - `NgOptimizedImage` nutzen
   - Eventuell schlechte Architektur von `app-image-grid-item`: Könnte <img> rein geben, dann kann ich dessen loading hier direkt steuern. Alternativ gucken wie und ob ich durch reiche vs abstrahiere (evtl. unnötige Komplexität). Könnte dann auch den Link als slot definieren aber first things first.

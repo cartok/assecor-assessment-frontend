@@ -1,7 +1,12 @@
 import type express from 'express'
 import { parseItem, parseList } from 'structured-headers'
 
-import type { DeviceContext } from '@/shared/device/context'
+import {
+  DEFAULT_DEVICE_FORMAT,
+  type DeviceContext,
+  findClosestHeightBreakpoint,
+  findClosestWidthBreakpoint,
+} from '@/shared/device/context'
 
 type HeaderType = ReturnType<express.Request['get']>
 
@@ -17,15 +22,37 @@ export function addDeviceContextHandler(server: express.Express): void {
 
     // Parse headers and store them.
     // TODO: Add, inject and process info from device cookie
+    const headerDeviceFormat = parseDeviceFormatHeaders({
+      formFactorsHeader,
+      mobileHeader,
+    })
+
+    /**
+     * The `width` and `height` values the browser sends in the `Sec-CH-Viewport-*` will
+     * not exactly match `window.innerWidth` and `window.InnerHeight`. The browser somewhat seems
+     * to calculate in the zoom level. Accurate values can only be received by client-side
+     * detection and redirection.
+     */
+    const headerWidth = parseViewportDimensionHeader(widthHeader)
+    const headerHeight = parseViewportDimensionHeader(heightHeader)
+
+    const validDeviceFormat: DeviceContext['format'] =
+      headerDeviceFormat ?? DEFAULT_DEVICE_FORMAT
+    const validDeviceWidth: DeviceContext['width'] =
+      headerWidth === null
+        ? undefined
+        : (findClosestWidthBreakpoint(headerWidth) ?? undefined)
+    const validDeviceHeight: DeviceContext['height'] =
+      headerHeight === null
+        ? undefined
+        : (findClosestHeightBreakpoint(headerHeight) ?? undefined)
+
     const deviceContext: DeviceContext = {
-      format: resolveDeviceFormat({ formFactorsHeader, mobileHeader }),
-      ...parseViewportDimensionHeaders({ widthHeader, heightHeader }),
+      format: validDeviceFormat,
+      width: validDeviceWidth,
+      height: validDeviceHeight,
     }
     res.locals['deviceContext'] = deviceContext
-
-    console.log('SERVER:', {
-      deviceContext,
-    })
 
     // Request high-entropy client hints (available from the next navigation/request).
     res.setHeader(
@@ -37,24 +64,28 @@ export function addDeviceContextHandler(server: express.Express): void {
   })
 }
 
-function resolveDeviceFormat({
+function parseDeviceFormatHeaders({
   formFactorsHeader,
   mobileHeader,
 }: {
   formFactorsHeader: HeaderType
   mobileHeader: HeaderType
-}): DeviceContext['format'] {
+}): DeviceContext['format'] | null {
   const formFactor = parseFormFactorHeader(formFactorsHeader)
-  if (formFactor) {
+  if (typeof formFactor !== 'undefined') {
     return formFactor
   }
 
-  return mobileHeader === '?0' ? 'desktop' : 'mobile'
+  if (typeof mobileHeader !== 'undefined') {
+    return mobileHeader === '?0' ? 'desktop' : 'mobile'
+  }
+
+  return null
 }
 
-function parseFormFactorHeader(header: HeaderType): DeviceContext['format'] | undefined {
+function parseFormFactorHeader(header: HeaderType): DeviceContext['format'] | null {
   if (!header) {
-    return undefined
+    return null
   }
 
   try {
@@ -79,44 +110,25 @@ function parseFormFactorHeader(header: HeaderType): DeviceContext['format'] | un
       }
     }
   } catch {
-    return undefined
+    return null
   }
 
-  return undefined
+  return null
 }
 
-/**
- * Notice: The `width` and `height` values the browser sends in the `Sec-CH-Viewport-*` will
- * not exactly match `window.innerWidth` and `window.InnerHeight`. The browser somewhat seems
- * to calculate in the zoom level. Accurate values can only be received by client-side detection
- * and redirection.
- */
-function parseViewportDimensionHeaders({
-  widthHeader,
-  heightHeader,
-}: {
-  widthHeader: HeaderType
-  heightHeader: HeaderType
-}): { width?: number; height?: number } {
-  return {
-    width: parseViewportDimensionHeader(widthHeader),
-    height: parseViewportDimensionHeader(heightHeader),
-  }
-}
-
-function parseViewportDimensionHeader(headerValue: HeaderType): number | undefined {
+function parseViewportDimensionHeader(headerValue: HeaderType): number | null {
   if (!headerValue) {
-    return undefined
+    return null
   }
 
   try {
     const [bareItem] = parseItem(headerValue)
     if (typeof bareItem !== 'number' || !Number.isInteger(bareItem) || bareItem <= 0) {
-      return undefined
+      return null
     }
 
     return bareItem
   } catch {
-    return undefined
+    return null
   }
 }

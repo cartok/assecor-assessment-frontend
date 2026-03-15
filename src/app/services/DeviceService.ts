@@ -2,15 +2,17 @@ import { PlatformLocation } from '@angular/common'
 import { computed, DestroyRef, DOCUMENT, inject, Injectable, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router } from '@angular/router'
-import type { HeightBreakpoint, WidthBreakpoint } from 'breakpoints'
-import { BREAKPOINTS } from 'breakpoints'
 import { distinctUntilChanged, filter, map } from 'rxjs'
 
 import { injectIsBrowser } from '@/app/shared/utils/platform'
+import type { HeightBreakpoint, WidthBreakpoint } from '@/shared/device/context'
 import {
+  BREAKPOINTS,
   DEFAULT_DEVICE_FORMAT,
   type DeviceContext,
-  urlPathToDeviceContext,
+  DeviceContextSchema,
+  extractDeviceContextMatrixParameters,
+  parseDeviceContext,
 } from '@/shared/device/context'
 
 interface DeviceQuery {
@@ -107,7 +109,11 @@ export class DeviceService {
   }
 
   private setDeviceContextFromUrlPath(urlPath: string): void {
-    const deviceContext = urlPathToDeviceContext(urlPath)
+    const deviceContextMatrixParameters = extractDeviceContextMatrixParameters(urlPath)
+    const deviceContext = !deviceContextMatrixParameters
+      ? null
+      : parseDeviceContext(deviceContextMatrixParameters, DeviceContextSchema)
+
     if (!deviceContext) {
       return
     }

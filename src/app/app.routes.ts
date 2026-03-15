@@ -1,16 +1,19 @@
-import type { Route } from '@angular/router'
 import type { UrlSegment } from '@angular/router'
-import { defaultUrlMatcher, type Routes, UrlSegmentGroup } from '@angular/router'
+import { type Routes } from '@angular/router'
 
+import type { DeviceContext } from '@/shared/device/context'
 import {
+  DEFAULT_DEVICE_FORMAT,
   DEVICE_CONTEXT_PATH_PARAM_PREFIX,
   deviceContextToPathSegment,
   findClosestBreakpoints,
   findClosestHeightBreakpoint,
   findClosestWidthBreakpoint,
+  isDeviceFormatValid,
   isHeightBreakpointValid,
   isWidthBreakpointValid,
-  objectToDeviceContext,
+  LenientDeviceContextSchema,
+  parseDeviceContext,
 } from '@/shared/device/context'
 
 export const APP_ERROR_PATH_NAME = 'error'
@@ -54,7 +57,9 @@ export const routes: Routes = [
   /**
    * This route is made to patch bad device parameters.
    *
-   * It checks if the path has device parameters set, corrects the values to whats closest and redirects to it. If the path had no device parameters, the router continues with the next route.
+   * It checks if the path has device parameters set, corrects the values to whats closest
+   * and redirects to it. If the path had no device parameters, the router continues with
+   * the next route.
    */
   {
     matcher(segments) {
@@ -65,12 +70,16 @@ export const routes: Routes = [
       if (firstSegment.path !== DEVICE_CONTEXT_PATH_PARAM_PREFIX) {
         return null
       }
-      const deviceContext = objectToDeviceContext(firstSegment.parameters)
+      const deviceContext = parseDeviceContext(
+        firstSegment.parameters,
+        LenientDeviceContextSchema,
+      )
       if (!deviceContext) {
         console.error('Detected Device URL with bad or no context data.', firstSegment)
         return null
       }
       if (
+        !isDeviceFormatValid(deviceContext.format) ||
         (deviceContext.width && !isWidthBreakpointValid(deviceContext.width)) ||
         (deviceContext.height && !isHeightBreakpointValid(deviceContext.height))
       ) {
@@ -81,7 +90,10 @@ export const routes: Routes = [
     },
     redirectTo(redirectData) {
       const firstSegment = redirectData.url[0]
-      const deviceContext = objectToDeviceContext(firstSegment.parameters)
+      const deviceContext = parseDeviceContext(
+        firstSegment.parameters,
+        LenientDeviceContextSchema,
+      )
 
       if (!deviceContext) {
         console.error(
@@ -92,15 +104,27 @@ export const routes: Routes = [
 
       const actualPathSegments: UrlSegment[] = redirectData.url.slice(1)
 
-      const { widthBreakpoint, heightBreakpoint } = findClosestBreakpoints({
-        width: deviceContext.width,
-        height: deviceContext.height,
-      })
-      deviceContext.width = widthBreakpoint ?? undefined
-      deviceContext.height = heightBreakpoint ?? undefined
+      const validDeviceFormat = !isDeviceFormatValid(deviceContext.format)
+        ? DEFAULT_DEVICE_FORMAT
+        : deviceContext.format
 
-      const correctedFirstSegment: string = deviceContextToPathSegment(deviceContext)
+      const validWidthBreakpoint =
+        typeof deviceContext.width === 'undefined'
+          ? undefined
+          : (findClosestWidthBreakpoint(deviceContext.width) ?? undefined)
 
+      const validHeightBreakpoint =
+        typeof deviceContext.height === 'undefined'
+          ? undefined
+          : (findClosestHeightBreakpoint(deviceContext.height) ?? undefined)
+
+      const correctedDeviceContext: DeviceContext = {
+        format: validDeviceFormat,
+        width: validWidthBreakpoint,
+        height: validHeightBreakpoint,
+      }
+
+      const correctedFirstSegment = deviceContextToPathSegment(correctedDeviceContext)
       const correctedPath = actualPathSegments.length
         ? [
             correctedFirstSegment,

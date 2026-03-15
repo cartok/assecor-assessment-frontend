@@ -2,28 +2,30 @@ import { DefaultUrlSerializer, PRIMARY_OUTLET } from '@angular/router'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
-import type { HeightBreakpoint, WidthBreakpoint } from 'breakpoints'
-import { BREAKPOINTS } from 'breakpoints'
 
 export const DEVICE_FORMATS = ['desktop', 'mobile', 'tablet'] as const
-
-const DeviceFormatSchema = Type.Union(DEVICE_FORMATS.map((f) => Type.Literal(f)))
+export const DEFAULT_DEVICE_FORMAT: DeviceFormat = 'mobile'
+export const BREAKPOINTS = {
+  width: [1385, 1280, 1100, 768, 601, 430, 360],
+  height: [1000, 750, 500],
+} as const
 
 type DeviceFormat = (typeof DEVICE_FORMATS)[number]
+export type WidthBreakpoint = (typeof BREAKPOINTS.width)[number]
+export type HeightBreakpoint = (typeof BREAKPOINTS.height)[number]
 
-const DeviceContextSchema = Type.Object(
+export const DeviceContextSchema = Type.Object(
   {
-    format: DeviceFormatSchema,
-    // TODO: strict values here
-    width: Type.Optional(Type.Integer({ minimum: 1 })),
-    height: Type.Optional(Type.Integer({ minimum: 1 })),
+    format: Type.Union(DEVICE_FORMATS.map((f) => Type.Literal(f))),
+    width: Type.Optional(Type.Union(BREAKPOINTS.width.map((bp) => Type.Literal(bp)))),
+    height: Type.Optional(Type.Union(BREAKPOINTS.height.map((bp) => Type.Literal(bp)))),
   },
   {
     additionalProperties: false,
   },
 )
 
-const AdjustableDeviceContextSchema = Type.Object(
+export const LenientDeviceContextSchema = Type.Object(
   {
     format: Type.Optional(Type.String()),
     width: Type.Optional(Type.Integer({ minimum: 1 })),
@@ -35,9 +37,11 @@ const AdjustableDeviceContextSchema = Type.Object(
 )
 
 export type DeviceContext = Static<typeof DeviceContextSchema>
-export type AdjustableDeviceContext = Static<typeof AdjustableDeviceContextSchema>
+export type LenientDeviceContext = Static<typeof LenientDeviceContextSchema>
 
-export const DEFAULT_DEVICE_FORMAT: DeviceFormat = 'mobile'
+export interface RequestContext {
+  device: DeviceContext
+}
 
 export function findClosestWidthBreakpoint(value: number): WidthBreakpoint | null {
   return findClosestBreakpoint(BREAKPOINTS.width, value)
@@ -86,6 +90,13 @@ export function findClosestBreakpoints({
   return { widthBreakpoint, heightBreakpoint }
 }
 
+export function isDeviceFormatValid(format: unknown): format is DeviceFormat {
+  if (typeof format !== 'string') {
+    return false
+  }
+  return DEVICE_FORMATS.some((x) => x === format)
+}
+
 export function isWidthBreakpointValid(width: number): width is WidthBreakpoint {
   return BREAKPOINTS.width.some((x) => x === width)
 }
@@ -95,6 +106,9 @@ export function isHeightBreakpointValid(height: number): height is HeightBreakpo
 }
 
 export const DEVICE_CONTEXT_PATH_PARAM_PREFIX = 'r'
+export const isDeviceContextPathSegment = new RegExp(
+  `^${DEVICE_CONTEXT_PATH_PARAM_PREFIX};`,
+)
 
 /**
  * Creates a prefix path that makes use of Angular's matrix parameters to pass
@@ -107,7 +121,7 @@ export function deviceContextToPathSegment(deviceContext: DeviceContext): string
     height: deviceContext.height,
   })
 
-  if (widthBreakpoint !== null) {
+  if (widthBreakpoint !== undefined) {
     matrixParams.push(`width=${widthBreakpoint}`)
   }
 
@@ -120,7 +134,9 @@ export function deviceContextToPathSegment(deviceContext: DeviceContext): string
 
 const urlSerializer = new DefaultUrlSerializer()
 
-export function urlPathToDeviceContext(urlPath: string): DeviceContext | null {
+export function extractDeviceContextMatrixParameters(
+  urlPath: string,
+): Record<string, string> | null {
   const urlTree = urlSerializer.parse(urlPath)
   if (!urlTree.root.hasChildren()) {
     return null
@@ -133,25 +149,26 @@ export function urlPathToDeviceContext(urlPath: string): DeviceContext | null {
   if (firstSegment.path !== DEVICE_CONTEXT_PATH_PARAM_PREFIX) {
     return null
   }
-  return objectToDeviceContext(firstSegment.parameters)
+  return firstSegment.parameters
 }
 
-export function objectToDeviceContext(
-  value: Record<string, string>,
-): DeviceContext | null {
-  try {
-    return Value.Parse(DeviceContextSchema, value)
-  } catch (error) {
-    return null
-  }
-}
+export function parseDeviceContext(
+  deviceContext: Record<string, string>,
+  schema: typeof DeviceContextSchema,
+): DeviceContext | null
 
-export function objectToAdjustableDeviceContext(
-  value: Record<string, string>,
-): AdjustableDeviceContext | null {
+export function parseDeviceContext(
+  deviceContext: Record<string, string>,
+  schema: typeof LenientDeviceContextSchema,
+): LenientDeviceContext | null
+
+export function parseDeviceContext(
+  deviceContext: Record<string, string>,
+  schema: typeof DeviceContextSchema | typeof LenientDeviceContextSchema,
+): DeviceContext | LenientDeviceContext | null {
   try {
-    return Value.Parse(AdjustableDeviceContextSchema, value)
-  } catch (error) {
+    return Value.Parse(schema, deviceContext)
+  } catch {
     return null
   }
 }

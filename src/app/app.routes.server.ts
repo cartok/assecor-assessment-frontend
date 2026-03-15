@@ -1,7 +1,7 @@
 import type { ServerRoute } from '@angular/ssr'
 import { RenderMode } from '@angular/ssr'
-import { BREAKPOINTS } from 'breakpoints'
 
+import { BREAKPOINTS } from '@/shared/device/context'
 import { DEVICE_FORMATS, deviceContextToPathSegment } from '@/shared/device/context'
 
 const deviceContextVariantPathSet = new Set<string>()
